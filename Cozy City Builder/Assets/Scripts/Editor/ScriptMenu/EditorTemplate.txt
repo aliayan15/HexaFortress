@@ -1,0 +1,23 @@
+#if UNITY_EDITOR
+using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(#SCRIPTNAMEWITHOUTEDITOR#))]
+public class #SCRIPTNAME# : Editor
+{
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        #SCRIPTNAMEWITHOUTEDITOR# myScript = (#SCRIPTNAMEWITHOUTEDITOR#)target;
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        EditorGUILayout.Space(5);
+        if (GUILayout.Button("Example"))
+        {
+            
+        }
+        
+    }
+}
+#endif
+
