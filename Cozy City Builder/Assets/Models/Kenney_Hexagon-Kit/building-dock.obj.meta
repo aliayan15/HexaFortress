@@ -3,7 +3,12 @@ guid: bd3be6d0265959941b7621a1f5ea5d2b
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: building-dockMat
+    second: {fileID: 2100000, guid: b71e752bc0e7c314286f0c688543f744, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
