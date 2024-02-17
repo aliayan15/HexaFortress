@@ -124,6 +124,7 @@ Material:
     - _AllToon_OverrideShadowColor: 0
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -159,7 +160,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 0.05
+    - _OutlineWidth: 0.08
     - _Parallax: 0.005
     - _QueueControl: -1
     - _QueueOffset: 0
@@ -168,14 +169,15 @@ Material:
     - _RimLightAlign: 0
     - _RimLightSmootness: 0
     - _RimPower: 0.55
-    - _RimStep: 0.65
+    - _RimStep: 0.1
     - _RimStepSmooth: 0.1
     - _SPECULARHIGHLIGHTS: 0
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROUGHNESS: 0
+    - _SampleGI: 0
     - _ShadowPatternSize: 0.3
-    - _ShadowStep: 0.5
-    - _ShadowStepSmooth: 0.04
+    - _ShadowStep: 0.45
+    - _ShadowStepSmooth: 0.1
     - _Shininess: 0
     - _Smoothness: 0.5
     - _SmoothnessSource: 0
@@ -185,7 +187,7 @@ Material:
     - _SpecShadowStrenth: 1
     - _SpecSource: 0
     - _SpecularHighlights: 1
-    - _SpecularStep: 0.1
+    - _SpecularStep: 0
     - _SpecularStepSmooth: 0
     - _SrcBlend: 1
     - _StepViaRampTexture: 0

@@ -7,6 +7,7 @@ namespace MyUtilities
 
     public static class HelperExtansions
     {
+        #region EditorRotation
         /// <summary>
         /// Get an axis rotation value that editor show.
         /// </summary>
@@ -97,6 +98,7 @@ namespace MyUtilities
 
             return Rotation;
         }
+        #endregion
 
         /// <summary>
         /// Reset all triggers.
@@ -112,5 +114,7 @@ namespace MyUtilities
                 }
             }
         }
+
+        
     }
 }

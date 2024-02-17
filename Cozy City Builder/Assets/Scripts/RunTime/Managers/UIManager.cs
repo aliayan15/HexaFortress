@@ -22,7 +22,7 @@ namespace Managers
 
         private void Awake()
         {
-            _canvases = new[] { MENU, GAME, LEVELCOMPLETE, GAMEOVER,LOADING };
+            _canvases = new[] { MENU, GAME };
         }
        
         public void SetGameOver()

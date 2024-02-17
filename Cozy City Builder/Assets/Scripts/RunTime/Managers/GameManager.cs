@@ -12,8 +12,15 @@ namespace Managers
         NONE,
         GAME,
         MENU,
-        LEVELCOMPLETE,
+        PAUSE,
         GAMEOVER
+    }
+    public enum TurnStates
+    {
+        None,
+        TurnBegin,
+        EnemySpawn,
+        TurnEnd
     }
 
     public class GameManager : SingletonMono<GameManager>
@@ -22,8 +29,10 @@ namespace Managers
 
         [Space(10)]
         [Header("Refs")]
-        [HideInInspector] public Player player;
         public UIManager uiManager;
+        [HideInInspector] public Player player { get; set; }
+        [HideInInspector] public GridManager gridManager { get; set; }
+
 
         [Space(10)]
         [Header("Debug")]
@@ -67,9 +76,7 @@ namespace Managers
                 case GameStates.MENU:
                     SetMenu();
                     break;
-                case GameStates.LEVELCOMPLETE:
-                    SetLevelComplete();
-                    break;
+
                 case GameStates.GAMEOVER:
                     SetGameOver();
                     break;
@@ -83,17 +90,11 @@ namespace Managers
         private void SetGame()
         {
             uiManager.SetGame();
-
         }
 
         private void SetMenu()
         {
             uiManager.SetMenu();
-        }
-
-        private void SetLevelComplete()
-        {
-            uiManager.SetLevelComolete();
         }
 
         private void SetGameOver()
@@ -102,6 +103,31 @@ namespace Managers
         }
         #endregion
 
+        #region Game Turn State
+
+        public static event Action<TurnStates> OnTurnStateChange;
+        [Space(5)]
+        [Header("Game Turn State")]
+        [SerializeField] private TurnStates turnStateToSet;
+        private TurnStates _turnState;
+        public TurnStates TurnState
+        {
+            get
+            {
+                return _turnState;
+            }
+            private set
+            {
+                _turnState = value;
+                OnTurnStateChange?.Invoke(value);
+            }
+        }
+
+        public void SetTurnState(TurnStates state)
+        {
+            TurnState = state;
+        }
+        #endregion
 
         private void Start()
         {
@@ -116,7 +142,7 @@ namespace Managers
             LoadNextScene();
 #endif
             //Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-            ShowCursor(false);
+            //ShowCursor(false);
         }
 
         // Load next scene when main scene load.
