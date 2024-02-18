@@ -16,6 +16,9 @@ public abstract class TileBase : MonoBehaviour
 
     public TileType MyType => tileType;
     public int CurrentRos { get; set; } = 0;
+    public HexGridNode MyHexNode => _myHexNode;
+
+    protected HexGridNode _myHexNode;
 
 
     public void Rotate(bool left = false)
@@ -31,7 +34,7 @@ public abstract class TileBase : MonoBehaviour
             rosY = SOGameProperties.GetNextRotation(CurrentRos, out int index);
             CurrentRos = index;
         }
-        
+
         transform.rotation = Quaternion.Euler(0, rosY, 0);
     }
 
@@ -39,8 +42,16 @@ public abstract class TileBase : MonoBehaviour
     /// Invoking after placing the tile.
     /// </summary>
     /// <param name="surroundingGrids"></param>
-    public virtual void Init(List<GridData> surroundingGrids)
+    public virtual void Init(HexGridNode myNode)
     {
+        myNode.PlaceTile(this);
+        _myHexNode = myNode;
+        CheckSurroundingGrids();
+    }
+
+    protected virtual void CheckSurroundingGrids()
+    {
+        var surroundingGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
         foreach (var grid in surroundingGrids)
         {
             grid.ActivetePlaceHolder(true);

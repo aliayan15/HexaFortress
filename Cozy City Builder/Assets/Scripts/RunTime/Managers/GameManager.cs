@@ -31,7 +31,6 @@ namespace Managers
         [Header("Refs")]
         public UIManager uiManager;
         [HideInInspector] public Player player { get; set; }
-        [HideInInspector] public GridManager gridManager { get; set; }
 
 
         [Space(10)]

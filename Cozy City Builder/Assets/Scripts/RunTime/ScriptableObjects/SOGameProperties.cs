@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Game Property")]
 public class SOGameProperties : ScriptableObject
 {
+    [Header("Tiles")]
     public CastleTile Castle;
+    public PathTile PathTile;
 
 
     public static float GetTileRotation(int index)

@@ -5,6 +5,10 @@ using UnityEngine;
     
 public class CastleTile : TileBase
 {
-    
+    public override void Init(HexGridNode myNode)
+    {
+        base.Init(myNode);
+        myNode.SetIsWalkable(true);
+    }
 }
 
