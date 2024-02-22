@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b656eb69f8ac21f44a322a8b4f62e911, type: 3}
   m_Name: Game Propertes
   m_EditorClassIdentifier: 
-  Castle: {fileID: 9140303812018033888, guid: e370268a1f56eb643a4c5467473939b1, type: 3}
-  PathTile: {fileID: 4523759935085177423, guid: 2f56fb88012750a46b55b8d566660b8c,
-    type: 3}
+  Castle: {fileID: 1717599790558461261, guid: e370268a1f56eb643a4c5467473939b1, type: 3}
+  PathTile: {fileID: 782414045, guid: 2f56fb88012750a46b55b8d566660b8c, type: 3}

@@ -1,4 +1,5 @@
 using Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,24 @@ namespace Players
         [SerializeField] private LayerMask gridPosLayer;
         [SerializeField] private GameObject pfUnwalkable;
         [SerializeField] private SOGameProperties gameData;
+        [Header("Settings")]
+        [SerializeField] private float tileMoveSpeed = 10.0f;
+        [Space(10)]
+        [Header("Debug")]
+        [SerializeField] private bool isDebug;
+
+        public int MyGold { get; private set; } = 100;
+
+        private SelectTileButton _selectTileButton;
+        private SOTileData _currentTile;
+        private Transform _tileToBuild;
+        private TileBase _tileBase;
+        private bool _isBuildMode = false;
+
+        private void Awake()
+        {
+            GameManager.Instance.player = this;
+        }
 
         private void Start()
         {
@@ -18,16 +37,33 @@ namespace Players
 
         private void Update()
         {
+            if (isDebug)
+                DebugGame();
+            
+
+            if (!_isBuildMode) return;
+
+            UpdatePosition();
             if (Input.GetMouseButtonDown(0))
             {
                 if (RaycastTile(out HexGridNode grid))
                 {
-                    if (!grid.CanBuildHere) return;
-                    var path = Instantiate(gameData.PathTile, grid.Position, Quaternion.identity);
-                    path.Init(grid);
-                }
+                    if (!grid.CanBuildHere) { CantBuildHere(); return; }
+                    if (!_tileBase.CanBuildHere()) { CantBuildHere(); return; }
 
+                    PlaceTile(grid);
+                }
             }
+
+            var scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll > 0f)
+                RotateTile(_tileBase);
+            else if (scroll < 0f)
+                RotateTile(_tileBase, true);
+        }
+
+        private void DebugGame()
+        {
             if (Input.GetMouseButtonDown(1))
             {
                 if (RaycastTile(out HexGridNode grid))
@@ -44,7 +80,56 @@ namespace Players
                     }
                 }
             }
+
         }
+
+        #region Building
+        private void PlaceTile(HexGridNode grid)
+        {
+            _isBuildMode = false;
+            _tileToBuild.transform.position = grid.Position;
+            _tileBase.Init(grid);
+            if (_currentTile.IsTherePrice)
+                AddGold(-_selectTileButton.TilePrice);
+            _selectTileButton.DeActivate();
+            TileManager.Instance.AddNewTile(_tileBase.MyType);
+        }
+
+        private void UpdatePosition()
+        {
+            Vector3 pos = GetTargetPosition();
+            _tileToBuild.position = Vector3.Lerp(_tileToBuild.position, pos, tileMoveSpeed * Time.deltaTime);
+        }
+
+        public void EnterBuildMode(SOTileData tile, SelectTileButton selectTileButton)
+        {
+            _selectTileButton = selectTileButton;
+            _currentTile = tile;
+            _tileToBuild = Instantiate(_currentTile.Prefab).transform;
+            _tileBase = _tileToBuild.GetComponent<TileBase>();
+            Vector3 pos = GetTargetPosition();
+            _tileToBuild.position = pos;
+            _isBuildMode = true;
+        }
+
+        private void CantBuildHere()
+        {
+            Debug.Log("CantBuildHere");
+        }
+
+        private Vector3 GetTargetPosition()
+        {
+            RaycastTile(out RaycastHit hit, out HexGridNode grid);
+            Vector3 targetPos = new Vector3(hit.point.x, hit.point.y + 0.5f, hit.point.z);
+            if (grid != null)
+            {
+                if (grid.CanBuildHere)
+                    targetPos = grid.Position;
+            }
+            return targetPos;
+        }
+        #endregion
+
 
         private bool RaycastTile(out HexGridNode grid)
         {
@@ -61,23 +146,27 @@ namespace Players
             }
             return false;
         }
-
-        private void RotateTile(bool left = false)
+        private void RaycastTile(out RaycastHit hit, out HexGridNode grid)
         {
+            grid = null;
             var ray = CameraManager.Instance.MainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 1000, gridPosLayer, QueryTriggerInteraction.Collide))
             {
-                var grid = GridManager.Instance.GetGridNode(hit.point);
-                if (grid != null)
-                {
-                    if (grid.MyTile)
-                    {
-                        grid.MyTile.Rotate(left);
-                    }
-                }
-
+                grid = GridManager.Instance.GetGridNode(hit.point);
             }
         }
+
+        private void RotateTile(TileBase tile, bool left = false)
+        {
+            tile.Rotate(left);
+        }
+
+        #region Gold
+        public void AddGold(int amount)
+        {
+            MyGold += amount;
+            Debug.Log("My Gold: " + MyGold);
+        }
+        #endregion
     }
 }

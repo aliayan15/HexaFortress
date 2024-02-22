@@ -6,7 +6,17 @@ using UnityEngine;
 public enum TileType
 {
     None,
-    Path
+    Path,
+    House,
+    Forest,
+    Water,
+    Tower,
+    Castle,
+    Windmill,
+    Mountain,
+    FishHouse,
+    Fielts,
+    Grass
 }
 
 

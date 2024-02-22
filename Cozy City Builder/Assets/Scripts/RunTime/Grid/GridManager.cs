@@ -1,6 +1,8 @@
 using KBCore.Refs;
+using Managers;
 using MyUtilities;
 using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,11 +31,13 @@ public class GridManager : SingletonMono<GridManager>
     }
 
 
-    private void Start()
+    private IEnumerator Start()
     {
         CreateHexGrid();
         CreatePlayerCastle();
         PathFinding = new HexPathFinding(this, gridSize);
+        yield return new WaitForSeconds(0.1f);
+        GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
     }
 
     private void CreatePlayerCastle()
@@ -46,6 +50,10 @@ public class GridManager : SingletonMono<GridManager>
         castle.Init(castleGrid);
         CameraManager.Instance.TeleportPosition(castleGrid.Position);
         PlayerCastle = castle;
+        // create one path
+        var pathNode = GetGridNode(castle.PathPoint.position);
+        PathTile path = Instantiate(gameData.PathTile, pathNode.Position, Quaternion.identity);
+        path.Init(pathNode);
     }
 
     private void CreateHexGrid()

@@ -31,6 +31,7 @@ namespace Managers
         [Header("Refs")]
         public UIManager uiManager;
         [HideInInspector] public Player player { get; set; }
+        public int TurnCount { get; private set; } = 1;
 
 
         [Space(10)]
@@ -148,6 +149,7 @@ namespace Managers
         private void LoadNextScene()
         {
             GameState = GameStates.NONE;
+            TurnState = TurnStates.None;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // next scene can be game or menu scene.
         }
 
