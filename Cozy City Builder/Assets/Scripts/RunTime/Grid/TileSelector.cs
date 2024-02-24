@@ -55,9 +55,9 @@ public class TileSelector : SingletonMono<TileSelector>
             return pathTiles[Random.Range(0, pathTiles.Length)];
         }
         // total 3 type
-        if (GameManager.Instance.TurnCount == 1)
+        if (GameManager.Instance.DayCount == 1)
             return pathTiles[0];
-        if (GameManager.Instance.TurnCount == 2)
+        if (GameManager.Instance.DayCount == 2)
         {
             int rndNum = Random.Range(0, 100);
             return rndNum < 50 ? pathTiles[0] : pathTiles[1];

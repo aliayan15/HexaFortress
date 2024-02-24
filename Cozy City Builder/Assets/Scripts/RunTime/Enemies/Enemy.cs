@@ -7,9 +7,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable
 {
     public bool IsFlyingUnit => isFlyingUnit;
+    public int Level => level;
 
     [HorizontalLine]
     [Header("Stats")]
+    [SerializeField] private int level;
     [SerializeField] private int health;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isFlyingUnit;
@@ -27,6 +29,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool _isSlow;
     private float _slowTimer;
     private bool _isDead;
+    private const float _posY = 0.2f;
+    private const float _flyPosY = 1f;
 
     private void Start()
     {
@@ -81,6 +85,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             // Move to next path position
             Vector3 nextPathPosition = _pathVectorList[_pathIndex];
+            nextPathPosition.y = isFlyingUnit ? _flyPosY : _posY;
             _transform.position = Vector3.MoveTowards(_transform.position, nextPathPosition, Time.deltaTime * _currentMoveSpeed);
 
             if (Vector3.Distance(transform.position, nextPathPosition) < reachedPositionDistance)

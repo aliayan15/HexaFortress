@@ -982,6 +982,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba804e0733a0584ca615b7bb0c897b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tier1: []
+  tier2: []
+  tier3: []
+  tier4: []
+  tier2Day: 30
+  tier3Day: 40
+  tier4Day: 50
+  spawnPointY: 0.2
 --- !u!4 &1839547370
 Transform:
   m_ObjectHideFlags: 0

@@ -70,7 +70,7 @@ namespace Players
                 {
                     if (grid.MyTile is not PathTile) return;
                     List<Vector3> pathList = GridManager.Instance.PathFinding.FindPath(grid.Position,
-                        GridManager.Instance.PlayerCastle.MyHexNode.Position); ;
+                        GridManager.Instance.PlayerCastle.MyHexNode.Position);
                     if (pathList == null) return;
 
                     for (int i = 0; i < pathList.Count - 1; i++)
