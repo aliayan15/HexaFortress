@@ -168,5 +168,6 @@ namespace Players
             Debug.Log("My Gold: " + MyGold);
         }
         #endregion
+
     }
 }
