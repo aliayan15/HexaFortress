@@ -1,6 +1,5 @@
 using Managers;
 using MyUtilities;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +11,13 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     [SerializeField] private Enemy[] tier1;
     [SerializeField] private Enemy[] tier2;
     [SerializeField] private Enemy[] tier3;
-    [SerializeField] private Enemy[] tier4;
+    [Header("Bosses")]
+    [SerializeField] private Enemy boss1;
+    [SerializeField] private Enemy boss2;
+    [SerializeField] private Enemy boss3;
     [Space(5)]
     [SerializeField] private int tier2Day;
     [SerializeField] private int tier3Day;
-    [SerializeField] private int tier4Day;
     [Space(10)]
     [SerializeField] private float spawnPointY;
 
@@ -24,7 +25,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     private bool _isSpawning;
     private Vector3 _lastSpawnPos;
     private int _pathIndex;
-    private Dictionary<int, List<Vector3>> _paths;
+    private Dictionary<int, List<Vector3>> _paths = new Dictionary<int, List<Vector3>>();
 
     private void Update()
     {
@@ -41,10 +42,12 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     }
     private IEnumerator SpawnLoop()
     {
+        if (TileManager.Instance.EnemySpawnPoints.Count == 0) yield break;
         // total count(not)
         var time = new WaitForSeconds(0.5f / TileManager.Instance.EnemySpawnPoints.Count);
         int count = GameManager.Instance.DayCount * GameManager.Instance.DayCount;
         // set path for each spawn point
+        _paths.Clear();
         for (int i = 0; i < TileManager.Instance.EnemySpawnPoints.Count; i++)
         {
             var grid = GridManager.Instance.GetGridNode(TileManager.Instance.EnemySpawnPoints[i]);
@@ -72,12 +75,6 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
 
     private int SpawnFromTiers()
     {
-        if (GameManager.Instance.DayCount >= tier4Day)
-        {
-            int num = SpawnFromArray(tier4, 4f);
-            if (num > 0)
-                return num;
-        }
         if (GameManager.Instance.DayCount >= tier3Day)
         {
             int num = SpawnFromArray(tier3, 3f);
@@ -91,8 +88,6 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
                 return num;
         }
         int num1 = SpawnFromArray(tier1, 1f);
-        if (num1 <= 0)
-            Debug.LogError("Failed to Spawn minimum level enemy", this);
         return num1;
     }
     private int SpawnFromArray(Enemy[] enemies, float multiplier)
@@ -101,12 +96,11 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
         for (int i = enemies.Length - 1; i >= 0; --i)
         {
             bool canSpawnThisEnemy = enemies[i].Level <= GameManager.Instance.DayCount
-                && UnityEngine.Random.Range(0.0f, 1f) < multiplier / GameManager.Instance.DayCount;
+                && UnityEngine.Random.Range(0.0f, 1f) < (multiplier / GameManager.Instance.DayCount);
             if (canSpawnThisEnemy)
             {
                 SpawnEnemy(enemies[i]);
                 num = Mathf.Max(Mathf.RoundToInt(enemies[i].Level / multiplier), 1);
-                Debug.Log(enemies[i].gameObject.name + " count: " + num);
                 break;
             }
         }

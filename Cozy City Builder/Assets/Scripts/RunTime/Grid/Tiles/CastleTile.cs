@@ -21,7 +21,7 @@ public class CastleTile : TileBase
 
     public void TakeDamage(short damage)
     {
-        Debug.Log("Castle is under attack: " + damage);
+
     }
 }
 

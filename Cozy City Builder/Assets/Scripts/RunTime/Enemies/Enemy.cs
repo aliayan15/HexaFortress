@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool _isSlow;
     private float _slowTimer;
     private bool _isDead;
-    private const float _posY = 0.2f;
+    private const float _posY = 0.45f;
     private const float _flyPosY = 1f;
 
     private void Start()
@@ -63,11 +63,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public void SetMovePosition(List<Vector3> pathVectorList)
     {
         _pathVectorList = pathVectorList;
-        if (pathVectorList.Count > 0)
-        {
-            // Remove first position so he doesn't go backwards
-            pathVectorList.RemoveAt(0);
-        }
+        //if (pathVectorList.Count > 0)
+        //{
+        //    // Remove first position so he doesn't go backwards
+        //    pathVectorList.RemoveAt(0);
+        //}
         if (pathVectorList.Count > 0)
         {
             _pathIndex = 0;
@@ -85,8 +85,9 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             // Move to next path position
             Vector3 nextPathPosition = _pathVectorList[_pathIndex];
-            nextPathPosition.y = isFlyingUnit ? _flyPosY : _posY;
+            nextPathPosition.y = _posY;
             _transform.position = Vector3.MoveTowards(_transform.position, nextPathPosition, Time.deltaTime * _currentMoveSpeed);
+            _transform.LookAt(nextPathPosition, Vector3.up);
 
             if (Vector3.Distance(transform.position, nextPathPosition) < reachedPositionDistance)
             {
@@ -105,6 +106,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         // damage to castle
         GridManager.Instance.PlayerCastle.TakeDamage(damageToCastle);
+        Destroy(gameObject);
     }
     #endregion
 

@@ -20,8 +20,9 @@ public class GridManager : SingletonMono<GridManager>
     [Header("Settings")]
     [SerializeField] Vector2Int gridSize;
     [HorizontalLine]
-    [Header("test")]
+    [Header("Refs")]
     [SerializeField] private TilePlaceHolder placeHolder;
+    [SerializeField] private Transform floor;
 
     public HexGridNode[,] _hexGrid;
 
@@ -54,6 +55,7 @@ public class GridManager : SingletonMono<GridManager>
         var pathNode = GetGridNode(castle.PathPoint.position);
         PathTile path = Instantiate(gameData.PathTile, pathNode.Position, Quaternion.identity);
         path.Init(pathNode);
+        floor.transform.position = castleGrid.Position;
     }
 
     private void CreateHexGrid()
