@@ -1,3 +1,4 @@
+using Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,12 @@ public class CastleTile : TileBase
 
     public void TakeDamage(short damage)
     {
-
+        castleHealth-=damage;
+        if(castleHealth < 0 )
+        {
+            GameManager.Instance.SetState(GameStates.GAMEOVER);
+            Debug.Log("Game over");
+        }
     }
 }
 

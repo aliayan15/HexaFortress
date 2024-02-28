@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1592246070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1592246071}
+  m_Layer: 0
+  m_Name: Fire point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1592246071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592246070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7346283484583268080}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7978387619276379210
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7346283484583268080}
-  - component: {fileID: 7294537800862336493}
+  - component: {fileID: 35639744}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -24,16 +55,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7978387619276379210}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.9001474, y: -0, z: 0.42847526}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7181371585930332742}
+  - {fileID: 1592246071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7294537800862336493
+--- !u!114 &35639744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +74,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7978387619276379210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81eabcce8bea10540a27d5e9a9a1fac6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d8cd8e51b512be4dbb0f83fc44c6fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 0
+  tileType: 5
+  fireTime: 0.5
+  baseDamage: 10
+  damageUpgrade: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  range: 5
+  firePoint: {fileID: 1592246071}
+  projectile: {fileID: 6724775678528028015, guid: 7eacf619bbc24414d81e2d4fc4cee316,
+    type: 3}
+  drawGizmos: 0
 --- !u!1 &8039813593075728364
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ namespace Managers
     {
         None,
         TurnBegin,
-        EnemySpawn,
+        EnemySpawnStart,
         TurnEnd
     }
 

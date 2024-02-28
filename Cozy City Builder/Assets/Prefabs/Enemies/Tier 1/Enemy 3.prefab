@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ec405db334349479960f2e66559559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPoint: {fileID: 2392088910353168169}
   level: 3
-  health: 20
-  moveSpeed: 1.5
+  health: 50
+  moveSpeed: 1.2
   isFlyingUnit: 0
   reachedPositionDistance: 0.1
   slowPercent: 0.3
@@ -66,8 +67,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.72697157, y: 0.82580864, z: 0.5795994}
-  m_Center: {x: 0.009101003, y: 0.3937407, z: -0.013521671}
+  m_Size: {x: 0.45078748, y: 0.82580864, z: 0.5795994}
+  m_Center: {x: -0.012993723, y: 0.3937407, z: -0.013521671}
 --- !u!54 &6718041234927380191
 Rigidbody:
   m_ObjectHideFlags: 0

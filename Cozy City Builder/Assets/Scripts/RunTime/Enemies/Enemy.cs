@@ -8,7 +8,9 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     public bool IsFlyingUnit => isFlyingUnit;
     public int Level => level;
+    public Transform TargetPoint => targetPoint;
 
+    [SerializeField] private Transform targetPoint;
     [HorizontalLine]
     [Header("Stats")]
     [SerializeField] private int level;
@@ -30,7 +32,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private float _slowTimer;
     private bool _isDead;
     private const float _posY = 0.45f;
-    private const float _flyPosY = 1f;
 
     private void Start()
     {

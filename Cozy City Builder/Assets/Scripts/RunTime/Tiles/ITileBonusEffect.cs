@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
     
-public class GeneralTile : TileBase
+public interface ITileBonusEffect
 {
-    
+    public void DoBonusEffect();
 }
 

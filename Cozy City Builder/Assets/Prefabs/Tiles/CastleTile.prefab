@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileType: 6
   PathPoint: {fileID: 845194439}
-  castleHealth: 0
+  castleHealth: 10
 --- !u!1 &9199327792378253964
 GameObject:
   m_ObjectHideFlags: 0

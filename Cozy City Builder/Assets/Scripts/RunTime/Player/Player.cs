@@ -1,8 +1,8 @@
 using Managers;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Players
 {
@@ -16,14 +16,16 @@ namespace Players
         [Space(10)]
         [Header("Debug")]
         [SerializeField] private bool isDebug;
+        [SerializeField] private SOTileData[] tilesToPlace;
 
         public int MyGold { get; private set; } = 100;
+        public UnityAction OnTilePlaced;
 
-        private SelectTileButton _selectTileButton;
         private SOTileData _currentTile;
         private Transform _tileToBuild;
         private TileBase _tileBase;
         private bool _isBuildMode = false;
+        private bool _canBuild = false;
 
         private void Awake()
         {
@@ -39,27 +41,35 @@ namespace Players
         {
             if (isDebug)
                 DebugGame();
-            
 
+            if (!_canBuild) return;
             if (!_isBuildMode) return;
 
             UpdatePosition();
+            // place tile
             if (Input.GetMouseButtonDown(0))
             {
                 if (RaycastTile(out HexGridNode grid))
                 {
                     if (!grid.CanBuildHere) { CantBuildHere(); return; }
-                    if (!_tileBase.CanBuildHere()) { CantBuildHere(); return; }
+                    if (!_tileBase.CanBuildHere(grid)) { CantBuildHere(); return; }
 
                     PlaceTile(grid);
                 }
             }
-
+            // rotate
             var scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll > 0f)
                 RotateTile(_tileBase);
             else if (scroll < 0f)
                 RotateTile(_tileBase, true);
+            // cancel placing
+            if (Input.GetMouseButtonDown(1))
+            {
+                _isBuildMode = false;
+                Destroy(_tileToBuild.gameObject);
+                _tileBase = null;
+            }
         }
 
         private void DebugGame()
@@ -80,6 +90,16 @@ namespace Players
                     }
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Alpha1) && tilesToPlace.Length > 0)
+                EnterBuildMode(tilesToPlace[0]);
+            if (Input.GetKeyDown(KeyCode.Alpha2) && tilesToPlace.Length > 1)
+                EnterBuildMode(tilesToPlace[1]);
+            if (Input.GetKeyDown(KeyCode.Alpha3) && tilesToPlace.Length > 2)
+                EnterBuildMode(tilesToPlace[2]);
+            if (Input.GetKeyDown(KeyCode.Alpha4) && tilesToPlace.Length > 3)
+                EnterBuildMode(tilesToPlace[3]);
+            if (Input.GetKeyDown(KeyCode.Alpha5) && tilesToPlace.Length > 4)
+                EnterBuildMode(tilesToPlace[4]);
 
         }
 
@@ -89,9 +109,7 @@ namespace Players
             _isBuildMode = false;
             _tileToBuild.transform.position = grid.Position;
             _tileBase.Init(grid);
-            if (_currentTile.IsTherePrice)
-                AddGold(-_selectTileButton.TilePrice);
-            _selectTileButton.DeActivate();
+            OnTilePlaced?.Invoke();
             TileManager.Instance.AddNewTile(_tileBase.MyType);
         }
 
@@ -101,9 +119,9 @@ namespace Players
             _tileToBuild.position = Vector3.Lerp(_tileToBuild.position, pos, tileMoveSpeed * Time.deltaTime);
         }
 
-        public void EnterBuildMode(SOTileData tile, SelectTileButton selectTileButton)
+        public void EnterBuildMode(SOTileData tile)
         {
-            _selectTileButton = selectTileButton;
+            if (!_canBuild) return;
             _currentTile = tile;
             _tileToBuild = Instantiate(_currentTile.Prefab).transform;
             _tileBase = _tileToBuild.GetComponent<TileBase>();
@@ -127,6 +145,10 @@ namespace Players
                     targetPos = grid.Position;
             }
             return targetPos;
+        }
+        private void RotateTile(TileBase tile, bool left = false)
+        {
+            tile.Rotate(left);
         }
         #endregion
 
@@ -156,11 +178,6 @@ namespace Players
             }
         }
 
-        private void RotateTile(TileBase tile, bool left = false)
-        {
-            tile.Rotate(left);
-        }
-
         #region Gold
         public void AddGold(int amount)
         {
@@ -169,5 +186,19 @@ namespace Players
         }
         #endregion
 
+        #region State Change
+        private void OnTurnStateChange(TurnStates state)
+        {
+            _canBuild = state == TurnStates.TurnBegin;
+        }
+        private void OnEnable()
+        {
+            GameManager.OnTurnStateChange += OnTurnStateChange;
+        }
+        private void OnDisable()
+        {
+            GameManager.OnTurnStateChange -= OnTurnStateChange;
+        }
+        #endregion
     }
 }

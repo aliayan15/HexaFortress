@@ -1,5 +1,6 @@
 using KBCore.Refs;
 using Managers;
+using System;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -65,7 +66,16 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
             }
         }
         // player build
-        GameManager.Instance.player.EnterBuildMode(_myTile, this);
+        GameManager.Instance.player.EnterBuildMode(_myTile);
+        GameManager.Instance.player.OnTilePlaced += OnTilePlaced;
+    }
+
+    private void OnTilePlaced()
+    {
+        if (_myTile.IsTherePrice)
+            GameManager.Instance.player.AddGold(-TilePrice);
+        DeActivate();
+        GameManager.Instance.player.OnTilePlaced -= OnTilePlaced;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

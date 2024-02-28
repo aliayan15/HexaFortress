@@ -50,26 +50,14 @@ public class PathTile : TileBase
         }
     }
 
-    public override bool CanBuildHere()
+    public override bool CanBuildHere(HexGridNode grid)
     {
-        foreach (var point in connectionPoints)
+        var surroundingGrids = GridManager.Instance.GetSurroundingGrids(grid);
+        foreach (var item in surroundingGrids)
         {
-            var node = GridManager.Instance.GetGridNode(point.position);
-            if (node.MyTile)
-            {
-                if (node.MyTile.MyType == TileType.Path)
-                {
-                    // check that tile have connection point in same way
-                    var myNode = GridManager.Instance.GetGridNode(transform.position);
-                    PathTile tile = node.MyTile as PathTile;
-                    foreach (var item in tile.connectionPoints)
-                    {
-                        var connectionNode = GridManager.Instance.GetGridNode(item.position);
-                        if (connectionNode == myNode)
-                            return true;
-                    }
-                }
-            }
+            if (!item.MyTile) continue;
+            if (item.MyTile.MyType == TileType.Path)
+                return true;
         }
         return false;
     }

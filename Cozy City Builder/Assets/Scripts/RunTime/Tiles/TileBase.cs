@@ -16,7 +16,8 @@ public enum TileType
     Mountain,
     FishHouse,
     Fielts,
-    Grass
+    Grass,
+    FishTile
 }
 
 
@@ -68,7 +69,7 @@ public abstract class TileBase : MonoBehaviour
         }
     }
 
-    public virtual bool CanBuildHere()
+    public virtual bool CanBuildHere(HexGridNode grid)
     {
         return true;
     }

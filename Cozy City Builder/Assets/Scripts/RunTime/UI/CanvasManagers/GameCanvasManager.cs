@@ -51,7 +51,7 @@ namespace UI.CanvasManagers
 
         private void OnTurnStateChange(TurnStates state)
         {
-            if (state == TurnStates.EnemySpawn)
+            if (state == TurnStates.EnemySpawnStart)
             {
                 CloseAllTileButtons();
             }
