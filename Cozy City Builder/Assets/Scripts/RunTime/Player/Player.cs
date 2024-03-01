@@ -1,4 +1,5 @@
 using Managers;
+using MyUtilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Players
         [SerializeField] private SOTileData[] tilesToPlace;
 
         public int MyGold { get; private set; } = 100;
+        public int TileCount { get; set; } = 4;
         public UnityAction OnTilePlaced;
 
         private SOTileData _currentTile;
@@ -26,6 +28,7 @@ namespace Players
         private TileBase _tileBase;
         private bool _isBuildMode = false;
         private bool _canBuild = false;
+        private int _placedTileCount = 0;
 
         private void Awake()
         {
@@ -111,6 +114,8 @@ namespace Players
             _tileBase.Init(grid);
             OnTilePlaced?.Invoke();
             TileManager.Instance.AddNewTile(_tileBase.MyType);
+            _placedTileCount++;
+            CheckPlacedTileCount();
         }
 
         private void UpdatePosition()
@@ -150,9 +155,44 @@ namespace Players
         {
             tile.Rotate(left);
         }
+        // Check placed tile count for spawn enemy
+        private void CheckPlacedTileCount()
+        {
+            if (_placedTileCount >= TileCount)
+            {
+                GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
+            }
+        }
         #endregion
 
+        #region Gold
+        public void AddGold(int amount)
+        {
+            MyGold += amount;
+            Debug.Log("My Gold: " + MyGold);
+        }
+        #endregion
 
+        #region State Change
+        private void OnTurnStateChange(TurnStates state)
+        {
+            _canBuild = state == TurnStates.TurnBegin;
+            if (state == TurnStates.TurnEnd)
+            {
+                this.Timer(0.2f, () => { GameManager.Instance.SetTurnState(TurnStates.TurnBegin); });
+            }
+        }
+        private void OnEnable()
+        {
+            GameManager.OnTurnStateChange += OnTurnStateChange;
+        }
+        private void OnDisable()
+        {
+            GameManager.OnTurnStateChange -= OnTurnStateChange;
+        }
+        #endregion
+
+        #region Ray
         private bool RaycastTile(out HexGridNode grid)
         {
             grid = null;
@@ -176,28 +216,6 @@ namespace Players
             {
                 grid = GridManager.Instance.GetGridNode(hit.point);
             }
-        }
-
-        #region Gold
-        public void AddGold(int amount)
-        {
-            MyGold += amount;
-            Debug.Log("My Gold: " + MyGold);
-        }
-        #endregion
-
-        #region State Change
-        private void OnTurnStateChange(TurnStates state)
-        {
-            _canBuild = state == TurnStates.TurnBegin;
-        }
-        private void OnEnable()
-        {
-            GameManager.OnTurnStateChange += OnTurnStateChange;
-        }
-        private void OnDisable()
-        {
-            GameManager.OnTurnStateChange -= OnTurnStateChange;
         }
         #endregion
     }

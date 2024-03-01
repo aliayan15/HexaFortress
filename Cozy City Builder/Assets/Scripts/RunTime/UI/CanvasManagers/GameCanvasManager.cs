@@ -12,23 +12,14 @@ namespace UI.CanvasManagers
         [Tooltip("Sondan basla")]
         private SelectTileButton[] selectTileButtons;
 
-        private void Update()
-        {
-            if (Input.GetKey(KeyCode.T))
-            {
-                foreach (var item in selectTileButtons)
-                {
-                    item.SetTile(TileSelector.Instance.GetPathTile(true));
-                }
-            }
-        }
+       
 
         private void GetTiles()
         {
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 3; i++)
                 selectTileButtons[i].SetTile(TileSelector.Instance.GetTileWithPrice());
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 3; i++)
                 selectTileButtons[i + 3].SetTile(TileSelector.Instance.GetFreeTile());
 
 

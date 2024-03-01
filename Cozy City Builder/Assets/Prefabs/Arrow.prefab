@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44582abad38f2f4593d500610880e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 12
   rayLayer:
     serializedVersion: 2
     m_Bits: 192
+  lifeTime: 3

@@ -28,12 +28,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     private Dictionary<int, List<Vector3>> _paths = new Dictionary<int, List<Vector3>>();
     private List<Enemy> _enemyList = new List<Enemy>();
 
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.X))
-            GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
-    }
-
+    
     #region Spawn
     private void StartSpawn()
     {

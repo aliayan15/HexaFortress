@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CastleTile : TileBase
+public class CastleTile : BasicTower
 {
     public Transform PathPoint;
     public int CastleHealth => castleHealth;
 
     [HorizontalLine]
-    [Header("Settings")]
+    [Header("Castle")]
     [SerializeField] private int castleHealth;
+    [SerializeField] private short goldPerDay = 10;
 
     public override void Init(HexGridNode myNode)
     {
@@ -22,11 +23,20 @@ public class CastleTile : TileBase
 
     public void TakeDamage(short damage)
     {
-        castleHealth-=damage;
-        if(castleHealth < 0 )
+        castleHealth -= damage;
+        if (castleHealth < 0)
         {
             GameManager.Instance.SetState(GameStates.GAMEOVER);
             Debug.Log("Game over");
+        }
+    }
+
+    protected override void OnTurnStateChange(TurnStates state)
+    {
+        base.OnTurnStateChange(state);
+        if(state==TurnStates.TurnBegin)
+        {
+
         }
     }
 }

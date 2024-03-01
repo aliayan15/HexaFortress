@@ -16,5 +16,5 @@ MonoBehaviour:
   TileType: 12
   Icon: {fileID: 21300000, guid: 9df20d47635ffbc4bae4ec3373711f0c, type: 3}
   IsTherePrice: 1
-  BasePrice: 5
-  PriceIncrease: 3
+  BasePrice: 10
+  PriceIncrease: 2

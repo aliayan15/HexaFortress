@@ -16,6 +16,14 @@ public class BasicTower : TowerTileBase
 
     protected override void OnFire()
     {
+        // check distance
+        if (_currentTarget)
+        {
+            Vector3 targetPos = _currentTarget.transform.position;
+            targetPos.y = transform.position.y;
+            if (Vector3.Distance(transform.position, targetPos) > range)
+                _currentTarget = null;
+        }
         // get an enemy
         if (!_currentTarget)
         {
