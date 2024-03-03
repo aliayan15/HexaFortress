@@ -52,7 +52,7 @@ MonoBehaviour:
   health: 50
   moveSpeed: 1.2
   isFlyingUnit: 0
-  reachedPositionDistance: 0.1
+  reachedPositionDistance: 0.5
   slowPercent: 0.3
   slowTime: 2
   damageToCastle: 1
@@ -67,8 +67,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.45078748, y: 0.82580864, z: 0.5795994}
-  m_Center: {x: -0.012993723, y: 0.3937407, z: -0.013521671}
+  m_Size: {x: 0.26324463, y: 0.37464795, z: 0.23876953}
+  m_Center: {x: -0.010955811, y: 0.17818613, z: 0.009887695}
 --- !u!54 &6718041234927380191
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.045
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
         type: 3}

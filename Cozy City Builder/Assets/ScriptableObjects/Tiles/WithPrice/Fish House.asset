@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4f381431fbb584ebfb4a513b8c941e, type: 3}
   m_Name: Fish House
   m_EditorClassIdentifier: 
-  Prefab:
-    lastUpdated: 0
-  TileType: 0
+  Prefab: {fileID: 0}
+  TileType: 9
   Icon: {fileID: 0}
   IsTherePrice: 0
   BasePrice: 0

@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool _isSlow;
     private float _slowTimer;
     private bool _isDead;
-    private const float _posY = 0.45f;
+    private float _posY = 0.45f;
 
     private void Start()
     {
@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour, IDamageable
         _currentHealth = health;
         _currentMoveSpeed = moveSpeed;
         _slowTimer = slowTime;
+        _posY = EnemySpawner.Instance.EnemyPosY;
     }
 
 

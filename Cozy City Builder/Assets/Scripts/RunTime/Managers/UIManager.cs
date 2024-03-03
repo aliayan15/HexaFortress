@@ -2,10 +2,11 @@ using UnityEngine;
 using UI;
 using MyUtilities.UI;
 using UI.CanvasManagers;
+using MyUtilities;
 
 namespace Managers
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : SingletonMono<UIManager>
     {
         // Panels
         public CanvasGrupItem GAME;
@@ -20,11 +21,12 @@ namespace Managers
 
         private CanvasGrupItem[] _canvases;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _canvases = new[] { MENU, GAME };
         }
-       
+
         public void SetGameOver()
         {
             _canvases.HideAllExceptOne(GAMEOVER);

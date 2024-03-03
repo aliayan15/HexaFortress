@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileType: 5
   fireTime: 1
-  baseDamage: 10
+  baseDamage: 15
   damageUpgrade: 2
   enemyLayer:
     serializedVersion: 2

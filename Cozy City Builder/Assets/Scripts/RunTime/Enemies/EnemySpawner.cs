@@ -21,6 +21,8 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     [Space(10)]
     [SerializeField] private float spawnPointY;
 
+    public float EnemyPosY => spawnPointY;
+
     private bool isDebug = false;
     private bool _isSpawning;
     private Vector3 _lastSpawnPos;
@@ -28,7 +30,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     private Dictionary<int, List<Vector3>> _paths = new Dictionary<int, List<Vector3>>();
     private List<Enemy> _enemyList = new List<Enemy>();
 
-    
+
     #region Spawn
     private void StartSpawn()
     {
@@ -40,7 +42,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     {
         if (TileManager.Instance.EnemySpawnPoints.Count == 0) yield break;
         // total count(not)
-        var time = new WaitForSeconds(0.5f / TileManager.Instance.EnemySpawnPoints.Count);
+        var time = new WaitForSeconds(1f / TileManager.Instance.EnemySpawnPoints.Count);
         int count = GameManager.Instance.DayCount * GameManager.Instance.DayCount;
         // set path for each spawn point
         _paths.Clear();
@@ -65,6 +67,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
             }
 
         }
+        SpawnBoss();
         _isSpawning = false;
         StartCoroutine(CheckAllEnemiesDead());
     }
@@ -92,7 +95,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
         for (int i = enemies.Length - 1; i >= 0; --i)
         {
             bool canSpawnThisEnemy = enemies[i].Level <= GameManager.Instance.DayCount
-                && UnityEngine.Random.Range(0.0f, 1f) < (multiplier / GameManager.Instance.DayCount);
+                && UnityEngine.Random.Range(0.0f, 1f) < (multiplier / enemies[i].Level);
             if (canSpawnThisEnemy)
             {
                 SpawnEnemy(enemies[i]);
@@ -108,6 +111,14 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
         Enemy newEnemy = Instantiate(enemy, _lastSpawnPos, Quaternion.identity);
         newEnemy.SetMovePosition(_paths[_pathIndex]);
         _enemyList.Add(newEnemy);
+    }
+    private void SpawnBoss()
+    {
+        if (GameManager.Instance.DayCount == tier2Day - 1)
+            SpawnEnemy(boss1);
+        else if (GameManager.Instance.DayCount == tier3Day - 1)
+            SpawnEnemy(boss2);
+
     }
     #endregion
 
@@ -148,6 +159,10 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     private void OnGameStateChange(GameStates state)
     {
         // when game over stop spawning
+        if (state == GameStates.GAMEOVER)
+        {
+            StopAllCoroutines();
+        }
     }
 
     private void OnEnable()

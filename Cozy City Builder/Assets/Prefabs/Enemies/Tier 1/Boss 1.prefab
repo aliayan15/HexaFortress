@@ -52,10 +52,10 @@ MonoBehaviour:
   health: 20
   moveSpeed: 2
   isFlyingUnit: 0
-  reachedPositionDistance: 0.1
+  reachedPositionDistance: 0.5
   slowPercent: 0.3
   slowTime: 2
-  damageToCastle: 1
+  damageToCastle: 10
 --- !u!65 &4419465056652184574
 BoxCollider:
   m_ObjectHideFlags: 0

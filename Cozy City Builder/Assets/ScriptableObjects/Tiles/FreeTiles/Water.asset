@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5835298419494901580, guid: c493f37ce9ab7e9428a22cd7fd5d11d7, type: 3}
-  TileType: 6
+  TileType: 4
   Icon: {fileID: 21300000, guid: 8ddd5969fdeb2ac44a2faa9e85a9e144, type: 3}
   IsTherePrice: 0
   BasePrice: 0

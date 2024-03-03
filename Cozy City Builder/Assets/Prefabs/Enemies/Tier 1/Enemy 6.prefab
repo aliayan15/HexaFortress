@@ -49,11 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 9215519295798477585}
-  level: 13
-  health: 20
+  level: 14
+  health: 230
   moveSpeed: 1.2
   isFlyingUnit: 1
-  reachedPositionDistance: 0.1
+  reachedPositionDistance: 0.5
   slowPercent: 0.3
   slowTime: 2
   damageToCastle: 1

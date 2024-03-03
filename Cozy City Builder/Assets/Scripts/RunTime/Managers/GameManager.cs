@@ -27,9 +27,6 @@ namespace Managers
     {
         public static event Action<GameStates> OnGameStateChange;
 
-        [Space(10)]
-        [Header("Refs")]
-        public UIManager uiManager;
         [HideInInspector] public Player player { get; set; }
         public int DayCount { get; private set; } = 1;
 
@@ -89,17 +86,17 @@ namespace Managers
 
         private void SetGame()
         {
-            uiManager.SetGame();
+            UIManager.Instance.SetGame();
         }
 
         private void SetMenu()
         {
-            uiManager.SetMenu();
+            UIManager.Instance.SetMenu();
         }
 
         private void SetGameOver()
         {
-            uiManager.SetGameOver();
+            UIManager.Instance.SetGameOver();
         }
         #endregion
 
@@ -130,7 +127,7 @@ namespace Managers
         public void IncreaseDay(int day)
         {
             DayCount += day;
-            Debug.Log("Currrent Day: " + DayCount);
+            UIManager.Instance.gameCanvasManager.UpdateDayUI();
         }
         #endregion
 

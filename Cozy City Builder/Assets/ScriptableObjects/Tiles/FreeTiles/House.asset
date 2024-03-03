@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: House
   m_EditorClassIdentifier: 
   Prefab: {fileID: 582132463747799274, guid: 5a60f34210eeee441a47055a4c81ab5e, type: 3}
-  TileType: 4
+  TileType: 2
   Icon: {fileID: 21300000, guid: 9e3ea2a1fcd01a7419458ba27d1c50bc, type: 3}
   IsTherePrice: 0
   BasePrice: 0

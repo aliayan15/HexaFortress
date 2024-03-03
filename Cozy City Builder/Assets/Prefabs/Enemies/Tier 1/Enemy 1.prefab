@@ -49,10 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 7214931958122429904}
   level: 1
-  health: 20
+  health: 15
   moveSpeed: 1.2
   isFlyingUnit: 0
-  reachedPositionDistance: 0.1
+  reachedPositionDistance: 0.5
   slowPercent: 0.3
   slowTime: 2
   damageToCastle: 1
@@ -67,8 +67,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4310606, y: 1.0296699, z: 0.39758062}
-  m_Center: {x: -0.0027618706, y: 0.49567133, z: -0.031723738}
+  m_Size: {x: 0.22332764, y: 0.4214384, z: 0.17364502}
+  m_Center: {x: -0.0014038086, y: 0.19155553, z: -0.003326416}
 --- !u!54 &1741125848032503222
 Rigidbody:
   m_ObjectHideFlags: 0

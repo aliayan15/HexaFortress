@@ -14,13 +14,15 @@ namespace Players
         [SerializeField] private SOGameProperties gameData;
         [Header("Settings")]
         [SerializeField] private float tileMoveSpeed = 10.0f;
+        [SerializeField] private const short tileCountPerDay = 4;
         [Space(10)]
         [Header("Debug")]
         [SerializeField] private bool isDebug;
         [SerializeField] private SOTileData[] tilesToPlace;
 
-        public int MyGold { get; private set; } = 100;
-        public int TileCount { get; set; } = 4;
+        [field: SerializeField]
+        public int MyGold { get; private set; } = 20;
+        public int RemainingTileCount { get; set; }
         public UnityAction OnTilePlaced;
 
         private SOTileData _currentTile;
@@ -28,7 +30,7 @@ namespace Players
         private TileBase _tileBase;
         private bool _isBuildMode = false;
         private bool _canBuild = false;
-        private int _placedTileCount = 0;
+        private short _placedTileCount = 0;
 
         private void Awake()
         {
@@ -158,10 +160,12 @@ namespace Players
         // Check placed tile count for spawn enemy
         private void CheckPlacedTileCount()
         {
-            if (_placedTileCount >= TileCount)
+            RemainingTileCount = tileCountPerDay - _placedTileCount;
+            if (RemainingTileCount <= 0)
             {
                 GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
             }
+            UIManager.Instance.gameCanvasManager.UpdateTileCountUI();
         }
         #endregion
 
@@ -169,7 +173,7 @@ namespace Players
         public void AddGold(int amount)
         {
             MyGold += amount;
-            Debug.Log("My Gold: " + MyGold);
+            UIManager.Instance.gameCanvasManager.UpdateGoldUI();
         }
         #endregion
 
@@ -177,18 +181,33 @@ namespace Players
         private void OnTurnStateChange(TurnStates state)
         {
             _canBuild = state == TurnStates.TurnBegin;
+            if (_canBuild)
+            {
+                _placedTileCount = 0;
+                CheckPlacedTileCount();
+            }
             if (state == TurnStates.TurnEnd)
             {
                 this.Timer(0.2f, () => { GameManager.Instance.SetTurnState(TurnStates.TurnBegin); });
             }
         }
+        private void OnGameStateChange(GameStates state)
+        {
+            if (state == GameStates.GAMEOVER)
+            {
+                _canBuild = false;
+            }
+        }
+
         private void OnEnable()
         {
             GameManager.OnTurnStateChange += OnTurnStateChange;
+            GameManager.OnGameStateChange += OnGameStateChange;
         }
         private void OnDisable()
         {
             GameManager.OnTurnStateChange -= OnTurnStateChange;
+            GameManager.OnGameStateChange -= OnGameStateChange;
         }
         #endregion
 

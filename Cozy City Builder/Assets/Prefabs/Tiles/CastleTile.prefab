@@ -122,7 +122,7 @@ MonoBehaviour:
     type: 3}
   drawGizmos: 0
   PathPoint: {fileID: 845194439}
-  castleHealth: 5
+  castleHealth: 10
   goldPerDay: 10
 --- !u!1 &9199327792378253964
 GameObject:
