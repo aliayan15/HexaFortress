@@ -21,7 +21,8 @@ namespace Players
         [SerializeField] private SOTileData[] tilesToPlace;
 
         [field: SerializeField]
-        public int MyGold { get; private set; } = 20;
+        public int MyGold { get; private set; }
+        public int GoldPerDay { get; private set; } = 0;
         public int RemainingTileCount { get; set; }
         public UnityAction OnTilePlaced;
 
@@ -175,6 +176,12 @@ namespace Players
             MyGold += amount;
             UIManager.Instance.gameCanvasManager.UpdateGoldUI();
         }
+
+        public void AddGoldPerDay(int amount)
+        {
+            GoldPerDay += amount;
+            UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
+        }
         #endregion
 
         #region State Change
@@ -185,6 +192,7 @@ namespace Players
             {
                 _placedTileCount = 0;
                 CheckPlacedTileCount();
+                AddGold(GoldPerDay);
             }
             if (state == TurnStates.TurnEnd)
             {

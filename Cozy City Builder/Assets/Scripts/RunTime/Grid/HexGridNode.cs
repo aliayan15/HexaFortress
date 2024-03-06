@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Grid item data.
@@ -29,13 +30,18 @@ public class HexGridNode
         this.tilePlaceHolder = tilePlaceHolder;
     }
 
+    public void TurnChange(bool active)
+    {
+        ActivetePlaceHolder(active);
+    }
+
     public void PlaceTile(TileBase tile)
     {
         MyTile = tile;
         ActivetePlaceHolder(false);
         CanBuildHere = false;
+        GridManager.Instance.OnTurnChange -= TurnChange;
     }
-
 
     public void ActivetePlaceHolder(bool active)
     {

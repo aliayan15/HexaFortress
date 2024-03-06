@@ -57,13 +57,13 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
         {
             for (int i = 0; i < TileManager.Instance.EnemySpawnPoints.Count; i++)
             {
+                yield return time;
                 _pathIndex = i;
                 _lastSpawnPos = TileManager.Instance.EnemySpawnPoints[i];
 
                 count -= SpawnFromTiers();
                 if (count <= 0)
                     break;
-                yield return time;
             }
 
         }

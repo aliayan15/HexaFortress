@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0ea929b53fd76944973d5c48c4876be, type: 3}
-  m_Name: Fields
+  m_Name: Market
   m_EditorClassIdentifier: 
-  BaseGold: 10
+  BaseGold: 0
   BonusGold: 5

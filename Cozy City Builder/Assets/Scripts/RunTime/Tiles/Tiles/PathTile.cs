@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
@@ -7,13 +5,7 @@ using UnityEngine;
 
 public class PathTile : TileBase
 {
-    public Transform[] ConnectionPoints => connectionPoints;
-
-    [Header("Path")]
-    [SerializeField] private Transform[] connectionPoints;
-    [Space(5)]
-    [SerializeField] private Transform[] spawnPoints;
-
+    public bool IsSpawnPoint { get; private set; } = false;
 
     public override void Init(HexGridNode myNode)
     {
@@ -24,42 +16,53 @@ public class PathTile : TileBase
 
     private void CheckSpawnPoints()
     {
-        List<PathTile> neighbourPaths = new List<PathTile>();
-        for (int i = 0; i < connectionPoints.Length; i++)
+        var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
+        foreach (var grid in neighbourGrids)
         {
-            TileManager.Instance.AddEnemySpawnPoint(spawnPoints[i].position);
-            var node = GridManager.Instance.GetGridNode(connectionPoints[i].position);
-            if (!node.MyTile) continue;
-            if (node.MyTile.MyType != TileType.Path && node.MyTile.MyType != TileType.Castle) continue;
-
-            // baglantý notasýndaki spawn point çýkar
-            PathTile tile = node.MyTile as PathTile;
-            if (tile != null)
-                tile.RemoveSpawnPoint(MyHexNode);
-            TileManager.Instance.RemoveEnemySpawnPoint(spawnPoints[i].position); // connection point
+            if (!grid.MyTile) continue;
+            if (grid.MyTile.MyType != TileType.Path) continue;
+            PathTile path = grid.MyTile as PathTile;
+            if (!path.IsSpawnPoint) continue;
+            var pathToCastle = GridManager.Instance.PathFinding.FindPath(transform.position,
+                GridManager.Instance.PlayerCastle.MyHexNode.Position);
+            int myPathCount = pathToCastle.Count;
+            pathToCastle = GridManager.Instance.PathFinding.FindPath(grid.Position,
+                GridManager.Instance.PlayerCastle.MyHexNode.Position);
+            if (myPathCount > pathToCastle.Count)
+            {
+                path.SetSpawnPoint(false);
+                SetSpawnPoint(true);
+            }
+            if (myPathCount == pathToCastle.Count)
+            {
+                SetSpawnPoint(true);
+            }
         }
     }
 
-    public void RemoveSpawnPoint(HexGridNode path)
+    public void SetSpawnPoint(bool isSpawnPoint)
     {
-        for (int i = 0; i < connectionPoints.Length; i++)
-        {
-            var node = GridManager.Instance.GetGridNode(connectionPoints[i].position);
-            if (node == path)
-                TileManager.Instance.RemoveEnemySpawnPoint(spawnPoints[i].position);
-        }
+        IsSpawnPoint = isSpawnPoint;
+        if (IsSpawnPoint)
+            TileManager.Instance.AddEnemySpawnPoint(transform.position);
+        else
+            TileManager.Instance.RemoveEnemySpawnPoint(transform.position);
+
     }
 
     public override bool CanBuildHere(HexGridNode grid)
     {
         var surroundingGrids = GridManager.Instance.GetSurroundingGrids(grid);
+        bool build = false;
         foreach (var item in surroundingGrids)
         {
             if (!item.MyTile) continue;
+            if (item.MyTile.MyType == TileType.Castle)
+                return false;
             if (item.MyTile.MyType == TileType.Path)
-                return true;
+                build = true;
         }
-        return false;
+        return build;
     }
 
     protected override void OnDisable()

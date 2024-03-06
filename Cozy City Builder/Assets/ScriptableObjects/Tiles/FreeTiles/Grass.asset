@@ -18,3 +18,5 @@ MonoBehaviour:
   IsTherePrice: 0
   BasePrice: 0
   PriceIncrease: 0
+  Header: Grass
+  Description: Empty area.

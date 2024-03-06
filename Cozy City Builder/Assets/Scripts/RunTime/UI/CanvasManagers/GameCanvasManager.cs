@@ -19,6 +19,7 @@ namespace UI.CanvasManagers
         [SerializeField] private TextMeshProUGUI castleHealthText;
         [SerializeField] private TextMeshProUGUI tileCountText;
         [SerializeField] private Slider healthSlider;
+        [SerializeField] private ToolTipTrigger goldToolTip;
 
 
         #region Tiles
@@ -33,7 +34,7 @@ namespace UI.CanvasManagers
 
             selectTileButtons[6].SetTile(TileSelector.Instance.GetPathTile());
             int rndNum = Random.Range(0, 100);
-            if (rndNum < 34)
+            if (rndNum < 45)
                 selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile());
             else
                 selectTileButtons[7].DeActivate();
@@ -41,6 +42,15 @@ namespace UI.CanvasManagers
             foreach (SelectTileButton button in selectTileButtons)
                 if (button.MyTile == null)
                     button.DeActivate();
+
+        }
+        private void GetStartTiles()
+        {
+            var tiles = TileSelector.Instance.GetStartTiles();
+            for (int i = 0; i < tiles.Length; i++)
+            {
+                selectTileButtons[i].SetTile(tiles[i]);
+            }
         }
         private void CloseAllTileButtons()
         {
@@ -68,6 +78,11 @@ namespace UI.CanvasManagers
         {
             tileCountText.text = GameManager.Instance.player.RemainingTileCount.ToString();
         }
+
+        public void UpdateGoldToolTip()
+        {
+            goldToolTip.content = "Gold per day: +" + GameManager.Instance.player.GoldPerDay;
+        }
         #endregion
 
         private void OnTurnStateChange(TurnStates state)
@@ -78,7 +93,10 @@ namespace UI.CanvasManagers
             }
             if (state == TurnStates.TurnBegin)
             {
-                GetTiles();
+                if (GameManager.Instance.DayCount == 1)
+                    GetStartTiles();
+                else
+                    GetTiles();
                 UpdateGoldUI();
                 UpdateDayUI();
                 UpdateTileCountUI();

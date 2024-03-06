@@ -17,7 +17,9 @@ public enum TileType
     FishHouse,
     Fielts,
     Grass,
-    FishTile
+    FishTile,
+    Market,
+    TowerUpgrade
 }
 
 
@@ -66,6 +68,7 @@ public abstract class TileBase : MonoBehaviour
         foreach (var grid in surroundingGrids)
         {
             grid.ActivetePlaceHolder(true);
+            GridManager.Instance.OnTurnChange += grid.TurnChange;
         }
     }
 

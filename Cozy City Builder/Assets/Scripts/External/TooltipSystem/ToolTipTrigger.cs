@@ -4,16 +4,22 @@ using UnityEngine.EventSystems;
 
 public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private string content;
+    public string header;
+    public string content;
+    [Space(5)]
+    [SerializeField] private bool showHeader = false;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         Show();
     }
 
-    private void Show()
+    protected virtual void Show()
     {
-        ToolTipSystem.Show(content);
+        if (!showHeader)
+            ToolTipSystem.Show(content);
+        else
+            ToolTipSystem.Show(content, header);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -21,9 +27,6 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         ToolTipSystem.Hide();
     }
 
-    //public void MouseExit()
-    //{
-    //    ToolTipSystem.Hide();
-    //}
+    
 }
 

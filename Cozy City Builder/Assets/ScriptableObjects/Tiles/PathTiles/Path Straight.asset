@@ -18,3 +18,5 @@ MonoBehaviour:
   IsTherePrice: 0
   BasePrice: 0
   PriceIncrease: 0
+  Header: Enemy Path
+  Description: Enemies move along this path.

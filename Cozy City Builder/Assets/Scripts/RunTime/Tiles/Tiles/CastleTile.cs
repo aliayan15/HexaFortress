@@ -21,6 +21,7 @@ public class CastleTile : BasicTower
         base.Init(myNode);
         myNode.SetIsWalkable(true);
         _currentCastleHealth = castleHealth;
+        GameManager.Instance.player.AddGoldPerDay(goldPerDay);
     }
 
     public void TakeDamage(short damage)
@@ -37,10 +38,6 @@ public class CastleTile : BasicTower
     protected override void OnTurnStateChange(TurnStates state)
     {
         base.OnTurnStateChange(state);
-        if (state == TurnStates.TurnBegin)
-        {
-            GameManager.Instance.player.AddGold(goldPerDay);
-        }
     }
 }
 

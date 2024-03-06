@@ -8,32 +8,48 @@ using TMPro;
 public class ToolTip : MonoBehaviour
 {
     [SerializeField] LayoutElement layoutElement;
-    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] TextMeshProUGUI content;
+    [SerializeField] TextMeshProUGUI header;
     [SerializeField] RectTransform rectTransform;
+    [Header("Settings")]
     [SerializeField] int characterLimit;
-
+    [SerializeField] int posOffset = 20;
 
     public void SetText(string text)
     {
-        this.text.text = text;
+        this.content.text = text;
+        this.header.gameObject.SetActive(false);
 
-        //int length = text.Length;
-        //layoutElement.enabled = length > characterLimit ? true : false;
+        int length = text.Length;
+        layoutElement.enabled = length > characterLimit ? true : false;
 
-        AdjustPosition();
+        Init();
+    }
+    public void SetText(string content, string header)
+    {
+        this.content.text = content;
+        this.header.gameObject.SetActive(true);
+        this.header.text = header;
+
+        int length = content.Length;
+        layoutElement.enabled = length > characterLimit ? true : false;
+
+        Init();
     }
 
     private void Update()
     {
-        AdjustPosition();
+        Init();
     }
 
-    private void AdjustPosition()
+    private void Init()
     {
         Vector2 mousePos = Input.mousePosition;
         float pivotX = mousePos.x / Screen.width;
+        float pivotY = mousePos.y / Screen.height;
+        mousePos.y += mousePos.y > (Screen.height / 2f) ? -posOffset : posOffset;
 
-        rectTransform.pivot = new Vector2(pivotX, 0);
+        rectTransform.pivot = new Vector2(pivotX, pivotY);
         transform.position = mousePos;
     }
 }

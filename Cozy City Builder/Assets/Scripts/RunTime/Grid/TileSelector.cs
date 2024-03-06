@@ -10,6 +10,8 @@ public class TileSelector : SingletonMono<TileSelector>
     [SerializeField] private SOTileData[] tilesWithPrice;
     [SerializeField] private SOTileData[] freeTiles;
     [SerializeField] private SOTileData[] pathTiles;
+    [Space(10)]
+    [SerializeField] private SOTileData[] startTiles;
 
     private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
     private List<SOTileData> _openFreeTilesList = new List<SOTileData>();
@@ -70,5 +72,10 @@ public class TileSelector : SingletonMono<TileSelector>
             return pathTiles[1];
         else
             return pathTiles[2];
+    }
+
+    public SOTileData[] GetStartTiles()
+    {
+        return startTiles;
     }
 }

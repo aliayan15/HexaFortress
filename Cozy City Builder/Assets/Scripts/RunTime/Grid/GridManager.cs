@@ -2,9 +2,9 @@ using KBCore.Refs;
 using Managers;
 using MyUtilities;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -14,6 +14,7 @@ public class GridManager : SingletonMono<GridManager>
     public Vector2 GridSize => gridSize;
     public HexPathFinding PathFinding { get; private set; }
     public CastleTile PlayerCastle { get; private set; }
+    public Action<bool> OnTurnChange;
 
     [SerializeField, Self] private UnityEngine.Grid grid;
     [SerializeField] private SOGameProperties gameData;
@@ -24,7 +25,8 @@ public class GridManager : SingletonMono<GridManager>
     [SerializeField] private TilePlaceHolder placeHolder;
     [SerializeField] private Transform floor;
 
-    public HexGridNode[,] _hexGrid;
+    private HexGridNode[,] _hexGrid;
+
 
     private void OnValidate()
     {
@@ -39,6 +41,8 @@ public class GridManager : SingletonMono<GridManager>
         PathFinding = new HexPathFinding(this, gridSize);
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
+        // bug fix - Start of the game we are not adding gold.
+        GameManager.Instance.player.AddGold(-GameManager.Instance.player.GoldPerDay);
     }
 
     private void CreatePlayerCastle()
@@ -51,10 +55,12 @@ public class GridManager : SingletonMono<GridManager>
         castle.Init(castleGrid);
         CameraManager.Instance.TeleportPosition(castleGrid.Position);
         PlayerCastle = castle;
+
         // create one path
         var pathNode = GetGridNode(castle.PathPoint.position);
         PathTile path = Instantiate(gameData.PathTile, pathNode.Position, Quaternion.identity);
         path.Init(pathNode);
+        path.SetSpawnPoint(true);
         floor.transform.position = castleGrid.Position;
     }
 
@@ -141,6 +147,26 @@ public class GridManager : SingletonMono<GridManager>
         if (!isValidIndex) return null;
         return _hexGrid[x, y];
     }
+
+    #region State Change
+    private void OnTurnStateChange(TurnStates state)
+    {
+        if (state == TurnStates.TurnBegin)
+            OnTurnChange?.Invoke(true);
+        if(state == TurnStates.EnemySpawnStart)
+            OnTurnChange?.Invoke(false);
+    }
+
+
+    private void OnEnable()
+    {
+        GameManager.OnTurnStateChange += OnTurnStateChange;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnTurnStateChange -= OnTurnStateChange;
+    }
+    #endregion
 
 }
 

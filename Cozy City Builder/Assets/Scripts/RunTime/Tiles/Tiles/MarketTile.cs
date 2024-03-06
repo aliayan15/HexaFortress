@@ -1,10 +1,8 @@
 using Managers;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
-public class FieldTile : TileBase,ITileBonusEffect
+public class MarketTile : TileBase
 {
     public int ProdusedGoldAmount { get; private set; }
     [SerializeField] private SOTileGoldData data;
@@ -12,14 +10,14 @@ public class FieldTile : TileBase,ITileBonusEffect
     public override void Init(HexGridNode myNode)
     {
         base.Init(myNode);
+        var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
         ProdusedGoldAmount = data.BaseGold;
         GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
-        var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
-        foreach (var surroundingTile in surroundingTiles)
+        foreach (var surroundingTile in neighbourGrids)
         {
             if (!surroundingTile.MyTile)
                 continue;
-            if (surroundingTile.MyTile.MyType == TileType.Windmill)
+            if (surroundingTile.MyTile.MyType == TileType.House)
                 DoBonusEffect();
         }
     }
@@ -30,14 +28,13 @@ public class FieldTile : TileBase,ITileBonusEffect
         ProdusedGoldAmount += data.BonusGold;
         GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
     }
-
     protected override void OnEnable()
     {
-
+        
     }
     protected override void OnDisable()
     {
-
+        
     }
 }
 

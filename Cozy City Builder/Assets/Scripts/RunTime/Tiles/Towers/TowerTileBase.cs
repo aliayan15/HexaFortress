@@ -1,4 +1,5 @@
 using Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,19 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
         _fireTimer = new WaitForSeconds(fireTime);
         _damageData = new DamageData(baseDamage);
         StartCoroutine(FireTimer());
+        CheckUpgradeTile();
+    }
+
+    private void CheckUpgradeTile()
+    {
+        var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
+        foreach (var surroundingTile in neighbourGrids)
+        {
+            if (!surroundingTile.MyTile)
+                continue;
+            if (surroundingTile.MyTile.MyType == TileType.TowerUpgrade)
+                UpgradeTower();
+        }
     }
 
     #region Upgrade

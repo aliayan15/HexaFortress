@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c4f381431fbb584ebfb4a513b8c941e, type: 3}
-  m_Name: Tarla
+  m_Name: Market
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 2669328523159271634, guid: 8c9dd28f9e8df9e41a4e57b8006ef1fa, type: 3}
-  TileType: 10
-  Icon: {fileID: 21300000, guid: 9df20d47635ffbc4bae4ec3373711f0c, type: 3}
+  Prefab: {fileID: 760648579343329868, guid: 8eb842b1b6b3cf64a85af90782ae669b, type: 3}
+  TileType: 13
+  Icon: {fileID: 21300000, guid: d8c3ba5bbc6ce1c4a8d2226de13cb1a2, type: 3}
   IsTherePrice: 1
-  BasePrice: 10
+  BasePrice: 30
   PriceIncrease: 10
-  Header: Fields
+  Header: Market
   Description: 

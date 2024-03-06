@@ -18,3 +18,5 @@ MonoBehaviour:
   IsTherePrice: 1
   BasePrice: 30
   PriceIncrease: 15
+  Header: Windmill
+  Description: 

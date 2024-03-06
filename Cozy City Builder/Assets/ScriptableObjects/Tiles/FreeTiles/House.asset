@@ -18,3 +18,5 @@ MonoBehaviour:
   IsTherePrice: 0
   BasePrice: 0
   PriceIncrease: 0
+  Header: House
+  Description: The place people live in your Kingdom.

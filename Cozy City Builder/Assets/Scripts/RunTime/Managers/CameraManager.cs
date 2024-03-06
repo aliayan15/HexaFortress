@@ -14,10 +14,13 @@ public class CameraManager : SingletonMono<CameraManager>
     [Header("Settings")]
     [SerializeField] private float normalSpeed;
     [SerializeField] private float fastSpeed;
-    [Space(3)]
+    [Space(5)]
     [SerializeField] private float movementTime;
     [SerializeField] private float rotationAmount;
     [SerializeField] private Vector3 zoomAmount;
+    [Space(5)]
+    [SerializeField] private Vector2 lowBorder;
+    [SerializeField] private Vector2 highBorder;
 
     private Vector3 _newPosition;
     private float _movementSpeed;
@@ -77,12 +80,17 @@ public class CameraManager : SingletonMono<CameraManager>
         if (Input.GetKey(KeyCode.R))
         {
             _newZoom += zoomAmount;
-            
+
         }
         if (Input.GetKey(KeyCode.F))
         {
             _newZoom -= zoomAmount;
         }
+
+        _newPosition.x = Mathf.Max(lowBorder.x, _newPosition.x);
+        _newPosition.x = Mathf.Min(highBorder.x, _newPosition.x);
+        _newPosition.z = Mathf.Max(lowBorder.y, _newPosition.z);
+        _newPosition.z = Mathf.Min(highBorder.y, _newPosition.z);
 
         transform.position = Vector3.Lerp(transform.position, _newPosition, Time.deltaTime * movementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, Time.deltaTime * movementTime);

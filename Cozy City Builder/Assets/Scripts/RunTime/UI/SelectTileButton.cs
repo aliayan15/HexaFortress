@@ -1,6 +1,5 @@
 using KBCore.Refs;
 using Managers;
-using System;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -35,7 +34,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         _myTile = tile;
         iconImage.sprite = tile.Icon;
-        if (tile.IsTherePrice)
+        if (tile.IsTherePrice && GameManager.Instance.DayCount != 1) // first day free
         {
             price.SetActive(true);
             priceText.text = TileManager.Instance.GetPriceOfTile(tile.TileType, tile.BasePrice, tile.PriceIncrease) + " g";
@@ -72,6 +71,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     private void OnTilePlaced()
     {
+        if (!_myTile) return;
         if (_myTile.IsTherePrice)
             GameManager.Instance.player.AddGold(-TilePrice);
         DeActivate();

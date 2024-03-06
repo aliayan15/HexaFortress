@@ -9,6 +9,7 @@ public class TileManager : SingletonMono<TileManager>
     public Dictionary<TileType, int> TileCount = new Dictionary<TileType, int>();
     public List<Vector3> EnemySpawnPoints = new List<Vector3>();
 
+    #region Enemy Spawn Points
     public void AddEnemySpawnPoint(Vector3 spawnPoint)
     {
         if (!EnemySpawnPoints.Contains(spawnPoint))
@@ -19,6 +20,8 @@ public class TileManager : SingletonMono<TileManager>
         if (EnemySpawnPoints.Contains(spawnPoint))
             EnemySpawnPoints.Remove(spawnPoint);
     }
+    
+    #endregion
 
     public void AddNewTile(TileType type)
     {
@@ -44,6 +47,18 @@ public class TileManager : SingletonMono<TileManager>
     {
         int count = GetTileCount(type);
         return basePrice + (count * priceIncrease);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (EnemySpawnPoints.Count > 0)
+        {
+            foreach (var item in EnemySpawnPoints)
+            {
+                Gizmos.DrawSphere(item, 0.5f);
+            }
+        }
+           
     }
 }
 

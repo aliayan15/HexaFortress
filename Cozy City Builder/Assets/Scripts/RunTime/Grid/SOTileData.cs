@@ -14,5 +14,9 @@ public class SOTileData : ScriptableObject
     public bool IsTherePrice;
     public int BasePrice;
     public int PriceIncrease;
+    [Header("Description")]
+    public string Header;
+    public string Description;
+    
 }
 
