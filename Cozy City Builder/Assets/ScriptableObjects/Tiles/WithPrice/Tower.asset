@@ -17,6 +17,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 83219fbdc8828cd43aaaf1598592c541, type: 3}
   IsTherePrice: 1
   BasePrice: 20
-  PriceIncrease: 10
+  PriceIncrease: 20
   Header: Basic Tower
-  Description: 
+  Description: Gives damage to nearby enemies.

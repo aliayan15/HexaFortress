@@ -50,7 +50,7 @@ MonoBehaviour:
   targetPoint: {fileID: 2392088910353168169}
   level: 6
   health: 50
-  moveSpeed: 1
+  moveSpeed: 1.2
   isFlyingUnit: 0
   reachedPositionDistance: 0.5
   slowPercent: 0.3

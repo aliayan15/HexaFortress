@@ -35,9 +35,24 @@ public class CastleTile : BasicTower
         UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
     }
 
+    public void UpgradeHealth(int bonusHealth)
+    {
+        castleHealth += bonusHealth;
+        UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
+    }
+    public void RepairHealth(short repairAmount)
+    {
+        _currentCastleHealth += repairAmount;
+        if (_currentCastleHealth > castleHealth)
+            _currentCastleHealth = castleHealth;
+        UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
+    }
+
     protected override void OnTurnStateChange(TurnStates state)
     {
         base.OnTurnStateChange(state);
     }
+
+
 }
 

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 2127997363828312412}
   level: 9
-  health: 90
+  health: 110
   moveSpeed: 1
   isFlyingUnit: 0
   reachedPositionDistance: 0.5

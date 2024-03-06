@@ -5,6 +5,8 @@ using UnityEngine;
 public class ToolTipSystem : SingletonMono<ToolTipSystem>
 {
     public ToolTip CurrentToolTip;
+    public bool CanShowUI { get; set; } = true;
+
     [SerializeField] private float delay = 0.3f;
     private void Start()
     {
@@ -13,6 +15,7 @@ public class ToolTipSystem : SingletonMono<ToolTipSystem>
 
     public static void Show(string content)
     {
+        if (!Instance.CanShowUI) return;
         Instance.Timer(Instance.delay, () =>
         {
             Instance.CurrentToolTip.SetText(content);
@@ -21,6 +24,7 @@ public class ToolTipSystem : SingletonMono<ToolTipSystem>
     }
     public static void Show(string content, string header)
     {
+        if (!Instance.CanShowUI) return;
         Instance.Timer(0.5f, () =>
         {
             Instance.CurrentToolTip.SetText(content, header);

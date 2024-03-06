@@ -75,6 +75,7 @@ namespace Players
                 _isBuildMode = false;
                 Destroy(_tileToBuild.gameObject);
                 _tileBase = null;
+                ToolTipSystem.Instance.CanShowUI = true;
             }
         }
 
@@ -118,6 +119,7 @@ namespace Players
             OnTilePlaced?.Invoke();
             TileManager.Instance.AddNewTile(_tileBase.MyType);
             _placedTileCount++;
+            ToolTipSystem.Instance.CanShowUI = true;
             CheckPlacedTileCount();
         }
 
@@ -136,6 +138,7 @@ namespace Players
             Vector3 pos = GetTargetPosition();
             _tileToBuild.position = pos;
             _isBuildMode = true;
+            ToolTipSystem.Instance.CanShowUI = false;
         }
 
         private void CantBuildHere()

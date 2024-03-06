@@ -9,6 +9,7 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Space(5)]
     [SerializeField] private bool showHeader = false;
 
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         Show();
@@ -27,6 +28,13 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         ToolTipSystem.Hide();
     }
 
-    
+    private void OnMouseEnter()
+    {
+        Show();
+    }
+    private void OnMouseExit()
+    {
+        ToolTipSystem.Hide();
+    }
 }
 

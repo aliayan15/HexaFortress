@@ -19,7 +19,9 @@ public enum TileType
     Grass,
     FishTile,
     Market,
-    TowerUpgrade
+    TowerUpgrade,
+    CastleRepair,
+    CastleHealthUpgrade
 }
 
 

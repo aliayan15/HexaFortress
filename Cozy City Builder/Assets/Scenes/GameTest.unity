@@ -578,7 +578,7 @@ MonoBehaviour:
     type: 3}
   gameData: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   tileMoveSpeed: 10
-  isDebug: 1
+  isDebug: 0
   tilesToPlace:
   - {fileID: 11400000, guid: c6d57a44bfbcb5d4ba568231c460d40f, type: 2}
   <MyGold>k__BackingField: 30
@@ -1268,11 +1268,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilesWithPrice:
+  - {fileID: 11400000, guid: ac22f9be7ebaf2b48a0bb5a4234be4be, type: 2}
   - {fileID: 11400000, guid: 436ac6407415cda4480c21a863df24fa, type: 2}
   - {fileID: 11400000, guid: 0cd4fcaa35d65fa4f93786a146151546, type: 2}
   - {fileID: 11400000, guid: 077b41c1067cddb4ab3c8586983fc19d, type: 2}
   - {fileID: 11400000, guid: 7042c9863684d2249a22898576071564, type: 2}
   - {fileID: 11400000, guid: 3d2f6f7c9ea39ab458a9a7b7bb1f5495, type: 2}
+  - {fileID: 11400000, guid: b35ea58411b75de4aadc7fab0673e36a, type: 2}
   freeTiles:
   - {fileID: 11400000, guid: 0dd17f59a2df6cf49bac343150fb4241, type: 2}
   - {fileID: 11400000, guid: e277d9f787255b54aaf8dda5ff664b5d, type: 2}

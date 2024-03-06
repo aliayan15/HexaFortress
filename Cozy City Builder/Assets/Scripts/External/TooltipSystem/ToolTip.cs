@@ -15,6 +15,13 @@ public class ToolTip : MonoBehaviour
     [SerializeField] int characterLimit;
     [SerializeField] int posOffset = 20;
 
+    private float _posYBorder;
+
+    private void Awake()
+    {
+        _posYBorder = Screen.height - (Screen.height / 3f);
+    }
+
     public void SetText(string text)
     {
         this.content.text = text;
@@ -46,8 +53,9 @@ public class ToolTip : MonoBehaviour
     {
         Vector2 mousePos = Input.mousePosition;
         float pivotX = mousePos.x / Screen.width;
-        float pivotY = mousePos.y / Screen.height;
-        mousePos.y += mousePos.y > (Screen.height / 2f) ? -posOffset : posOffset;
+        bool PosYCon = mousePos.y > _posYBorder;
+        float pivotY = PosYCon ? 1 : 0;
+        mousePos.y += PosYCon ? -posOffset : posOffset;
 
         rectTransform.pivot = new Vector2(pivotX, pivotY);
         transform.position = mousePos;

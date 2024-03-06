@@ -19,4 +19,4 @@ MonoBehaviour:
   BasePrice: 30
   PriceIncrease: 10
   Header: Market
-  Description: 
+  Description: Generates gold. Extra gold for surrounding houses.
