@@ -1,3 +1,4 @@
+using KBCore.Refs;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public Transform TargetPoint => targetPoint;
 
     [SerializeField] private Transform targetPoint;
+    [SerializeField, Child] private HealthBar healthBar;
     [HorizontalLine]
     [Header("Stats")]
     [SerializeField] private int level;
@@ -33,6 +35,11 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool _isDead;
     private float _posY = 0.45f;
 
+    private void OnValidate()
+    {
+        this.ValidateRefs();
+    }
+
     private void Start()
     {
         _transform = transform;
@@ -42,11 +49,10 @@ public class Enemy : MonoBehaviour, IDamageable
         _posY = EnemySpawner.Instance.EnemyPosY;
     }
 
-
-
     private void Update()
     {
         Move();
+        healthBar.LookCamera();
         if (_isSlow)
             SlowTimer();
     }
@@ -131,11 +137,13 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (_currentHealth <= 0)
             Ondead();
+        healthBar.UpdateBar((float)_currentHealth / health);
     }
 
     private void Ondead()
     {
         _isDead = true;
+        _currentHealth = 0;
         Destroy(gameObject);
     }
 

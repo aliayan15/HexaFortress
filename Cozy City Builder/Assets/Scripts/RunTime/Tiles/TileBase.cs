@@ -2,6 +2,7 @@ using Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum TileType
 {
@@ -77,6 +78,13 @@ public abstract class TileBase : MonoBehaviour
     public virtual bool CanBuildHere(HexGridNode grid)
     {
         return true;
+    }
+
+    public virtual void OnPlayerHand(bool onHand)
+    {
+    }
+    public virtual void OnPlayerInsert(bool onHand, HexGridNode myNode)
+    {
     }
 
     protected virtual void OnTurnStateChange(TurnStates state)

@@ -32,6 +32,7 @@ namespace Players
         private bool _isBuildMode = false;
         private bool _canBuild = false;
         private short _placedTileCount = 0;
+        private HexGridNode _lastInsertedGrid = null;
 
         private void Awake()
         {
@@ -72,10 +73,7 @@ namespace Players
             // cancel placing
             if (Input.GetMouseButtonDown(1))
             {
-                _isBuildMode = false;
-                Destroy(_tileToBuild.gameObject);
-                _tileBase = null;
-                ToolTipSystem.Instance.CanShowUI = true;
+                CanselSelection();
             }
         }
 
@@ -111,6 +109,14 @@ namespace Players
         }
 
         #region Building
+        private void CanselSelection()
+        {
+            _isBuildMode = false;
+            Destroy(_tileToBuild.gameObject);
+            _tileBase.OnPlayerHand(false);
+            _tileBase = null;
+            ToolTipSystem.Instance.CanShowUI = true;
+        }
         private void PlaceTile(HexGridNode grid)
         {
             _isBuildMode = false;
@@ -120,6 +126,7 @@ namespace Players
             TileManager.Instance.AddNewTile(_tileBase.MyType);
             _placedTileCount++;
             ToolTipSystem.Instance.CanShowUI = true;
+            _tileBase.OnPlayerHand(false);
             CheckPlacedTileCount();
         }
 
@@ -139,6 +146,7 @@ namespace Players
             _tileToBuild.position = pos;
             _isBuildMode = true;
             ToolTipSystem.Instance.CanShowUI = false;
+            _tileBase.OnPlayerHand(true);
         }
 
         private void CantBuildHere()
@@ -150,13 +158,36 @@ namespace Players
         {
             RaycastTile(out RaycastHit hit, out HexGridNode grid);
             Vector3 targetPos = new Vector3(hit.point.x, hit.point.y + 0.5f, hit.point.z);
-            if (grid != null)
+            if (grid == null)
             {
-                if (grid.CanBuildHere)
-                    targetPos = grid.Position;
+                if (_lastInsertedGrid != null)
+                    TileInserted(null, false);
+                return targetPos;
             }
+
+            if (grid.CanBuildHere)
+            {
+                targetPos = grid.Position;
+                if (_lastInsertedGrid != grid)
+                {
+                    TileInserted(_lastInsertedGrid, false);
+                    TileInserted(grid, true);
+                }
+
+                return targetPos;
+            }
+
+            if (_lastInsertedGrid != null)
+                TileInserted(null, false);
             return targetPos;
         }
+
+        private void TileInserted(HexGridNode grid, bool isnserted)
+        {
+            _tileBase.OnPlayerInsert(isnserted, grid);
+            _lastInsertedGrid = grid;
+        }
+
         private void RotateTile(TileBase tile, bool left = false)
         {
             tile.Rotate(left);

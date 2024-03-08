@@ -4,6 +4,7 @@ using UnityEngine;
 using Managers;
 using NaughtyAttributes;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace UI.CanvasManagers
 {
@@ -84,6 +85,11 @@ namespace UI.CanvasManagers
             goldToolTip.content = "Gold per day: +" + GameManager.Instance.player.GoldPerDay;
         }
         #endregion
+
+        public void StartAgain()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
         private void OnTurnStateChange(TurnStates state)
         {

@@ -37,7 +37,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
         if (tile.IsTherePrice && GameManager.Instance.DayCount != 1) // first day free
         {
             price.SetActive(true);
-            priceText.text = TileManager.Instance.GetPriceOfTile(tile.TileType, tile.BasePrice, tile.PriceIncrease) + " g";
+            priceText.text = TileManager.Instance.GetPriceOfTile(tile.TileType, tile.BasePrice, tile.PriceIncrease).ToString();
         }
         else
             price.SetActive(false);

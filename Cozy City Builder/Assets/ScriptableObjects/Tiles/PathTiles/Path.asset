@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4f381431fbb584ebfb4a513b8c941e, type: 3}
+  m_Name: Path
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 5062665910085932049, guid: 2f56fb88012750a46b55b8d566660b8c, type: 3}
+  TileType: 1
+  Icon: {fileID: 21300000, guid: f629a3f51fb8f764398dd7c4106a4db3, type: 3}
+  IsTherePrice: 0
+  BasePrice: 0
+  PriceIncrease: 0
+  Header: Enemy Path
+  Description: Enemies move along this path.

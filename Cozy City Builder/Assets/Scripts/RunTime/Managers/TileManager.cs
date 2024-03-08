@@ -49,6 +49,7 @@ public class TileManager : SingletonMono<TileManager>
         return basePrice + (count * priceIncrease);
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (EnemySpawnPoints.Count > 0)
@@ -60,5 +61,6 @@ public class TileManager : SingletonMono<TileManager>
         }
            
     }
+#endif
 }
 

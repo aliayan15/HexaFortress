@@ -7,6 +7,7 @@ using UnityEngine;
 public class CameraManager : SingletonMono<CameraManager>
 {
     public Camera MainCam => cam;
+    public Transform CamPosition => myCamera;
 
     [SerializeField] private Camera cam;
     [SerializeField] private Transform myCamera;

@@ -21,7 +21,12 @@ public class HexPathFinding
         _gridManager = gridManager;
         _gridSize = gridSize;
     }
-
+    /// <summary>
+    /// Return path vector from start to target or Null.
+    /// </summary>
+    /// <param name="startWorldPosition"></param>
+    /// <param name="endWorldPosition"></param>
+    /// <returns></returns>
     public List<Vector3> FindPath(Vector3 startWorldPosition, Vector3 endWorldPosition)
     {
         _gridManager.GetGridCoordinate(startWorldPosition, out int startX, out int startY);
