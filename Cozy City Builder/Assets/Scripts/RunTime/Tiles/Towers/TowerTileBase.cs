@@ -11,6 +11,7 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     [SerializeField] protected int baseDamage;
     [SerializeField] protected int damageUpgrade;
     [SerializeField] protected LayerMask enemyLayer;
+    [SerializeField] private SOGameProperties data;
 
     private WaitForSeconds _fireTimer;
     private bool _canFire = false;
@@ -42,21 +43,30 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     public void SetFlyingUnitBonus(bool haveBonus)
     {
         _damageData.HaveFlyingUnitBonus = haveBonus;
+        PlayPartical();
     }
 
     public void UpgradeCritEffect()
     {
         _damageData.CritChance += 10;
+        PlayPartical();
+    }
+
+    private void PlayPartical()
+    {
+        GameManager.Instance.player.PlayPartical(transform.position);
     }
 
     public void UpgradeSlowEffect()
     {
         _damageData.SlowChance += 10;
+        PlayPartical();
     }
 
     public void UpgradeTower()
     {
         _damageData.Damage += damageUpgrade;
+        PlayPartical();
     }
     #endregion
 

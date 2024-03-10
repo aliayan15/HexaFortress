@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4f381431fbb584ebfb4a513b8c941e, type: 3}
+  m_Name: Sheep
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 8590949152135092456, guid: 3867710a9f719fc4c9c0b31b00776972, type: 3}
+  TileType: 17
+  Icon: {fileID: 21300000, guid: e48d34e60a61ca540bc2843f42736622, type: 3}
+  IsTherePrice: 1
+  BasePrice: 50
+  PriceIncrease: 25
+  Header: Sheep Farm
+  Description: Produces gold. Extra gold for every surrounding grass

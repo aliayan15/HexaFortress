@@ -230,7 +230,11 @@ namespace Players
             }
             if (state == TurnStates.TurnEnd)
             {
-                this.Timer(0.2f, () => { GameManager.Instance.SetTurnState(TurnStates.TurnBegin); });
+                this.Timer(0.2f, () =>
+                {
+                    if (GameManager.Instance.GameState == GameStates.GAME)
+                        GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
+                });
             }
         }
         private void OnGameStateChange(GameStates state)
@@ -279,5 +283,12 @@ namespace Players
             }
         }
         #endregion
+
+        public void PlayPartical(Vector3 pos)
+        {
+            var par = Instantiate(gameData.BonusPar, pos, Quaternion.identity);
+            par.transform.position += Vector3.up * 0.2f;
+            par.Play();
+        }
     }
 }

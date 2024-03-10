@@ -2,7 +2,7 @@ using Managers;
 using UnityEngine;
 
 
-public class MarketTile : TileBase
+public class MarketTile : TileBase,ITileBonusEffect
 {
     public int ProdusedGoldAmount { get; private set; }
     [SerializeField] private SOTileGoldData data;
@@ -27,6 +27,7 @@ public class MarketTile : TileBase
         GameManager.Instance.player.AddGoldPerDay(-ProdusedGoldAmount);
         ProdusedGoldAmount += data.BonusGold;
         GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
+        GameManager.Instance.player.PlayPartical(transform.position);
     }
     protected override void OnEnable()
     {

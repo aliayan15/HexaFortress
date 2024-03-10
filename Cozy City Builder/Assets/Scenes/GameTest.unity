@@ -624,9 +624,9 @@ MonoBehaviour:
     type: 3}
   gameData: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   tileMoveSpeed: 10
-  isDebug: 0
+  isDebug: 1
   tilesToPlace:
-  - {fileID: 11400000, guid: 0cd4fcaa35d65fa4f93786a146151546, type: 2}
+  - {fileID: 11400000, guid: 7042c9863684d2249a22898576071564, type: 2}
   <MyGold>k__BackingField: 30
 --- !u!4 &283284495
 Transform:
@@ -1329,6 +1329,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7042c9863684d2249a22898576071564, type: 2}
   - {fileID: 11400000, guid: 3d2f6f7c9ea39ab458a9a7b7bb1f5495, type: 2}
   - {fileID: 11400000, guid: b35ea58411b75de4aadc7fab0673e36a, type: 2}
+  - {fileID: 11400000, guid: 663aa36c7fe035c45ab9fea29e6f0ae8, type: 2}
   freeTiles:
   - {fileID: 11400000, guid: 0dd17f59a2df6cf49bac343150fb4241, type: 2}
   - {fileID: 11400000, guid: e277d9f787255b54aaf8dda5ff664b5d, type: 2}
@@ -1359,6 +1360,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1820260741
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.069
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.726
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9076935
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4196339
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 49.623
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346283484583268080, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978387619276379210, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_Name
+      value: Tower (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978387619276379210, guid: 390fd23c446428745a027fdb69af8788,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 390fd23c446428745a027fdb69af8788, type: 3}
 --- !u!1 &1839547368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,7 +1475,7 @@ MonoBehaviour:
   boss1: {fileID: 6624950886399822867, guid: 1ffd546b9bfdf6248a3b8af64d52d11b, type: 3}
   boss2: {fileID: 0}
   boss3: {fileID: 0}
-  tier2Day: 30
+  tier2Day: 21
   tier3Day: 40
   spawnPointY: 0.2
 --- !u!4 &1839547370

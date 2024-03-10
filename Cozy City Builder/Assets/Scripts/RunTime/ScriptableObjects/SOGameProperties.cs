@@ -8,6 +8,7 @@ public class SOGameProperties : ScriptableObject
     [Header("Tiles")]
     public CastleTile Castle;
     public PathTile PathTile;
+    public ParticleSystem BonusPar;
 
 
     public static float GetTileRotation(int index)

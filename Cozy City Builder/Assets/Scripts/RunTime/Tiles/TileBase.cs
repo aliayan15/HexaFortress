@@ -22,7 +22,8 @@ public enum TileType
     Market,
     TowerUpgrade,
     CastleRepair,
-    CastleHealthUpgrade
+    CastleHealthUpgrade,
+    Sheep
 }
 
 

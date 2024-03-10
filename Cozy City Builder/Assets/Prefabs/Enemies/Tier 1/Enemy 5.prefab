@@ -52,10 +52,10 @@ MonoBehaviour:
   targetPoint: {fileID: 2467504093269718289}
   healthBar: {fileID: 5647745353400217101}
   level: 12
-  health: 185
+  health: 230
   moveSpeed: 1.2
   isFlyingUnit: 1
-  reachedPositionDistance: 0.5
+  reachedPositionDistance: 0.2
   slowPercent: 0.3
   slowTime: 2
   damageToCastle: 1
