@@ -158,7 +158,8 @@ namespace Managers
             LoadNextScene();
 #endif
             //Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-            //ShowCursor(false);
+            ShowCursor(true);
+            Application.targetFrameRate = 60;
         }
 
         // Load next scene when main scene load.
@@ -166,6 +167,8 @@ namespace Managers
         {
             GameState = GameStates.NONE;
             TurnState = TurnStates.None;
+            UIManager.Instance.SetLoading();
+            DontDestroyOnLoad(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // next scene can be game or menu scene.
         }
 

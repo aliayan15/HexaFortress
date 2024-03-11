@@ -42,6 +42,8 @@ namespace Players
         private void Start()
         {
             GameManager.Instance.SetState(GameStates.GAME);
+            if (PlayerPrefs.GetInt("Info", 0) == 0)
+                UIManager.Instance.gameCanvasManager.ShowInfoUI(true);
         }
 
         private void Update()

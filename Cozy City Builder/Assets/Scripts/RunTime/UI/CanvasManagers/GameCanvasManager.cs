@@ -21,6 +21,7 @@ namespace UI.CanvasManagers
         [SerializeField] private TextMeshProUGUI tileCountText;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private ToolTipTrigger goldToolTip;
+        [SerializeField] private GameObject infoUI;
 
 
         #region Tiles
@@ -86,6 +87,13 @@ namespace UI.CanvasManagers
         }
         #endregion
 
+        public void ShowInfoUI(bool show)
+        {
+            infoUI.SetActive(show);
+            if (!show)
+                PlayerPrefs.SetInt("Info", 1);
+        }
+
         public void StartAgain()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -112,7 +120,7 @@ namespace UI.CanvasManagers
 
         private void OnGameStateChange(GameStates state)
         {
-            if (state != GameStates.GAME)
+            if (state != GameStates.GAME && state != GameStates.NONE)
             {
                 CloseAllTileButtons();
                 UpdateGoldUI();

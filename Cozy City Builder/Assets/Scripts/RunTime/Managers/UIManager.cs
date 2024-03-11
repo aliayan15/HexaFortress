@@ -13,7 +13,7 @@ namespace Managers
         public CanvasGrupItem GAMEWIN;
         public CanvasGrupItem GAMEOVER;
         public CanvasGrupItem MENU;
-        //public CanvasGrupItem LOADING;
+        public CanvasGrupItem LOADING;
 
 
         [Header("Canvas Scriptleri")]
@@ -24,7 +24,7 @@ namespace Managers
         protected override void Awake()
         {
             base.Awake();
-            _canvases = new[] { MENU, GAME, GAMEOVER, GAMEWIN };
+            _canvases = new[] { MENU, GAME, GAMEOVER, GAMEWIN, LOADING };
         }
 
         public void SetGameOver()
@@ -37,7 +37,7 @@ namespace Managers
         }
         public void SetLoading()
         {
-            //_canvases.HideAllExceptOne(LOADING);
+            _canvases.HideAllExceptOne(LOADING);
         }
         public void SetMenu()
         {
