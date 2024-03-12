@@ -25,6 +25,7 @@ namespace Players
         public int GoldPerDay { get; private set; } = 0;
         public int RemainingTileCount { get; set; }
         public UnityAction OnTilePlaced;
+        public UnityAction OnTileCanceled;
 
         private SOTileData _currentTile;
         private Transform _tileToBuild;
@@ -41,7 +42,7 @@ namespace Players
 
         private void Start()
         {
-            GameManager.Instance.SetState(GameStates.GAME);
+            GameManager.Instance.StartGame();
             if (PlayerPrefs.GetInt("Info", 0) == 0)
                 UIManager.Instance.gameCanvasManager.ShowInfoUI(true);
         }
@@ -60,7 +61,7 @@ namespace Players
             {
                 if (RaycastTile(out HexGridNode grid))
                 {
-                    if (!grid.CanBuildHere) { CantBuildHere(); return; }
+                    if (!grid.CanBuildHere) return;
                     if (!_tileBase.CanBuildHere(grid)) { CantBuildHere(); return; }
 
                     PlaceTile(grid);
@@ -118,6 +119,7 @@ namespace Players
             _tileBase.OnPlayerHand(false);
             _tileBase = null;
             ToolTipSystem.Instance.CanShowUI = true;
+            OnTileCanceled?.Invoke();
         }
         private void PlaceTile(HexGridNode grid)
         {
@@ -141,6 +143,8 @@ namespace Players
         public void EnterBuildMode(SOTileData tile)
         {
             if (!_canBuild) return;
+            if (_isBuildMode)
+                CanselSelection();
             _currentTile = tile;
             _tileToBuild = Instantiate(_currentTile.Prefab).transform;
             _tileBase = _tileToBuild.GetComponent<TileBase>();

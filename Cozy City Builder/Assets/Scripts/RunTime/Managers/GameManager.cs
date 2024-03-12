@@ -145,6 +145,8 @@ namespace Managers
         }
         #endregion
 
+
+
         private void Start()
         {
 #if UNITY_EDITOR
@@ -172,6 +174,11 @@ namespace Managers
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // next scene can be game or menu scene.
         }
 
+        public void StartGame()
+        {
+            DayCount = 1;
+            SetState(GameStates.GAME);
+        }
 
         #region Mouse Visibility
         public void ShowCursor(bool show)
@@ -180,6 +187,8 @@ namespace Managers
                 Cursor.lockState = CursorLockMode.None;
             Cursor.visible = show;
         }
+
+
         #endregion
 
     }

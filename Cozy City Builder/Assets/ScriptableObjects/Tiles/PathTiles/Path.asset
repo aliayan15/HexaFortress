@@ -19,4 +19,4 @@ MonoBehaviour:
   BasePrice: 0
   PriceIncrease: 0
   Header: Enemy Path
-  Description: Enemies move along this path.
+  Description: Enemies move along this path. Only can be placed next to another path.

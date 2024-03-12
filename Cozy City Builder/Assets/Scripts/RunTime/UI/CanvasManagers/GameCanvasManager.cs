@@ -25,21 +25,23 @@ namespace UI.CanvasManagers
 
 
         #region Tiles
-        private void GetTiles()
+        public void GetTiles()
         {
+            int tileWithPrice = 4;
+            int freeTile = 3;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < tileWithPrice; i++)
                 selectTileButtons[i].SetTile(TileSelector.Instance.GetTileWithPrice());
-            for (int i = 0; i < 3; i++)
-                selectTileButtons[i + 3].SetTile(TileSelector.Instance.GetFreeTile());
+            for (int i = 0; i < freeTile; i++)
+                selectTileButtons[i + tileWithPrice].SetTile(TileSelector.Instance.GetFreeTile());
 
 
-            selectTileButtons[6].SetTile(TileSelector.Instance.GetPathTile());
+            selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile());
             int rndNum = Random.Range(0, 100);
-            if (rndNum < 45)
-                selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile());
+            if (rndNum < 40)
+                selectTileButtons[8].SetTile(TileSelector.Instance.GetPathTile());
             else
-                selectTileButtons[7].DeActivate();
+                selectTileButtons[8].DeActivate();
 
             foreach (SelectTileButton button in selectTileButtons)
                 if (button.MyTile == null)

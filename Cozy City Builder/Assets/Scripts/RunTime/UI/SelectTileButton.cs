@@ -19,6 +19,8 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public int TilePrice { get; private set; }
 
     private SOTileData _myTile;
+    private bool _isPressed = false;
+
 
     private void OnValidate()
     {
@@ -44,6 +46,8 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         layoutElement.ignoreLayout = false;
         canvasItem.Toogle(true);
+        if (_isPressed)
+            UnsubscribeAction();
     }
 
     public void DeActivate()
@@ -51,6 +55,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
         canvasItem.Toogle(false);
         layoutElement.ignoreLayout = true;
         _myTile = null;
+        _isPressed = false;
     }
 
     public void OnButtonPressed()
@@ -65,8 +70,16 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
             }
         }
         // player build
+        if (_isPressed) return;
         GameManager.Instance.player.EnterBuildMode(_myTile);
         GameManager.Instance.player.OnTilePlaced += OnTilePlaced;
+        GameManager.Instance.player.OnTileCanceled += OnTileCanceled;
+        _isPressed = true;
+    }
+
+    private void OnTileCanceled()
+    {
+        UnsubscribeAction();
     }
 
     private void OnTilePlaced()
@@ -74,8 +87,17 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
         if (!_myTile) return;
         if (_myTile.IsTherePrice)
             GameManager.Instance.player.AddGold(-TilePrice);
+        
+        UnsubscribeAction();
         DeActivate();
+    }
+
+    private void UnsubscribeAction()
+    {
+        if (!_isPressed) return;
         GameManager.Instance.player.OnTilePlaced -= OnTilePlaced;
+        GameManager.Instance.player.OnTileCanceled -= OnTileCanceled;
+        _isPressed = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
