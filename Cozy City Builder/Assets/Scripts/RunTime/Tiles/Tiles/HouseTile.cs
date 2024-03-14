@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HouseTile : TileBase
 {
+    [SerializeField] ParticleSystem smokePar;
     public override void Init(HexGridNode myNode)
     {
         base.Init(myNode);
@@ -19,6 +20,7 @@ public class HouseTile : TileBase
                 market.DoBonusEffect();
             }
         }
+        smokePar.Play();
     }
 }
 

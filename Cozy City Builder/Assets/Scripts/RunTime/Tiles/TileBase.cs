@@ -93,6 +93,11 @@ public abstract class TileBase : MonoBehaviour
 
     }
 
+    public virtual void OnDayBegin()
+    {
+        Debug.Log("Gold");
+    }
+
     protected virtual void OnEnable()
     {
         GameManager.OnTurnStateChange += OnTurnStateChange;

@@ -98,7 +98,7 @@ namespace UI.CanvasManagers
 
         public void StartAgain()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(1);
         }
 
         private void OnTurnStateChange(TurnStates state)

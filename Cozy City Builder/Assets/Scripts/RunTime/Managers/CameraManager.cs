@@ -34,6 +34,7 @@ public class CameraManager : SingletonMono<CameraManager>
         _newPosition = transform.position;
         _newRotation = transform.rotation;
         _newZoom = myCamera.transform.localPosition;
+        _movementSpeed = normalSpeed;
     }
 
     private void LateUpdate()
@@ -43,14 +44,14 @@ public class CameraManager : SingletonMono<CameraManager>
 
     private void HandleInput()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            _movementSpeed = fastSpeed;
-        }
-        else
-        {
-            _movementSpeed = normalSpeed;
-        }
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    _movementSpeed = fastSpeed;
+        //}
+        //else
+        //{
+        //    _movementSpeed = normalSpeed;
+        //}
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
@@ -69,24 +70,24 @@ public class CameraManager : SingletonMono<CameraManager>
             _newPosition += (transform.right * -_movementSpeed);
         }
 
-        if (Input.GetKey(KeyCode.Q))
-        {
-            _newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            _newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
-        }
+        //if (Input.GetKey(KeyCode.Q))
+        //{
+        //    _newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
+        //}
+        //if (Input.GetKey(KeyCode.E))
+        //{
+        //    _newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
+        //}
 
-        if (Input.GetKey(KeyCode.R))
-        {
-            _newZoom += zoomAmount;
+        //if (Input.GetKey(KeyCode.R))
+        //{
+        //    _newZoom += zoomAmount;
 
-        }
-        if (Input.GetKey(KeyCode.F))
-        {
-            _newZoom -= zoomAmount;
-        }
+        //}
+        //if (Input.GetKey(KeyCode.F))
+        //{
+        //    _newZoom -= zoomAmount;
+        //}
 
         _newPosition.x = Mathf.Max(lowBorder.x, _newPosition.x);
         _newPosition.x = Mathf.Min(highBorder.x, _newPosition.x);
@@ -95,7 +96,7 @@ public class CameraManager : SingletonMono<CameraManager>
 
         transform.position = Vector3.Lerp(transform.position, _newPosition, Time.deltaTime * movementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, Time.deltaTime * movementTime);
-        myCamera.transform.localPosition = Vector3.Lerp(myCamera.transform.localPosition, _newZoom, Time.deltaTime * movementTime);
+        //myCamera.transform.localPosition = Vector3.Lerp(myCamera.transform.localPosition, _newZoom, Time.deltaTime * movementTime);
     }
 
     public void TeleportPosition(Vector3 pos)

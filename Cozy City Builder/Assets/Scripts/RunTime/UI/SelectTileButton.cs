@@ -75,6 +75,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
         GameManager.Instance.player.OnTilePlaced += OnTilePlaced;
         GameManager.Instance.player.OnTileCanceled += OnTileCanceled;
         _isPressed = true;
+        AudioManager.Instance.PlayBtnSound();
     }
 
     private void OnTileCanceled()

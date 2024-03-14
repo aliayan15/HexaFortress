@@ -178,6 +178,7 @@ namespace Managers
         {
             DayCount = 1;
             SetState(GameStates.GAME);
+            AudioManager.Instance.ClearAudioList();
         }
 
         #region Mouse Visibility

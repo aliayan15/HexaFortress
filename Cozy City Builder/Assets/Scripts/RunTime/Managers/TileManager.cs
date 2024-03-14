@@ -1,4 +1,7 @@
+using DG.Tweening;
+using Managers;
 using MyUtilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +11,11 @@ public class TileManager : SingletonMono<TileManager>
 {
     public Dictionary<TileType, int> TileCount = new Dictionary<TileType, int>();
     public List<Vector3> EnemySpawnPoints = new List<Vector3>();
+
+    [SerializeField] private GameObject goldIconPref;
+
+    private HashSet<TileBase> _economyTiles = new HashSet<TileBase>();
+    private WaitForSeconds _animDelay = new WaitForSeconds(1.3f);
 
     #region Enemy Spawn Points
     public void AddEnemySpawnPoint(Vector3 spawnPoint)
@@ -20,7 +28,42 @@ public class TileManager : SingletonMono<TileManager>
         if (EnemySpawnPoints.Contains(spawnPoint))
             EnemySpawnPoints.Remove(spawnPoint);
     }
-    
+
+    #endregion
+
+    #region Economy
+    public void AddEconomyTile(TileBase tile)
+    {
+        _economyTiles.Add(tile);
+    }
+
+    private IEnumerator EconomyTileProdection()
+    {
+        yield return new WaitForSeconds(1f);
+        var time = new WaitForSeconds(0.3f);
+        foreach (var tile in _economyTiles)
+        {
+            // create gold icon
+            StartCoroutine(CreateGoldIceon(tile.transform));
+            yield return time;
+        }
+    }
+    private IEnumerator CreateGoldIceon(Transform tile)
+    {
+        var goldIcon = Instantiate(goldIconPref, tile.transform.position, Quaternion.identity);
+        goldIcon.transform.LookAt(goldIcon.transform.position + CameraManager.Instance.CamPosition.rotation * Vector3.forward,
+             CameraManager.Instance.CamPosition.rotation * Vector3.up);
+        float scale = goldIcon.transform.localScale.x;
+        goldIcon.transform.localScale = Vector3.zero;
+        goldIcon.transform.DOMoveY(tile.transform.position.y + 2.5f, 0.3f);
+        goldIcon.transform.DOScale(scale, 0.3f);
+        AudioManager.Instance.Play2DSound(SoundTypes.GoldProduce);
+        yield return _animDelay;
+        goldIcon.transform.DOScale(0, 0.2f).OnComplete(() =>
+        {
+            Destroy(goldIcon);
+        });
+    }
     #endregion
 
     public void AddNewTile(TileType type)
@@ -49,6 +92,25 @@ public class TileManager : SingletonMono<TileManager>
         return basePrice + (count * priceIncrease);
     }
 
+
+
+    private void OnTurnStateChange(TurnStates states)
+    {
+        if (states == TurnStates.TurnBegin && GameManager.Instance.DayCount != 1)
+            StartCoroutine(EconomyTileProdection());
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnTurnStateChange += OnTurnStateChange;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnTurnStateChange -= OnTurnStateChange;
+    }
+
+
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -59,7 +121,7 @@ public class TileManager : SingletonMono<TileManager>
                 Gizmos.DrawSphere(item, 0.5f);
             }
         }
-           
+
     }
 #endif
 }

@@ -1,10 +1,10 @@
 using KBCore.Refs;
+using Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class BasicTower : TowerTileBase
 {
     [HorizontalLine]
@@ -12,14 +12,10 @@ public class BasicTower : TowerTileBase
     [SerializeField] private Transform firePoint;
     [SerializeField] private Projectile projectile;
 
-    [SerializeField, Self] private AudioSource fireSource;
 
     private Enemy _currentTarget = null;
 
-    private void OnValidate()
-    {
-        this.ValidateRefs();
-    }
+    
 
     protected override void OnFire()
     {
@@ -40,7 +36,7 @@ public class BasicTower : TowerTileBase
         // shoot
         var bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
         bullet.SetTarget(_currentTarget.TargetPoint, _damageData);
-        fireSource.Play();
+        AudioManager.Instance.Play2DSound(SoundTypes.TowerFire);
     }
 
     private Enemy GetEnemy()

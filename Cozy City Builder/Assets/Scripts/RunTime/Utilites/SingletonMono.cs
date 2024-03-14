@@ -10,7 +10,11 @@ namespace MyUtilities
         protected virtual void Awake()
         {
             if (Instance == null) Instance = this as T;
-            else Debug.LogError($"More that one instance of {typeof(T).Name} found.", this);
+            else
+            {
+                Debug.LogWarning($"More that one instance of {typeof(T).Name} found.", this);
+                Instance = this as T;
+            }
         }
     }
 

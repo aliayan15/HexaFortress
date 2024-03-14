@@ -38,6 +38,7 @@ public class CastleTile : BasicTower
     public void UpgradeHealth(int bonusHealth)
     {
         castleHealth += bonusHealth;
+        _currentCastleHealth+= bonusHealth;
         UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
         GameManager.Instance.player.PlayPartical(transform.position);
     }

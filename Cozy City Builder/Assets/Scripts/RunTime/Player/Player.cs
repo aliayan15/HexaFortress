@@ -19,6 +19,8 @@ namespace Players
         [Header("Debug")]
         [SerializeField] private bool isDebug;
         [SerializeField] private SOTileData[] tilesToPlace;
+        [Header("Animation")]
+        [SerializeField] private AnimationCurve placementAnimY;
 
         [field: SerializeField]
         public int MyGold { get; private set; }
@@ -130,8 +132,11 @@ namespace Players
             TileManager.Instance.AddNewTile(_tileBase.MyType);
             _placedTileCount++;
             ToolTipSystem.Instance.CanShowUI = true;
+            var anim = _tileToBuild.gameObject.AddComponent<CurveAnimation>();
+            anim.curve = placementAnimY;
             _tileBase.OnPlayerHand(false);
             CheckPlacedTileCount();
+            AudioManager.Instance.Play2DSound(SoundTypes.TilePlace);
         }
 
         private void UpdatePosition()

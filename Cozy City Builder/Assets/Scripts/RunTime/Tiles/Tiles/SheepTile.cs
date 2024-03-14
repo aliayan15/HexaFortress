@@ -22,6 +22,7 @@ public class SheepTile : TileBase, ITileBonusEffect
             if (surroundingTile.MyTile.MyType == TileType.Grass)
                 DoBonusEffect();
         }
+        TileManager.Instance.AddEconomyTile(this);
     }
 
     public void DoBonusEffect()

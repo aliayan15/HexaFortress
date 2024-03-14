@@ -20,6 +20,7 @@ public class MarketTile : TileBase,ITileBonusEffect
             if (surroundingTile.MyTile.MyType == TileType.House)
                 DoBonusEffect();
         }
+        TileManager.Instance.AddEconomyTile(this);
     }
 
     public void DoBonusEffect()

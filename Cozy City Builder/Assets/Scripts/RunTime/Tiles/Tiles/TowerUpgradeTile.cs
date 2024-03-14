@@ -5,6 +5,7 @@ using UnityEngine;
     
 public class TowerUpgradeTile : TileBase
 {
+    [SerializeField] ParticleSystem smokePar;
     public override void Init(HexGridNode myNode)
     {
         base.Init(myNode);
@@ -19,6 +20,7 @@ public class TowerUpgradeTile : TileBase
                 market.UpgradeTower();
             }
         }
+        smokePar.Play();
     }
 }
 

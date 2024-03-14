@@ -16,7 +16,7 @@ MonoBehaviour:
   TileType: 13
   Icon: {fileID: 21300000, guid: d8c3ba5bbc6ce1c4a8d2226de13cb1a2, type: 3}
   IsTherePrice: 1
-  BasePrice: 45
-  PriceIncrease: 20
+  BasePrice: 50
+  PriceIncrease: 25
   Header: Market
-  Description: Produces gold. Extra gold for every surrounding houses.
+  Description: Produces gold  for every surrounding houses.

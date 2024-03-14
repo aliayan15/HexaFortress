@@ -52,7 +52,7 @@ MonoBehaviour:
   healthBar: {fileID: 2163330893990236035}
   level: 9
   health: 110
-  moveSpeed: 1
+  moveSpeed: 1.2
   isFlyingUnit: 0
   reachedPositionDistance: 0.2
   slowPercent: 0.3
@@ -169,13 +169,55 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3773368730949671011, guid: 90a62bd1af481134b90eb5bb542f16c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: 90a62bd1af481134b90eb5bb542f16c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 90a62bd1af481134b90eb5bb542f16c2,
         type: 3}
       propertyPath: m_Name
       value: Yeti
       objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: 90a62bd1af481134b90eb5bb542f16c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90a62bd1af481134b90eb5bb542f16c2, type: 3}
+--- !u!1 &1640430664350438374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 90a62bd1af481134b90eb5bb542f16c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1874222223255482039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1138707951145743894
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640430664350438374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7184edd4abcfced489aff46bb6d515b3, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &2127997363828312412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 90a62bd1af481134b90eb5bb542f16c2,

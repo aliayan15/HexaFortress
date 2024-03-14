@@ -51,7 +51,7 @@ MonoBehaviour:
   targetPoint: {fileID: 2392088910353168169}
   healthBar: {fileID: 450357707378976387}
   level: 6
-  health: 50
+  health: 60
   moveSpeed: 1.2
   isFlyingUnit: 0
   reachedPositionDistance: 0.2
@@ -169,10 +169,50 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3773368730949671011, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: -722188493401636389, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 1.5821838
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 86.647125
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
         type: 3}
       propertyPath: m_Name
       value: Chicken
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 84.8866
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43c38daa7a8fe0b4580eb1d5e256a205, type: 3}
@@ -182,6 +222,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2790210101330120898}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3060680402842693011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c38daa7a8fe0b4580eb1d5e256a205,
+    type: 3}
+  m_PrefabInstance: {fileID: 2790210101330120898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6511012325552367575
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3060680402842693011}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 425088a59bbd38f4aa53476d58f26802, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &9040475628260778437
 PrefabInstance:
   m_ObjectHideFlags: 0

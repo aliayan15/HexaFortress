@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Fields
   m_EditorClassIdentifier: 
   BaseGold: 10
-  BonusGold: 5
+  BonusGold: 0
