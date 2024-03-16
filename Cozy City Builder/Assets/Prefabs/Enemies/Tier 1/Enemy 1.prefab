@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 7214931958122429904}
   healthBar: {fileID: 2065938647}
+  data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   level: 1
   health: 15
   moveSpeed: 1.2

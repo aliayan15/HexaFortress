@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [SerializeField] private Transform targetPoint;
     [SerializeField, Child] private HealthBar healthBar;
+    [SerializeField] private SOGameProperties data;
     [HorizontalLine]
     [Header("Stats")]
     [SerializeField] private int level;
@@ -144,6 +145,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _isDead = true;
         _currentHealth = 0;
+        Instantiate(data.EnemyDeadPar, targetPoint.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

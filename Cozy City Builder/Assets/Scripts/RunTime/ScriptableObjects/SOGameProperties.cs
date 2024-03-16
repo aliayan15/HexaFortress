@@ -9,7 +9,7 @@ public class SOGameProperties : ScriptableObject
     public CastleTile Castle;
     public PathTile PathTile;
     public ParticleSystem BonusPar;
-
+    public ParticleSystem EnemyDeadPar;
 
     public static float GetTileRotation(int index)
     {

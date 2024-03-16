@@ -15,7 +15,7 @@ public class BasicTower : TowerTileBase
 
     private Enemy _currentTarget = null;
 
-    
+
 
     protected override void OnFire()
     {
@@ -44,14 +44,22 @@ public class BasicTower : TowerTileBase
         var cols = Physics.OverlapSphere(transform.position, range, enemyLayer, QueryTriggerInteraction.Collide);
         if (cols == null) return null;
         if (cols.Length == 0) return null;
-        foreach (var collider in cols)
+        float dis = float.PositiveInfinity;
+        int index = -1;
+        for (int i = 0; i < cols.Length; i++)
         {
-            if (collider.TryGetComponent(out Enemy enemy))
+            if (cols[i].TryGetComponent(out Enemy enemy))
             {
-                return enemy;
+                float disTotower = Vector3.Distance(enemy.transform.position, transform.position);
+                if (disTotower < dis)
+                {
+                    index = i;
+                    dis = disTotower;
+                }
             }
         }
-        return null;
+        if (index == -1) return null;
+        else return cols[index].GetComponent<Enemy>();
     }
 
 #if UNITY_EDITOR

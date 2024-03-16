@@ -54,7 +54,7 @@ namespace Players
             if (isDebug)
                 DebugGame();
 
-            if (!_canBuild) return;
+            if (!_canBuild) return; // onGame
             if (!_isBuildMode) return;
 
             UpdatePosition();
@@ -250,10 +250,9 @@ namespace Players
         }
         private void OnGameStateChange(GameStates state)
         {
-            if (state == GameStates.GAMEOVER)
-            {
-                _canBuild = false;
-            }
+            bool isGame = state == GameStates.GAME;
+            _canBuild = isGame;
+            ToolTipSystem.Instance.CanShowUI = isGame;
         }
 
         private void OnEnable()

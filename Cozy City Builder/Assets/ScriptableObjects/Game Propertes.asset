@@ -15,3 +15,5 @@ MonoBehaviour:
   Castle: {fileID: 1717599790558461261, guid: e370268a1f56eb643a4c5467473939b1, type: 3}
   PathTile: {fileID: 782414045, guid: 2f56fb88012750a46b55b8d566660b8c, type: 3}
   BonusPar: {fileID: 198108421688386642, guid: c9eb15264aa6c4348b00d5b9b3daab2a, type: 3}
+  EnemyDeadPar: {fileID: 198355779183106702, guid: 3b517eddec185dd4a830743a742ad00b,
+    type: 3}

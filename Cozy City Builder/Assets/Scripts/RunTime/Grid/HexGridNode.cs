@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -46,7 +47,14 @@ public class HexGridNode
     public void ActivetePlaceHolder(bool active)
     {
         if (MyTile != null && active) return;
+        if (active && CanBuildHere) return;
         tilePlaceHolder.gameObject.SetActive(active);
+        if (active)
+        {
+            tilePlaceHolder.transform.DOKill();
+            tilePlaceHolder.transform.localScale = Vector3.zero;
+            tilePlaceHolder.transform.DOScale(1.95f, 0.4f);
+        }
         CanBuildHere = active;
     }
 

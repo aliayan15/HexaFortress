@@ -21,7 +21,9 @@ namespace UI.CanvasManagers
         [SerializeField] private TextMeshProUGUI tileCountText;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private ToolTipTrigger goldToolTip;
+        [SerializeField] private ToolTipTrigger castleToolTip;
         [SerializeField] private GameObject infoUI;
+        [SerializeField] private Animator buildingUIAnim;
 
 
         #region Tiles
@@ -46,6 +48,7 @@ namespace UI.CanvasManagers
             foreach (SelectTileButton button in selectTileButtons)
                 if (button.MyTile == null)
                     button.DeActivate();
+            buildingUIAnim.SetTrigger("Open");
 
         }
         private void GetStartTiles()
@@ -55,11 +58,13 @@ namespace UI.CanvasManagers
             {
                 selectTileButtons[i].SetTile(tiles[i]);
             }
+            buildingUIAnim.SetTrigger("Open");
         }
         private void CloseAllTileButtons()
         {
             foreach (SelectTileButton button in selectTileButtons)
                 button.DeActivate();
+            buildingUIAnim.SetTrigger("Close");
         }
         #endregion
 
@@ -86,6 +91,11 @@ namespace UI.CanvasManagers
         public void UpdateGoldToolTip()
         {
             goldToolTip.content = "Gold per day: +" + GameManager.Instance.player.GoldPerDay;
+        }
+        public void UpdateCastleToolTip()
+        {
+            castleToolTip.content = "Game over when castle health reaches 0.\n" +
+                "Castle repair per day: " + TileManager.Instance.GetTileCount(TileType.CastleRepair);
         }
         #endregion
 
@@ -129,6 +139,10 @@ namespace UI.CanvasManagers
                 UpdateDayUI();
                 UpdateTileCountUI();
                 UpdateCastleHealthUI();
+            }
+            if(state == GameStates.GAME)
+            {
+                UpdateCastleToolTip();
             }
         }
 

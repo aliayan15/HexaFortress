@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Managers;
 using MyUtilities;
 using System.Collections;
@@ -76,17 +77,17 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     {
         if (GameManager.Instance.DayCount >= tier3Day)
         {
-            int num = SpawnFromArray(tier3, 3f);
+            int num = SpawnFromArray(tier3, 4f);
             if (num > 0)
                 return num;
         }
         if (GameManager.Instance.DayCount >= tier2Day)
         {
-            int num = SpawnFromArray(tier2, 2f);
+            int num = SpawnFromArray(tier2, 3f);
             if (num > 0)
                 return num;
         }
-        int num1 = SpawnFromArray(tier1, 1f);
+        int num1 = SpawnFromArray(tier1, 2f);
         return num1;
     }
     private int SpawnFromArray(Enemy[] enemies, float multiplier)
@@ -95,7 +96,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
         for (int i = enemies.Length - 1; i >= 0; --i)
         {
             bool canSpawnThisEnemy = enemies[i].Level <= GameManager.Instance.DayCount
-                && UnityEngine.Random.Range(0.0f, 1f) < (multiplier / enemies[i].Level);
+                && UnityEngine.Random.Range(0.0f, 1.0f) < (multiplier / enemies[i].Level);
             if (canSpawnThisEnemy)
             {
                 SpawnEnemy(enemies[i]);
@@ -110,6 +111,9 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
         _lastSpawnPos.y = spawnPointY;
         Enemy newEnemy = Instantiate(enemy, _lastSpawnPos, Quaternion.identity);
         newEnemy.SetMovePosition(_paths[_pathIndex]);
+        Vector3 scale = newEnemy.transform.localScale;
+        newEnemy.transform.localScale = Vector3.zero;
+        newEnemy.transform.DOScale(scale, 0.2f);
         _enemyList.Add(newEnemy);
     }
     private void SpawnBoss()
