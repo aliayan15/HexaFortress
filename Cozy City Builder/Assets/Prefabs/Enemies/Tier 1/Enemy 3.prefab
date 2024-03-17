@@ -52,7 +52,7 @@ MonoBehaviour:
   healthBar: {fileID: 450357707378976387}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   level: 6
-  health: 100
+  health: 80
   moveSpeed: 1.2
   isFlyingUnit: 0
   reachedPositionDistance: 0.2

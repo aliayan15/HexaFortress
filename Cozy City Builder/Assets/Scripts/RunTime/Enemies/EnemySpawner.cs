@@ -77,17 +77,17 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     {
         if (GameManager.Instance.DayCount >= tier3Day)
         {
-            int num = SpawnFromArray(tier3, 4f);
+            int num = SpawnFromArray(tier3, 3f);
             if (num > 0)
                 return num;
         }
         if (GameManager.Instance.DayCount >= tier2Day)
         {
-            int num = SpawnFromArray(tier2, 3f);
+            int num = SpawnFromArray(tier2, 2f);
             if (num > 0)
                 return num;
         }
-        int num1 = SpawnFromArray(tier1, 2f);
+        int num1 = SpawnFromArray(tier1, 1f);
         return num1;
     }
     private int SpawnFromArray(Enemy[] enemies, float multiplier)

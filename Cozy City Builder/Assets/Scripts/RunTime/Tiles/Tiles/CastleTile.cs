@@ -27,10 +27,10 @@ public class CastleTile : BasicTower
     public void TakeDamage(short damage)
     {
         _currentCastleHealth -= damage;
-        if (_currentCastleHealth < 0)
+        if (_currentCastleHealth <= 0)
         {
             GameManager.Instance.SetState(GameStates.GAMEOVER);
-            Debug.Log("Game over");
+            //Debug.Log("Game over");
         }
         UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
     }
@@ -38,7 +38,7 @@ public class CastleTile : BasicTower
     public void UpgradeHealth(int bonusHealth)
     {
         castleHealth += bonusHealth;
-        _currentCastleHealth+= bonusHealth;
+        _currentCastleHealth += bonusHealth;
         UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
         GameManager.Instance.player.PlayPartical(transform.position);
     }

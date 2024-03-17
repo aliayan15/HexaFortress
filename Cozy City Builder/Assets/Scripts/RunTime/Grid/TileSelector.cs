@@ -12,6 +12,7 @@ public class TileSelector : SingletonMono<TileSelector>
     [SerializeField] private SOTileData[] pathTiles;
     [Space(10)]
     [SerializeField] private SOTileData[] startTiles;
+    [SerializeField] private SOTileData[] towers;
 
     private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
     private List<SOTileData> _openFreeTilesList = new List<SOTileData>();
@@ -26,6 +27,11 @@ public class TileSelector : SingletonMono<TileSelector>
     {
         _openFreeTilesList = freeTiles.ToList();
         _openTilesPricelist = tilesWithPrice.ToList();
+    }
+
+    public SOTileData GetTowerTile()
+    {
+        return towers[Random.Range(0, towers.Length)];
     }
 
     public SOTileData GetTileWithPrice()

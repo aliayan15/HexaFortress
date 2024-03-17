@@ -33,7 +33,11 @@ namespace UI.CanvasManagers
             int freeTile = 3;
 
             for (int i = 0; i < tileWithPrice; i++)
+            {
+                if (i == 0) { selectTileButtons[i].SetTile(TileSelector.Instance.GetTowerTile()); continue; }
                 selectTileButtons[i].SetTile(TileSelector.Instance.GetTileWithPrice());
+            }
+
             for (int i = 0; i < freeTile; i++)
                 selectTileButtons[i + tileWithPrice].SetTile(TileSelector.Instance.GetFreeTile());
 
@@ -140,7 +144,7 @@ namespace UI.CanvasManagers
                 UpdateTileCountUI();
                 UpdateCastleHealthUI();
             }
-            if(state == GameStates.GAME)
+            if (state == GameStates.GAME)
             {
                 UpdateCastleToolTip();
             }

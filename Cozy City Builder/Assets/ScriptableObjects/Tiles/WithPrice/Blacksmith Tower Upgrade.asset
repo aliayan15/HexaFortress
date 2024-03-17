@@ -17,6 +17,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 6086b0feceb70c6438fc60085a17f370, type: 3}
   IsTherePrice: 1
   BasePrice: 30
-  PriceIncrease: 25
+  PriceIncrease: 30
   Header: Blacksmith
   Description: Upgrades surrounding towers.

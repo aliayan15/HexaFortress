@@ -2378,7 +2378,6 @@ MonoBehaviour:
   tilesWithPrice:
   - {fileID: 11400000, guid: ac22f9be7ebaf2b48a0bb5a4234be4be, type: 2}
   - {fileID: 11400000, guid: 436ac6407415cda4480c21a863df24fa, type: 2}
-  - {fileID: 11400000, guid: 0cd4fcaa35d65fa4f93786a146151546, type: 2}
   - {fileID: 11400000, guid: 077b41c1067cddb4ab3c8586983fc19d, type: 2}
   - {fileID: 11400000, guid: 7042c9863684d2249a22898576071564, type: 2}
   - {fileID: 11400000, guid: 3d2f6f7c9ea39ab458a9a7b7bb1f5495, type: 2}
@@ -2399,6 +2398,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 246cc45d2acd53743a5606fc2736a284, type: 2}
   - {fileID: 11400000, guid: c6d57a44bfbcb5d4ba568231c460d40f, type: 2}
   - {fileID: 11400000, guid: c6d57a44bfbcb5d4ba568231c460d40f, type: 2}
+  towers:
+  - {fileID: 11400000, guid: 0cd4fcaa35d65fa4f93786a146151546, type: 2}
 --- !u!4 &1644370430
 Transform:
   m_ObjectHideFlags: 0

@@ -85,7 +85,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
-  range: 4
+  range: 5
   firePoint: {fileID: 1592246071}
   projectile: {fileID: 6724775678528028015, guid: 7eacf619bbc24414d81e2d4fc4cee316,
     type: 3}
