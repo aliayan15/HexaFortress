@@ -87,7 +87,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
             if (num > 0)
                 return num;
         }
-        int num1 = SpawnFromArray(tier1, 1f);
+        int num1 = SpawnFromArray(tier1, 1.5f);
         return num1;
     }
     private int SpawnFromArray(Enemy[] enemies, float multiplier)
