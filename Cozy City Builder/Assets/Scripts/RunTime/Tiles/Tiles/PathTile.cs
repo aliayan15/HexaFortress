@@ -1,6 +1,9 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Security.Cryptography;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 public class PathTile : TileBase
@@ -13,10 +16,6 @@ public class PathTile : TileBase
     public bool IsSpawnPoint { get; private set; } = false;
     public Transform[] ConnectionPoints => connectionPoints;
 
-    private PathTile _lastNearPath;
-
-    private bool _debug;
-
     public override void Init(HexGridNode myNode)
     {
         base.Init(myNode);
@@ -26,43 +25,53 @@ public class PathTile : TileBase
 
     private void CheckSpawnPoints()
     {
-        var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
-        foreach (var grid in neighbourGrids)
+        foreach (Transform t in spawnPoints)
         {
-            if (!grid.MyTile) continue;
-            if (grid.MyTile.MyType != TileType.Path) continue;
-            PathTile path = grid.MyTile as PathTile;
-            if (!path.IsSpawnPoint) continue;
-            var pathToCastle = GridManager.Instance.PathFinding.FindPath(_myHexNode.Position,
-                GridManager.Instance.PlayerCastle.MyHexNode.Position);
+            TileManager.Instance.AddEnemySpawnPoint(t.position);
+        }
+        var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
+        foreach (var item in neighbourGrids)
+        {
+            if (!item.MyTile) continue;
+            if (item.MyTile.MyType != TileType.Path) continue;
 
-            if (pathToCastle == null) return;
-            int myPathCount = pathToCastle.Count;
-            pathToCastle = GridManager.Instance.PathFinding.FindPath(grid.Position,
-                GridManager.Instance.PlayerCastle.MyHexNode.Position);
-            if (myPathCount > pathToCastle.Count)
+            PathTile pathTile = item.MyTile as PathTile;
+            // check surroundingGrid have connection point to this tile
+            for (int i = 0; i < pathTile.connectionPoints.Length; i++)
             {
-                path.SetSpawnPoint(false);
-                SetSpawnPoint(true);
-                _lastNearPath = path;
-                break;
+                if (_myHexNode != GridManager.Instance.GetGridNode(pathTile.connectionPoints[i].position)) continue;
+
+                // check this tile have connection point to surroundingGrid
+                for (int j = 0; j < connectionPoints.Length; j++)
+                {
+                    if (pathTile.MyHexNode != GridManager.Instance.GetGridNode(connectionPoints[j].position)) continue;
+
+                    // connection point
+                    // remove this spawn point
+                    RemoveSpawnPoint(j);
+                    // remove pathTile spawn point
+                    pathTile.RemoveSpawnPoint(i);
+                }
             }
-            if (myPathCount == pathToCastle.Count)
-            {
-                SetSpawnPoint(true);
-                break;
-            }
+
         }
     }
 
-    public void SetSpawnPoint(bool isSpawnPoint)
+    public void RemoveSpawnPoint(int index)
     {
-        IsSpawnPoint = isSpawnPoint;
-        if (IsSpawnPoint)
-            TileManager.Instance.AddEnemySpawnPoint(_myHexNode.Position);
-        else
-            TileManager.Instance.RemoveEnemySpawnPoint(_myHexNode.Position);
+        TileManager.Instance.RemoveEnemySpawnPoint(spawnPoints[index].position);
+    }
 
+    public void RemoveSpawnPointNearCastle()
+    {
+        for (int j = 0; j < connectionPoints.Length; j++)
+        {
+            if (GridManager.Instance.PlayerCastle.MyHexNode !=
+                GridManager.Instance.GetGridNode(connectionPoints[j].position)) continue;
+
+            // spawn point near castle for start path
+            RemoveSpawnPoint(j);
+        }
     }
 
     public override bool CanBuildHere(HexGridNode grid)
@@ -96,49 +105,7 @@ public class PathTile : TileBase
         return build;
     }
 
-    public override void OnPlayerHand(bool onHand)
-    {
-        PathTrace.Instance.DrawPath(onHand);
-    }
-    public override void OnPlayerInsert(bool onHand, HexGridNode myNode)
-    {
-        OnPlayerHand(false);
-        if (_lastNearPath != null)
-        {
-            _lastNearPath.SetSpawnPoint(true);
-            _lastNearPath = null;
-        }
-
-        if (onHand)
-        {
-            if (IsSpawnPoint) // already in spawn list
-                SetSpawnPoint(false);
-            if (!CanBuildHere(myNode)) // cant place there
-            {
-                OnPlayerHand(true);
-                _debug = true;
-                return;
-            }
-
-            _myHexNode = myNode;
-            _myHexNode.SetIsWalkable(true);
-            CheckSpawnPoints();
-            _myHexNode.SetIsWalkable(false);
-        }
-        else
-        {
-            if (_myHexNode == null)
-            {
-                OnPlayerHand(true);
-                return;
-            }
-            SetSpawnPoint(false);
-            _myHexNode.SetIsWalkable(false);
-            _myHexNode = null;
-        }
-
-        OnPlayerHand(true);
-    }
+   
 
     protected override void OnDisable()
     {

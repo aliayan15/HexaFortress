@@ -60,7 +60,7 @@ public class GridManager : SingletonMono<GridManager>
         var pathNode = GetGridNode(castle.PathPoint.position);
         PathTile path = Instantiate(gameData.PathTile, pathNode.Position, Quaternion.identity);
         path.Init(pathNode);
-        path.SetSpawnPoint(true);
+        path.RemoveSpawnPointNearCastle();
         floor.transform.position = castleGrid.Position;
     }
 

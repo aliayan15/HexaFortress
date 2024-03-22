@@ -42,10 +42,10 @@ namespace UI.CanvasManagers
             //    selectTileButtons[i + tileWithPrice].SetTile(TileSelector.Instance.GetFreeTile());
 
 
-            selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile(false));
+            selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile());
             int rndNum = Random.Range(0, 100);
-            if (rndNum < 40)
-                selectTileButtons[8].SetTile(TileSelector.Instance.GetPathTile(true));
+            if (rndNum < 50)
+                selectTileButtons[8].SetTile(TileSelector.Instance.GetPathTile());
             else
                 selectTileButtons[8].DeActivate();
 

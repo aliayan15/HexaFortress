@@ -17,6 +17,7 @@ public class TileSelector : SingletonMono<TileSelector>
 
     private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
     private List<SOTileData> _openFreeTilesList = new List<SOTileData>();
+    private List<SOTileData> _openPathTilesList = new List<SOTileData>();
     //private List<SOTileData> _tilesPricelist;
 
     private void Start()
@@ -28,6 +29,25 @@ public class TileSelector : SingletonMono<TileSelector>
     {
         _openFreeTilesList = freeTiles.ToList();
         _openTilesPricelist = tilesWithPrice.ToList();
+        ConstractPathList();
+    }
+
+    private void ConstractPathList()
+    {
+        _openPathTilesList.Clear();
+        for (int i = 0; i < 4; i++)
+        {
+            _openPathTilesList.Add(pathTiles[0]);
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            _openPathTilesList.Add(pathTiles[1]);
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            _openPathTilesList.Add(pathTiles[3]);
+        }
+        _openPathTilesList.Shuffle();
     }
 
     public SOTileData GetTowerTile()
@@ -57,11 +77,15 @@ public class TileSelector : SingletonMono<TileSelector>
         return tile;
     }
 
-    public SOTileData GetPathTile(bool isFree)
+    public SOTileData GetPathTile()
     {
-        if (isFree)
-            return pathTiles[1];
-        return pathTiles[0];
+        int index = Random.Range(0, _openPathTilesList.Count);
+        var tile = _openPathTilesList[index];
+        _openPathTilesList.RemoveAt(index);
+        if (_openPathTilesList.Count == 3)
+            ConstractPathList();
+
+        return tile;
     }
 
     public SOTileData[] GetStartTiles()
