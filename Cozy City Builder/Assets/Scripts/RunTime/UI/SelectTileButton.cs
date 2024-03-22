@@ -4,6 +4,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 
@@ -20,6 +21,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     private SOTileData _myTile;
     private bool _isPressed = false;
+    private bool _isCurrentTileFree = false;
 
 
     private void OnValidate()
@@ -38,11 +40,15 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
         iconImage.sprite = tile.Icon;
         if (tile.IsTherePrice && GameManager.Instance.DayCount != 1) // first day free
         {
+            _isCurrentTileFree = false;
             price.SetActive(true);
             priceText.text = TileManager.Instance.GetPriceOfTile(tile.TileType, tile.BasePrice, tile.PriceIncrease).ToString();
         }
         else
+        {
+            _isCurrentTileFree = true;
             price.SetActive(false);
+        }
 
         layoutElement.ignoreLayout = false;
         canvasItem.Toogle(true);
@@ -60,7 +66,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnButtonPressed()
     {
-        if (_myTile.IsTherePrice)
+        if (!_isCurrentTileFree)
         {
             TilePrice = TileManager.Instance.GetPriceOfTile(_myTile.TileType, _myTile.BasePrice, _myTile.PriceIncrease);
             if (GameManager.Instance.player.MyGold < TilePrice)
@@ -86,9 +92,13 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
     private void OnTilePlaced()
     {
         if (!_myTile) return;
-        if (_myTile.IsTherePrice)
+        if (!_isCurrentTileFree)
+        {
             GameManager.Instance.player.AddGold(-TilePrice);
-        
+            TileManager.Instance.AddNewTile(_myTile.TileType);
+        }
+
+
         UnsubscribeAction();
         DeActivate();
     }

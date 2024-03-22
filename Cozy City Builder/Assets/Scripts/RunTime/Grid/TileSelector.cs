@@ -9,6 +9,7 @@ public class TileSelector : SingletonMono<TileSelector>
 {
     [SerializeField] private SOTileData[] tilesWithPrice;
     [SerializeField] private SOTileData[] freeTiles;
+    [Tooltip("1: Free, 0: Price")]
     [SerializeField] private SOTileData[] pathTiles;
     [Space(10)]
     [SerializeField] private SOTileData[] startTiles;
@@ -56,28 +57,11 @@ public class TileSelector : SingletonMono<TileSelector>
         return tile;
     }
 
-    public SOTileData GetPathTile(bool isRandom = false)
+    public SOTileData GetPathTile(bool isFree)
     {
-        if (isRandom)
-        {
-            return pathTiles[Random.Range(0, pathTiles.Length)];
-        }
-        // total 3 type
-        if (GameManager.Instance.DayCount == 1)
-            return pathTiles[0];
-        if (GameManager.Instance.DayCount == 2)
-        {
-            int rndNum = Random.Range(0, 100);
-            return rndNum < 50 ? pathTiles[0] : pathTiles[1];
-        }
-
-        int rndNum2 = Random.Range(0, 100);
-        if (rndNum2 < 33)
-            return pathTiles[0];
-        else if (rndNum2 >= 33 && rndNum2 < 67)
+        if (isFree)
             return pathTiles[1];
-        else
-            return pathTiles[2];
+        return pathTiles[0];
     }
 
     public SOTileData[] GetStartTiles()

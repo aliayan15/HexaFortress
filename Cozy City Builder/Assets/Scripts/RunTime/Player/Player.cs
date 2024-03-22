@@ -25,6 +25,7 @@ namespace Players
         [field: SerializeField]
         public int MyGold { get; private set; }
         public int GoldPerDay { get; private set; } = 0;
+        public int ExpensesPerDay { get; private set; } = 0;
         public int RemainingTileCount { get; set; }
         public UnityAction OnTilePlaced;
         public UnityAction OnTileCanceled;
@@ -129,12 +130,13 @@ namespace Players
             _tileToBuild.transform.position = grid.Position;
             _tileBase.Init(grid);
             OnTilePlaced?.Invoke();
-            TileManager.Instance.AddNewTile(_tileBase.MyType);
-            _placedTileCount++;
+            // placement anim
             ToolTipSystem.Instance.CanShowUI = true;
             var anim = _tileToBuild.gameObject.AddComponent<CurveAnimation>();
             anim.curve = placementAnimY;
+
             _tileBase.OnPlayerHand(false);
+            _placedTileCount++;
             CheckPlacedTileCount();
             AudioManager.Instance.Play2DSound(SoundTypes.TilePlace);
         }
@@ -219,12 +221,19 @@ namespace Players
         public void AddGold(int amount)
         {
             MyGold += amount;
+            if (MyGold < 0)
+                MyGold = 0;
             UIManager.Instance.gameCanvasManager.UpdateGoldUI();
         }
 
         public void AddGoldPerDay(int amount)
         {
             GoldPerDay += amount;
+            UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
+        }
+        public void AddExpensesPerDay(int amount)
+        {
+            ExpensesPerDay += amount;
             UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
         }
         #endregion
@@ -238,6 +247,7 @@ namespace Players
                 _placedTileCount = 0;
                 CheckPlacedTileCount();
                 AddGold(GoldPerDay);
+                AddGold(-ExpensesPerDay);
             }
             if (state == TurnStates.TurnEnd)
             {

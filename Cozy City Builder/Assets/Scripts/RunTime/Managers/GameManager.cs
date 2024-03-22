@@ -30,7 +30,6 @@ namespace Managers
 
         [HideInInspector] public Player player { get; set; }
         public int DayCount { get; private set; } = 1;
-        [SerializeField] private int gameWinDay;
 
 
         [Space(10)]
@@ -138,7 +137,7 @@ namespace Managers
         {
             DayCount += day;
             UIManager.Instance.gameCanvasManager.UpdateDayUI();
-            if (DayCount == gameWinDay)
+            if (DayCount == EnemySpawner.Instance.GameEndDay)
             {
                 SetState(GameStates.GAMEWIN);
             }

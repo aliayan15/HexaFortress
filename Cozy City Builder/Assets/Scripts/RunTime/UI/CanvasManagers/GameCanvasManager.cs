@@ -30,7 +30,7 @@ namespace UI.CanvasManagers
         public void GetTiles()
         {
             int tileWithPrice = 4;
-            int freeTile = 3;
+            //int freeTile = 3;
 
             for (int i = 0; i < tileWithPrice; i++)
             {
@@ -38,14 +38,14 @@ namespace UI.CanvasManagers
                 selectTileButtons[i].SetTile(TileSelector.Instance.GetTileWithPrice());
             }
 
-            for (int i = 0; i < freeTile; i++)
-                selectTileButtons[i + tileWithPrice].SetTile(TileSelector.Instance.GetFreeTile());
+            //for (int i = 0; i < freeTile; i++)
+            //    selectTileButtons[i + tileWithPrice].SetTile(TileSelector.Instance.GetFreeTile());
 
 
-            selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile());
+            selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile(false));
             int rndNum = Random.Range(0, 100);
             if (rndNum < 40)
-                selectTileButtons[8].SetTile(TileSelector.Instance.GetPathTile());
+                selectTileButtons[8].SetTile(TileSelector.Instance.GetPathTile(true));
             else
                 selectTileButtons[8].DeActivate();
 
@@ -94,7 +94,8 @@ namespace UI.CanvasManagers
 
         public void UpdateGoldToolTip()
         {
-            goldToolTip.content = "Gold per day: +" + GameManager.Instance.player.GoldPerDay;
+            goldToolTip.content = "Daily gold producing: +" + GameManager.Instance.player.GoldPerDay + "\n"
+                + "Daily gold spending: -" + GameManager.Instance.player.ExpensesPerDay;
         }
         public void UpdateCastleToolTip()
         {

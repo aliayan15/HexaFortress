@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 14
+  goldExpense: 20
   smokePar: {fileID: 5172029873467583282}
 --- !u!1001 &4973918444101919236
 PrefabInstance:

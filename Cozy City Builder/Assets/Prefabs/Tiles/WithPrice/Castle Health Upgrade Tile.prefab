@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileType: 16
   bonusHealth: 1
+  goldExpense: 10
 --- !u!1001 &1719152892574913385
 PrefabInstance:
   m_ObjectHideFlags: 0

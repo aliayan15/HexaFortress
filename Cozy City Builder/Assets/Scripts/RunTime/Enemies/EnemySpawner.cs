@@ -19,10 +19,12 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     [Space(5)]
     [SerializeField] private int tier2Day;
     [SerializeField] private int tier3Day;
+    [SerializeField] private int gameEndDay;
     [Space(10)]
     [SerializeField] private float spawnPointY;
 
     public float EnemyPosY => spawnPointY;
+    public int GameEndDay => gameEndDay;
 
     private bool isDebug = false;
     private bool _isSpawning;
@@ -93,16 +95,19 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     private int SpawnFromArray(Enemy[] enemies, float multiplier)
     {
         int num = 0;
+        float rndPlus = 0f;
         for (int i = enemies.Length - 1; i >= 0; --i)
         {
             bool canSpawnThisEnemy = enemies[i].Level <= GameManager.Instance.DayCount
-                && UnityEngine.Random.Range(0.0f, 1.0f) < (multiplier / enemies[i].Level);
+                && UnityEngine.Random.Range(0.0f, 1.0f) < (multiplier / enemies[i].Level) + rndPlus;
             if (canSpawnThisEnemy)
             {
                 SpawnEnemy(enemies[i]);
                 num = Mathf.Max(Mathf.RoundToInt(enemies[i].Level / multiplier), 1);
                 break;
             }
+            else
+                rndPlus += 0.1f;
         }
         return num;
     }

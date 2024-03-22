@@ -15,8 +15,8 @@ MonoBehaviour:
   Prefab: {fileID: 5835298419494901580, guid: c7e71e067ff715646aaada55455a65a7, type: 3}
   TileType: 11
   Icon: {fileID: 21300000, guid: 78e8238e4fa304547984198a56c710ba, type: 3}
-  IsTherePrice: 0
-  BasePrice: 0
-  PriceIncrease: 0
+  IsTherePrice: 1
+  BasePrice: 5
+  PriceIncrease: 5
   Header: Grass
   Description: Empty area.

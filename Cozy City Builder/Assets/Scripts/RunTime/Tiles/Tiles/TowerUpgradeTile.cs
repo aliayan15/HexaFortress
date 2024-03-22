@@ -1,10 +1,12 @@
+using Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-    
+
 public class TowerUpgradeTile : TileBase
 {
+    [SerializeField] private int goldExpense;
     [SerializeField] ParticleSystem smokePar;
     public override void Init(HexGridNode myNode)
     {
@@ -21,6 +23,7 @@ public class TowerUpgradeTile : TileBase
             }
         }
         smokePar.Play();
+        GameManager.Instance.player.AddExpensesPerDay(goldExpense);
     }
 }
 
