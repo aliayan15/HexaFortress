@@ -333,6 +333,7 @@ MonoBehaviour:
     type: 3}
   gameData: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   tileMoveSpeed: 10
+  tileCountPerDay: 6
   isDebug: 1
   tilesToPlace:
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}

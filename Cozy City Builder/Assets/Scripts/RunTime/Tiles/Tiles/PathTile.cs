@@ -75,7 +75,23 @@ public class PathTile : TileBase
             if (item.MyTile.MyType == TileType.Castle)
                 return false;
             if (item.MyTile.MyType == TileType.Path)
-                build = true;
+            {
+
+                PathTile pathTile = item.MyTile as PathTile;
+                // check surroundingGrid have connection point to this tile
+                foreach (var point in pathTile.connectionPoints)
+                {
+                    if (grid == GridManager.Instance.GetGridNode(point.position))
+                    {
+                        // check this tile have connection point to surroundingGrid
+                        foreach (var myPoint in connectionPoints)
+                        {
+                            if (pathTile.MyHexNode == GridManager.Instance.GetGridNode(myPoint.position))
+                                build = true;
+                        }
+                    }
+                }
+            }
         }
         return build;
     }

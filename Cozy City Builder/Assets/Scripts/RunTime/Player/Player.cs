@@ -14,7 +14,7 @@ namespace Players
         [SerializeField] private SOGameProperties gameData;
         [Header("Settings")]
         [SerializeField] private float tileMoveSpeed = 10.0f;
-        [SerializeField] private const short tileCountPerDay = 4;
+        [SerializeField] private short tileCountPerDay = 4;
         [Space(10)]
         [Header("Debug")]
         [SerializeField] private bool isDebug;
