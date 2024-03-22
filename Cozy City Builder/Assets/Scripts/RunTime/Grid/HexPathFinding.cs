@@ -121,53 +121,14 @@ public class HexPathFinding
     private List<HexGridNode> GetNeighbourList(HexGridNode currentNode)
     {
         List<HexGridNode> neighbourList = new List<HexGridNode>();
+        // get path tile
+        PathTile pathTile=currentNode.MyTile as PathTile;
+        if(pathTile==null) return neighbourList;
 
-        bool oddRow = currentNode.y % 2 == 1;
-
-        if (currentNode.x - 1 >= 0)
+        foreach (var point in pathTile.ConnectionPoints)
         {
-            // Left
-            neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
+            neighbourList.Add(_gridManager.GetGridNode(point.position));
         }
-        if (currentNode.x + 1 < _gridSize.x)
-        {
-            // Right
-            neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y));
-        }
-        if (currentNode.y - 1 >= 0)
-        {
-            // Down
-            neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));
-        }
-        if (currentNode.y + 1 < _gridSize.y)
-        {
-            // Up
-            neighbourList.Add(GetNode(currentNode.x, currentNode.y + 1));
-        }
-
-        if (oddRow)
-        {
-            if (currentNode.y + 1 < _gridSize.y && currentNode.x + 1 < _gridSize.x)
-            {
-                neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
-            }
-            if (currentNode.y - 1 >= 0 && currentNode.x + 1 < _gridSize.x)
-            {
-                neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
-            }
-        }
-        else
-        {
-            if (currentNode.y + 1 < _gridSize.y && currentNode.x - 1 >= 0)
-            {
-                neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
-            }
-            if (currentNode.y - 1 >= 0 && currentNode.x - 1 >= 0)
-            {
-                neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
-            }
-        }
-
 
         return neighbourList;
     }

@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class PathTile : TileBase
 {
+    [Header("Settings")]
+    [SerializeField] private Transform[] connectionPoints;
+    [SerializeField] private Transform[] spawnPoints;
+
+
     public bool IsSpawnPoint { get; private set; } = false;
+    public Transform[] ConnectionPoints => connectionPoints;
+
     private PathTile _lastNearPath;
 
     private bool _debug;

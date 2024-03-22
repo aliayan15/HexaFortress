@@ -40,7 +40,7 @@ public class PathTrace : SingletonMono<PathTrace>
                     else continue;
                 }
                 Vector3 pos = path[i];
-                pos.y = 0.3f;
+                pos.y = 0.5f;
                 newLine.Line.SetPosition(i, pos);
 
                 linePoints.Add(path[i]);
