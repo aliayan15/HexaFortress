@@ -19,7 +19,7 @@ public class TowerUpgradeTile : TileBase
             if (surroundingTile.MyTile.MyType == TileType.Tower)
             {
                 TowerTileBase market = surroundingTile.MyTile as TowerTileBase;
-                market.UpgradeTower();
+                market.DamageUpgradeTower();
             }
         }
         smokePar.Play();

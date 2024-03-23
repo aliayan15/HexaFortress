@@ -1,5 +1,4 @@
 using Managers;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,10 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     [Header("Settings")]
     [SerializeField] protected float fireTime;
     [SerializeField] protected int baseDamage;
+    [SerializeField] protected int armorDamage;
     [SerializeField] protected int damageUpgrade;
+    [SerializeField] protected int armorDamageUpgrade;
+    [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] private SOGameProperties data;
 
@@ -22,7 +24,7 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     {
         base.Init(myNode);
         _fireTimer = new WaitForSeconds(fireTime);
-        _damageData = new DamageData(baseDamage);
+        _damageData = new DamageData(baseDamage, armorDamage);
         StartCoroutine(FireTimer());
         CheckUpgradeTile();
     }
@@ -35,14 +37,15 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
             if (!surroundingTile.MyTile)
                 continue;
             if (surroundingTile.MyTile.MyType == TileType.TowerUpgrade)
-                UpgradeTower();
+                DamageUpgradeTower();
         }
     }
 
     #region Upgrade
-    public void SetFlyingUnitBonus(bool haveBonus)
+    public void SetEnemyTypeBonus(EnemyType type)
     {
-        _damageData.HaveFlyingUnitBonus = haveBonus;
+        if (_damageData.TypeBonus != EnemyType.None) return;
+        _damageData.TypeBonus = type;
         PlayPartical();
     }
 
@@ -63,9 +66,15 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
         PlayPartical();
     }
 
-    public void UpgradeTower()
+    public void DamageUpgradeTower()
     {
         _damageData.Damage += damageUpgrade;
+        PlayPartical();
+    }
+
+    public void UpgradeArmorDamage()
+    {
+        _damageData.ArmorDamage += armorDamageUpgrade;
         PlayPartical();
     }
     #endregion
@@ -93,4 +102,6 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     {
         _canFire = state == TurnStates.EnemySpawnStart;
     }
+
+   
 }

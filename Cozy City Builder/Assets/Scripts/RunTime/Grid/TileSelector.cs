@@ -45,7 +45,7 @@ public class TileSelector : SingletonMono<TileSelector>
         }
         for (int i = 0; i < 2; i++)
         {
-            _openPathTilesList.Add(pathTiles[3]);
+            _openPathTilesList.Add(pathTiles[2]);
         }
         _openPathTilesList.Shuffle();
     }
@@ -61,8 +61,11 @@ public class TileSelector : SingletonMono<TileSelector>
         var tile = _openTilesPricelist[index];
         _openTilesPricelist.RemoveAt(index);
         if (_openTilesPricelist.Count == 0)
+        {
             _openTilesPricelist = tilesWithPrice.ToList();
-
+            _openTilesPricelist.Shuffle();
+        }
+           
         return tile;
     }
 

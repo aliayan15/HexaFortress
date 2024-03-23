@@ -80,7 +80,10 @@ MonoBehaviour:
   tileType: 5
   fireTime: 1
   baseDamage: 15
+  armorDamage: 15
   damageUpgrade: 5
+  armorDamageUpgrade: 5
+  enemyType: 6
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

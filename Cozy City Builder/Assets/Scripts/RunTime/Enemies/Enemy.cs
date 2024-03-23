@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    public bool IsFlyingUnit => isFlyingUnit;
+    public EnemyType EnemyType => enemyType;
     public int Level => level;
     public Transform TargetPoint => targetPoint;
 
@@ -18,8 +18,9 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Stats")]
     [SerializeField] private int level;
     [SerializeField] private int health;
+    [SerializeField] private int armor;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private bool isFlyingUnit;
+    [SerializeField] private EnemyType enemyType;
     [SerializeField] private float reachedPositionDistance = 0.1f;
     [SerializeField] private float slowPercent = 0.3f;
     [SerializeField] private float slowTime = 2f;
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private int _pathIndex = -1;
     private Transform _transform;
     private int _currentHealth;
+    private int _currentArmor;
     private float _currentMoveSpeed;
     private bool _isSlow;
     private float _slowTimer;
@@ -45,9 +47,14 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _transform = transform;
         _currentHealth = health;
+        _currentArmor = armor;
         _currentMoveSpeed = moveSpeed;
         _slowTimer = slowTime;
         _posY = EnemySpawner.Instance.EnemyPosY;
+        float ratioH = (float)_currentHealth / health;
+        float ratioA = (float)_currentArmor / armor;
+        healthBar.Init(ratioH + ratioA);
+        healthBar.UpdateBar(ratioH, ratioA);
     }
 
     private void Update()
@@ -125,20 +132,32 @@ public class Enemy : MonoBehaviour, IDamageable
         if (_isDead) return;
         int rndCritNum = Random.Range(0, 101);
         if (rndCritNum <= damage.CritChance)
+        {
             damage.Damage *= 2;
+            damage.ArmorDamage *= 2;
+        }
+
 
         int rndSlowNum = Random.Range(0, 101);
         if (rndSlowNum <= damage.SlowChance)
             SlowDown();
 
-        if (damage.HaveFlyingUnitBonus && isFlyingUnit)
+        if (damage.TypeBonus == enemyType)
             damage.Damage = Mathf.FloorToInt(damage.Damage * 1.3f);
 
-        _currentHealth -= damage.Damage;
+        if (_currentArmor > 0)
+            _currentArmor -= damage.ArmorDamage;
+        else
+            _currentHealth -= damage.Damage;
 
         if (_currentHealth <= 0)
             Ondead();
-        healthBar.UpdateBar((float)_currentHealth / health);
+        if (_currentArmor < 0)
+            _currentArmor = 0;
+
+        float ratioH = (float)_currentHealth / health;
+        float ratioA = (float)_currentArmor / armor;
+        healthBar.UpdateBar(ratioH, ratioA);
     }
 
     private void Ondead()

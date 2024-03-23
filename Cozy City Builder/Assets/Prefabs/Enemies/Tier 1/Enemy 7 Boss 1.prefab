@@ -85,8 +85,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   level: 17
   health: 1500
+  armor: 0
   moveSpeed: 1
-  isFlyingUnit: 0
+  enemyType: 2
   reachedPositionDistance: 0.2
   slowPercent: 0.3
   slowTime: 2

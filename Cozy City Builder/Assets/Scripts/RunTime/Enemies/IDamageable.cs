@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 public interface IDamageable
 {
     public void TakeDamage(DamageData damage);
@@ -8,14 +10,24 @@ public interface IDamageable
 public struct DamageData
 {
     public int Damage;
+    public int ArmorDamage;
     public int CritChance;
     public int SlowChance;
-    public bool HaveFlyingUnitBonus;
-    public DamageData(int d)
+    public EnemyType TypeBonus;
+    public DamageData(int d, int aD)
     {
         Damage = d;
+        ArmorDamage = aD;
         CritChance = 0;
         SlowChance = 0;
-        HaveFlyingUnitBonus = false;
+        TypeBonus = EnemyType.None;
     }
+}
+
+[Flags]
+public enum EnemyType
+{
+    None = 1,
+    Ground = 2,
+    Air = 4
 }

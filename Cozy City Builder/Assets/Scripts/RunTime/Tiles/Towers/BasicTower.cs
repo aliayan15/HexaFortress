@@ -15,8 +15,6 @@ public class BasicTower : TowerTileBase
 
     private Enemy _currentTarget = null;
 
-
-
     protected override void OnFire()
     {
         // check distance
@@ -50,6 +48,7 @@ public class BasicTower : TowerTileBase
         {
             if (cols[i].TryGetComponent(out Enemy enemy))
             {
+                if ((enemy.EnemyType & enemyType) == 0) continue;
                 float disTotower = Vector3.Distance(enemy.transform.position, transform.position);
                 if (disTotower < dis)
                 {

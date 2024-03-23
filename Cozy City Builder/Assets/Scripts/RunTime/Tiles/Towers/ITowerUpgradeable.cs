@@ -6,7 +6,8 @@ public interface ITowerUpgradeable
 {
     public void UpgradeSlowEffect();
     public void UpgradeCritEffect();
-    public void UpgradeTower();
-    public void SetFlyingUnitBonus(bool haveBonus);
+    public void DamageUpgradeTower();
+    public void UpgradeArmorDamage();
+    public void SetEnemyTypeBonus(EnemyType type);
 
 }
