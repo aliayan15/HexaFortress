@@ -52,7 +52,9 @@ public class Enemy : MonoBehaviour, IDamageable
         _slowTimer = slowTime;
         _posY = EnemySpawner.Instance.EnemyPosY;
         float ratioH = (float)_currentHealth / health;
-        float ratioA = (float)_currentArmor / armor;
+        float ratioA = 0f;
+        if (armor > 0)
+            ratioA = (float)_currentArmor / armor;
         healthBar.Init(ratioH + ratioA);
         healthBar.UpdateBar(ratioH, ratioA);
     }
@@ -156,7 +158,9 @@ public class Enemy : MonoBehaviour, IDamageable
             _currentArmor = 0;
 
         float ratioH = (float)_currentHealth / health;
-        float ratioA = (float)_currentArmor / armor;
+        float ratioA = 0f;
+        if (armor > 0)
+            ratioA = (float)_currentArmor / armor;
         healthBar.UpdateBar(ratioH, ratioA);
     }
 

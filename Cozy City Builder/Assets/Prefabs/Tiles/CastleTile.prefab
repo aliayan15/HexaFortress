@@ -128,7 +128,7 @@ MonoBehaviour:
     type: 3}
   drawGizmos: 0
   PathPoint: {fileID: 845194439}
-  castleHealth: 10
+  castleHealth: 5
   goldPerDay: 10
 --- !u!65 &1273134735
 BoxCollider:

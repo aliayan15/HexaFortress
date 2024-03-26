@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Market
   m_EditorClassIdentifier: 
   BaseGold: 0
-  BonusGold: 5
+  BonusGold: 10

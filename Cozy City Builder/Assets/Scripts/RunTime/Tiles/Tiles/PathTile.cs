@@ -51,6 +51,12 @@ public class PathTile : TileBase
                     RemoveSpawnPoint(j);
                     // remove pathTile spawn point
                     pathTile.RemoveSpawnPoint(i);
+
+                    if (TileManager.Instance.EnemySpawnPoints.Count == 0)
+                    {
+                        // path connected
+                        pathTile.AddSpawnPoint(i);
+                    }
                 }
             }
 
@@ -60,6 +66,10 @@ public class PathTile : TileBase
     public void RemoveSpawnPoint(int index)
     {
         TileManager.Instance.RemoveEnemySpawnPoint(spawnPoints[index].position);
+    }
+    public void AddSpawnPoint(int index)
+    {
+        TileManager.Instance.AddEnemySpawnPoint(spawnPoints[index].position);
     }
 
     public void RemoveSpawnPointNearCastle()
@@ -105,7 +115,7 @@ public class PathTile : TileBase
         return build;
     }
 
-   
+
 
     protected override void OnDisable()
     {

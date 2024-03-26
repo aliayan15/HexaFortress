@@ -1,3 +1,4 @@
+using Managers;
 using MyUtilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -79,15 +80,14 @@ public class CameraManager : SingletonMono<CameraManager>
         //    _newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
         //}
 
-        //if (Input.GetKey(KeyCode.R))
-        //{
-        //    _newZoom += zoomAmount;
-
-        //}
-        //if (Input.GetKey(KeyCode.F))
-        //{
-        //    _newZoom -= zoomAmount;
-        //}
+        if (Input.mouseScrollDelta.y > 0 && !GameManager.Instance.player.IsBuilding)
+        {
+            _newZoom += zoomAmount;
+        }
+        if (Input.mouseScrollDelta.y < 0 && !GameManager.Instance.player.IsBuilding)
+        {
+            _newZoom -= zoomAmount;
+        }
 
         _newPosition.x = Mathf.Max(lowBorder.x, _newPosition.x);
         _newPosition.x = Mathf.Min(highBorder.x, _newPosition.x);
@@ -95,8 +95,8 @@ public class CameraManager : SingletonMono<CameraManager>
         _newPosition.z = Mathf.Min(highBorder.y, _newPosition.z);
 
         transform.position = Vector3.Lerp(transform.position, _newPosition, Time.deltaTime * movementTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, Time.deltaTime * movementTime);
-        //myCamera.transform.localPosition = Vector3.Lerp(myCamera.transform.localPosition, _newZoom, Time.deltaTime * movementTime);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, Time.deltaTime * movementTime);
+        myCamera.transform.localPosition = Vector3.Lerp(myCamera.transform.localPosition, _newZoom, Time.deltaTime * movementTime);
     }
 
     public void TeleportPosition(Vector3 pos)

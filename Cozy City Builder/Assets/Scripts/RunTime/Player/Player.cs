@@ -27,6 +27,8 @@ namespace Players
         public int GoldPerDay { get; private set; } = 0;
         public int ExpensesPerDay { get; private set; } = 0;
         public int RemainingTileCount { get; set; }
+        public bool IsBuilding => _isBuildMode;
+
         public UnityAction OnTilePlaced;
         public UnityAction OnTileCanceled;
 
@@ -56,6 +58,12 @@ namespace Players
                 DebugGame();
 
             if (!_canBuild) return; // onGame
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // skip to night
+                GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
+            }
+
             if (!_isBuildMode) return;
 
             UpdatePosition();
