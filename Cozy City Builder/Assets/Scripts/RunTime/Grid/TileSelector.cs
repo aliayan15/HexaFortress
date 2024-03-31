@@ -7,18 +7,16 @@ using UnityEngine;
 
 public class TileSelector : SingletonMono<TileSelector>
 {
-    [SerializeField] private SOTileData[] tilesWithPrice;
-    [SerializeField] private SOTileData[] freeTiles;
+    [SerializeField] private List<SOTileData> tiles;
     [Tooltip("1: Free, 0: Price")]
-    [SerializeField] private SOTileData[] pathTiles;
+    [SerializeField] private List<SOTileData> pathTiles;
+    [SerializeField] private UnlockTile[] tilesToUnlock;
     [Space(10)]
     [SerializeField] private SOTileData[] startTiles;
     [SerializeField] private SOTileData[] towers;
 
     private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
-    private List<SOTileData> _openFreeTilesList = new List<SOTileData>();
     private List<SOTileData> _openPathTilesList = new List<SOTileData>();
-    //private List<SOTileData> _tilesPricelist;
 
     private void Start()
     {
@@ -27,26 +25,14 @@ public class TileSelector : SingletonMono<TileSelector>
 
     private void ResetList()
     {
-        _openFreeTilesList = freeTiles.ToList();
-        _openTilesPricelist = tilesWithPrice.ToList();
+        _openTilesPricelist = tiles.ToList();
         ConstractPathList();
     }
 
     private void ConstractPathList()
     {
         _openPathTilesList.Clear();
-        for (int i = 0; i < 4; i++)
-        {
-            _openPathTilesList.Add(pathTiles[0]);
-        }
-        for (int i = 0; i < 3; i++)
-        {
-            _openPathTilesList.Add(pathTiles[1]);
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            _openPathTilesList.Add(pathTiles[2]);
-        }
+        _openPathTilesList = pathTiles.ToList();
         _openPathTilesList.Shuffle();
     }
 
@@ -62,20 +48,9 @@ public class TileSelector : SingletonMono<TileSelector>
         _openTilesPricelist.RemoveAt(index);
         if (_openTilesPricelist.Count == 0)
         {
-            _openTilesPricelist = tilesWithPrice.ToList();
+            _openTilesPricelist = tiles.ToList();
             _openTilesPricelist.Shuffle();
         }
-           
-        return tile;
-    }
-
-    public SOTileData GetFreeTile()
-    {
-        int index = Random.Range(0, _openFreeTilesList.Count);
-        var tile = _openFreeTilesList[index];
-        _openFreeTilesList.RemoveAt(index);
-        if (_openFreeTilesList.Count == 0)
-            _openFreeTilesList = freeTiles.ToList();
 
         return tile;
     }
@@ -94,7 +69,7 @@ public class TileSelector : SingletonMono<TileSelector>
     public SOTileData[] GetStartTiles()
     {
         var list = new SOTileData[4];
-        var startList= startTiles.ToList();
+        var startList = startTiles.ToList();
         startList.Shuffle();
         for (int i = 0; i < 4; i++)
         {
@@ -104,4 +79,39 @@ public class TileSelector : SingletonMono<TileSelector>
         }
         return list;
     }
+
+    #region State Change
+    private void OnTurnStateChange(TurnStates state)
+    {
+        if (state == TurnStates.TurnBegin)
+        {
+            foreach (var tile in tilesToUnlock)
+            {
+                if (GameManager.Instance.DayCount == tile.UnlockDay && !tiles.Contains(tile.Tile))
+                {
+                    tiles.Add(tile.Tile);
+                    // UI ile bildirim verme
+                }
+                    
+            }
+        }
+    }
+
+
+    private void OnEnable()
+    {
+        GameManager.OnTurnStateChange += OnTurnStateChange;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnTurnStateChange -= OnTurnStateChange;
+    }
+    #endregion
+}
+
+[System.Serializable]
+public struct UnlockTile
+{
+    public SOTileData Tile;
+    public int UnlockDay;
 }

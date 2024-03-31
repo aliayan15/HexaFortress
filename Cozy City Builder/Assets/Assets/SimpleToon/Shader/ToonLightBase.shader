@@ -153,16 +153,16 @@ Shader "Lpk/LightModel/ToonLightBase"
                 float rim = smoothstep((1-_RimStep) - _RimStepSmooth * 0.5, (1-_RimStep) + _RimStepSmooth * 0.5, 0.5 - NV);
                 
                 //diffuse
-                float3 diffuse = _MainLightColor.rgb * baseMap * _BaseColor * shadowNL * shadow;
+                float3 diffuse = _MainLightColor.rgb * baseMap.rgb * _BaseColor.rgb * shadowNL * shadow;
                 
                 //specular
-                float3 specular = _SpecularColor * shadow * shadowNL *  specularNH;
+                float3 specular = _SpecularColor.rgb * shadow * shadowNL *  specularNH;
                 
                 //ambient
-                float3 ambient =  rim * _RimColor + SampleSH(N) * _BaseColor * baseMap;
+                float3 ambient =  rim * _RimColor.rgb + SampleSH(N) * _BaseColor.rgb * baseMap.rgb;
             
                 float3 finalColor = diffuse + ambient + specular;
-                finalColor = MixFog(finalColor, input.fogCoord);
+                //finalColor = MixFog(finalColor, input.fogCoord);
                 return float4(finalColor , 1.0);
             }
             ENDHLSL
@@ -203,7 +203,7 @@ Shader "Lpk/LightModel/ToonLightBase"
             {
                 v2f o;
                 VertexPositionInputs vertexInput = GetVertexPositionInputs(v.vertex.xyz);
-                o.pos = TransformObjectToHClip(float4(v.vertex.xyz + v.normal * _OutlineWidth * 0.1 ,1));
+                o.pos = TransformObjectToHClip(v.vertex.xyz + v.normal * _OutlineWidth * 0.1);
                 o.fogCoord = ComputeFogFactor(vertexInput.positionCS.z);
 
                 return o;
@@ -211,8 +211,8 @@ Shader "Lpk/LightModel/ToonLightBase"
 
             float4 frag(v2f i) : SV_Target
             {
-                float3 finalColor = MixFog(_OutlineColor, i.fogCoord);
-                return float4(finalColor,1.0);
+                //float3 finalColor = MixFog(_OutlineColor, i.fogCoord);
+                return float4(_OutlineColor.rgb,1.0);
             }
             
             ENDHLSL
