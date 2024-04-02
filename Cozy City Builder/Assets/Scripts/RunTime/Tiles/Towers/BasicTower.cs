@@ -1,4 +1,4 @@
-using KBCore.Refs;
+using DG.Tweening;
 using Managers;
 using NaughtyAttributes;
 using System.Collections;
@@ -8,12 +8,32 @@ using UnityEngine;
 public class BasicTower : TowerTileBase
 {
     [HorizontalLine]
-    [SerializeField] private float range;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private Projectile projectile;
+    [SerializeField] protected Transform firePoint;
+    [SerializeField] protected Transform muzzle;
+    [SerializeField] protected float range;
+    [SerializeField] protected bool useAllAxisForMuzzle = true;
+    [Space(5)]
+    [SerializeField] protected Projectile projectile;
+    [SerializeField] protected SoundTypes fireSound;
 
 
     private Enemy _currentTarget = null;
+
+    protected virtual void Update()
+    {
+        if (!_currentTarget) return;
+
+        if (useAllAxisForMuzzle)
+            muzzle.LookAt(_currentTarget.transform.position);
+        else
+        {
+            muzzle.LookAt(_currentTarget.transform.position);
+            var ros=muzzle.rotation.eulerAngles;
+            ros.x = 0;
+            ros.z = 0;
+            muzzle.rotation = Quaternion.Euler(ros);
+        }
+    }
 
     protected override void OnFire()
     {
@@ -32,9 +52,9 @@ public class BasicTower : TowerTileBase
             if (!_currentTarget) return; // no enemy
         }
         // shoot
-        var bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
+        var bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
         bullet.SetTarget(_currentTarget.TargetPoint, _damageData);
-        AudioManager.Instance.Play2DSound(SoundTypes.TowerFire);
+        AudioManager.Instance.Play2DSound(fireSound);
     }
 
     private Enemy GetEnemy()
@@ -62,7 +82,7 @@ public class BasicTower : TowerTileBase
     }
 
 #if UNITY_EDITOR
-    [SerializeField] private bool drawGizmos = false;
+    [SerializeField] protected bool drawGizmos = false;
     private void OnDrawGizmos()
     {
         if (drawGizmos)

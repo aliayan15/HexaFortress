@@ -1,46 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class PCannon : Projectile
 {
-
-    private Vector3 _destination;
+    private Vector3 control;
+    private Vector3 _startPos;
+    private float _time = 0;
 
     public override void SetTarget(Transform target, DamageData damage)
     {
         base.SetTarget(target, damage);
-        _destination = target.position;
+        _startPos = transform.position;
+        var dis = target.position - _startPos;
+        var controlPos = (dis / 2) + _startPos;
+        controlPos.y = _startPos.y + 0.1f;
+        control = controlPos;
     }
 
     protected override void FixedUpdate()
     {
-        var vel = BallisticVelocity(_destination, 0);
-        // chack with ray
-        float distance = speed * Time.fixedDeltaTime * vel.magnitude;
-        CheckHit(distance);
-        transform.Translate(speed * Time.fixedDeltaTime * vel, Space.World);
-        // lifetime
-        lifeTime -= Time.fixedDeltaTime;
-        if (lifeTime < 0)
-            Destroy();
+        _time += Time.fixedDeltaTime * speed;
+        transform.position = GetPathPos(_time);
+        transform.forward = GetPathPos(_time + 0.001f) - transform.position;
+        if (_time >= 1)
+        {
+            Destroy(this);
+        }
     }
 
-    private Vector3 BallisticVelocity(Vector3 destination, float angle)
+    private Vector3 GetPathPos(float t)
     {
-        Vector3 dir = destination - transform.position; // get Target Direction
-        float height = dir.y; // get height difference
-        dir.y = 0; // retain only the horizontal difference
-        float dist = dir.magnitude; // get horizontal direction
-        float a = angle * Mathf.Deg2Rad; // Convert angle to radians
-        dir.y = dist * Mathf.Tan(a); // set dir to the elevation angle.
-        dist += height / Mathf.Tan(a); // Correction for small height differences
+        Vector3 ac = Vector3.Lerp(_startPos, control, t);
+        Vector3 cb = Vector3.Lerp(control, _target.position, t);
 
-        // Calculate the velocity magnitude
-        float velocity = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a));
-        return velocity * dir.normalized; // Return a normalized vector.
+        return Vector3.Lerp(ac, cb, t);
     }
+
 
     protected override void CheckHit(float distance)
     {
@@ -48,7 +43,7 @@ public class PCannon : Projectile
         {
             if (hitInfo.collider.TryGetComponent(out IDamageable enemy))
                 enemy.TakeDamage(_damageData);
-            Destroy();
+            Destroy(this);
             return;
         }
     }

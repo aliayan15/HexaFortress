@@ -55,6 +55,9 @@ public class CastleTile : BasicTower
         base.OnTurnStateChange(state);
     }
 
+    protected override void Update()
+    {
 
+    }
 }
 

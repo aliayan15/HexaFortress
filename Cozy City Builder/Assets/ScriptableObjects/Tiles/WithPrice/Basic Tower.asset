@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4f381431fbb584ebfb4a513b8c941e, type: 3}
   m_Name: Basic Tower
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 7978387619276379210, guid: 390fd23c446428745a027fdb69af8788, type: 3}
+  Prefab: {fileID: 7795214150673854694, guid: 39f76efe9a0da1b4abace5db1040181d, type: 3}
   TileType: 5
   Icon: {fileID: 21300000, guid: 83219fbdc8828cd43aaaf1598592c541, type: 3}
   IsTherePrice: 1
