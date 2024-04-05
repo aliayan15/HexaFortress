@@ -18,3 +18,5 @@ MonoBehaviour:
   BonusPar: {fileID: 198108421688386642, guid: c9eb15264aa6c4348b00d5b9b3daab2a, type: 3}
   EnemyDeadPar: {fileID: 198355779183106702, guid: 3b517eddec185dd4a830743a742ad00b,
     type: 3}
+  cannonExplosion: {fileID: 8016158643105111230, guid: 4188c54ef5c22e247b38c05d77dd0257,
+    type: 3}

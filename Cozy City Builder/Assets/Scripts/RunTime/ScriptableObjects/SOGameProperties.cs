@@ -10,6 +10,7 @@ public class SOGameProperties : ScriptableObject
     public PathTile PathTile;
     public ParticleSystem BonusPar;
     public ParticleSystem EnemyDeadPar;
+    public ParticleSystem cannonExplosion;
 
     public static float GetTileRotation(int index)
     {

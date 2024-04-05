@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Managers;
 using NaughtyAttributes;
 using System.Collections;
@@ -12,6 +11,7 @@ public class BasicTower : TowerTileBase
     [SerializeField] protected Transform muzzle;
     [SerializeField] protected float range;
     [SerializeField] protected bool useAllAxisForMuzzle = true;
+    [SerializeField] protected bool useHalfCircle = false;
     [Space(5)]
     [SerializeField] protected Projectile projectile;
     [SerializeField] protected SoundTypes fireSound;
@@ -28,7 +28,7 @@ public class BasicTower : TowerTileBase
         else
         {
             muzzle.LookAt(_currentTarget.transform.position);
-            var ros=muzzle.rotation.eulerAngles;
+            var ros = muzzle.rotation.eulerAngles;
             ros.x = 0;
             ros.z = 0;
             muzzle.rotation = Quaternion.Euler(ros);
@@ -69,6 +69,12 @@ public class BasicTower : TowerTileBase
             if (cols[i].TryGetComponent(out Enemy enemy))
             {
                 if ((enemy.EnemyType & enemyType) == 0) continue;
+                if (useHalfCircle)
+                {
+                    Vector3 toOther = Vector3.Normalize(enemy.transform.position - transform.position);
+                    if (Vector3.Dot(transform.right, toOther) < 0)
+                        continue;
+                }
                 float disTotower = Vector3.Distance(enemy.transform.position, transform.position);
                 if (disTotower < dis)
                 {

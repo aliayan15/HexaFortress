@@ -13,7 +13,8 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     [SerializeField] protected int armorDamageUpgrade;
     [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected LayerMask enemyLayer;
-    [SerializeField] private SOGameProperties data;
+    [SerializeField] protected SOGameProperties data;
+    [SerializeField] protected GameObject rangeImage;
 
     private WaitForSeconds _fireTimer;
     private bool _canFire = false;
@@ -27,6 +28,8 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
         _damageData = new DamageData(baseDamage, armorDamage);
         StartCoroutine(FireTimer());
         CheckUpgradeTile();
+        if (rangeImage)
+            rangeImage.SetActive(false);
     }
 
     private void CheckUpgradeTile()
@@ -101,7 +104,12 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     protected override void OnTurnStateChange(TurnStates state)
     {
         _canFire = state == TurnStates.EnemySpawnStart;
+        if(_canFire)
+        {
+            this.StopAllCoroutines();
+            StartCoroutine(FireTimer());
+        }
     }
 
-   
+
 }

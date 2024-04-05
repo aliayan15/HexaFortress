@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class PCannon : Projectile
 {
+    [SerializeField] private float radius;
+    [SerializeField] private SOGameProperties data;
     private Vector3 control;
     private Vector3 _startPos;
+    private Vector3 _endPos;
     private float _time = 0;
 
     public override void SetTarget(Transform target, DamageData damage)
@@ -15,37 +18,42 @@ public class PCannon : Projectile
         var controlPos = (dis / 2) + _startPos;
         controlPos.y = _startPos.y + 0.1f;
         control = controlPos;
+        _endPos = target.position;
     }
 
     protected override void FixedUpdate()
     {
+        if (_target != null)
+            _endPos = _target.position;
         _time += Time.fixedDeltaTime * speed;
         transform.position = GetPathPos(_time);
         transform.forward = GetPathPos(_time + 0.001f) - transform.position;
         if (_time >= 1)
         {
-            Destroy(this);
+            CheckHit(1f);
         }
     }
 
     private Vector3 GetPathPos(float t)
     {
         Vector3 ac = Vector3.Lerp(_startPos, control, t);
-        Vector3 cb = Vector3.Lerp(control, _target.position, t);
+        Vector3 cb = Vector3.Lerp(control, _endPos, t);
 
         return Vector3.Lerp(ac, cb, t);
     }
 
-
     protected override void CheckHit(float distance)
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, distance + 0.25f, rayLayer, QueryTriggerInteraction.Collide))
+        var colls = Physics.OverlapSphere(transform.position, radius, rayLayer);
+        foreach (var item in colls)
         {
-            if (hitInfo.collider.TryGetComponent(out IDamageable enemy))
+            if (item.TryGetComponent(out IDamageable enemy))
+            {
                 enemy.TakeDamage(_damageData);
-            Destroy(this);
-            return;
+            }
         }
+        Instantiate(data.cannonExplosion, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
 

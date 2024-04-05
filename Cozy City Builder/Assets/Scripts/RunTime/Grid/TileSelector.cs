@@ -13,7 +13,7 @@ public class TileSelector : SingletonMono<TileSelector>
     [SerializeField] private UnlockTile[] tilesToUnlock;
     [Space(10)]
     [SerializeField] private SOTileData[] startTiles;
-    [SerializeField] private SOTileData[] towers;
+    [SerializeField] private List<SOTileData> towers;
 
     private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
     private List<SOTileData> _openPathTilesList = new List<SOTileData>();
@@ -38,7 +38,7 @@ public class TileSelector : SingletonMono<TileSelector>
 
     public SOTileData GetTowerTile()
     {
-        return towers[Random.Range(0, towers.Length)];
+        return towers[Random.Range(0, towers.Count)];
     }
 
     public SOTileData GetTileWithPrice()
@@ -89,10 +89,12 @@ public class TileSelector : SingletonMono<TileSelector>
             {
                 if (GameManager.Instance.DayCount == tile.UnlockDay && !tiles.Contains(tile.Tile))
                 {
-                    tiles.Add(tile.Tile);
-                    // UI ile bildirim verme
+                    if (tile.Tile.TileType != TileType.Tower)
+                        tiles.Add(tile.Tile);
+                    else
+                        towers.Add(tile.Tile);
                 }
-                    
+
             }
         }
     }
