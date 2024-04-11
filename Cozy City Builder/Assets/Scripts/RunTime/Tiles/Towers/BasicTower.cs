@@ -9,9 +9,10 @@ public class BasicTower : TowerTileBase
     [HorizontalLine]
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected Transform muzzle;
+    [SerializeField] protected Transform rangeDir;
     [SerializeField] protected float range;
     [SerializeField] protected bool useAllAxisForMuzzle = true;
-    [SerializeField] protected bool useHalfCircle = false;
+    [SerializeField] protected bool isBasicTower = false;
     [Space(5)]
     [SerializeField] protected Projectile projectile;
     [SerializeField] protected SoundTypes fireSound;
@@ -48,7 +49,10 @@ public class BasicTower : TowerTileBase
         // get an enemy
         if (!_currentTarget)
         {
-            _currentTarget = GetEnemy();
+            if (isBasicTower)
+                _currentTarget = GetEnemyBasic();
+            else
+                _currentTarget = GetEnemyMortar();
             if (!_currentTarget) return; // no enemy
         }
         // shoot
@@ -57,34 +61,48 @@ public class BasicTower : TowerTileBase
         AudioManager.Instance.Play2DSound(fireSound);
     }
 
-    private Enemy GetEnemy()
+    // get closest enemy
+    private Enemy GetEnemyBasic()
     {
         var cols = Physics.OverlapSphere(transform.position, range, enemyLayer, QueryTriggerInteraction.Collide);
         if (cols == null) return null;
         if (cols.Length == 0) return null;
-        float dis = float.PositiveInfinity;
+        float dis = float.MaxValue;
         int index = -1;
         for (int i = 0; i < cols.Length; i++)
         {
             if (cols[i].TryGetComponent(out Enemy enemy))
             {
                 if ((enemy.EnemyType & enemyType) == 0) continue;
-                if (useHalfCircle)
-                {
-                    Vector3 toOther = Vector3.Normalize(enemy.transform.position - transform.position);
-                    if (Vector3.Dot(transform.right, toOther) < 0)
-                        continue;
-                }
-                float disTotower = Vector3.Distance(enemy.transform.position, transform.position);
-                if (disTotower < dis)
+                Vector3 toOther = Vector3.Normalize(enemy.transform.position - transform.position);
+                if (Vector3.Dot(rangeDir.forward, toOther) < 0)
+                    continue;
+                float enemyDis = Vector3.Distance(transform.position, enemy.transform.position);
+                if (enemyDis < dis)
                 {
                     index = i;
-                    dis = disTotower;
+                    dis = enemyDis;
                 }
             }
         }
         if (index == -1) return null;
         else return cols[index].GetComponent<Enemy>();
+    }
+    // get in the mid
+    private Enemy GetEnemyMortar()
+    {
+        var cols = Physics.OverlapSphere(transform.position, range, enemyLayer, QueryTriggerInteraction.Collide);
+        if (cols == null) return null;
+        if (cols.Length == 0) return null;
+        int index = cols.Length;
+        if (index % 2 == 1)
+        {
+            index--;
+        }
+        index /= 2;
+        index = Mathf.Min(index, cols.Length - 1);
+        index = Mathf.Max(index, 0);
+        return cols[index].GetComponent<Enemy>();
     }
 
 #if UNITY_EDITOR

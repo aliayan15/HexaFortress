@@ -402,12 +402,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3757af73938c938418f2ee6c19a89e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 5
-  fireTime: 2
-  baseDamage: 30
-  armorDamage: 35
+  tileType: 18
+  fireTime: 1.5
+  baseDamage: 25
+  armorDamage: 40
   damageUpgrade: 10
   armorDamageUpgrade: 5
+  goldExpense: 10
   enemyType: 6
   enemyLayer:
     serializedVersion: 2

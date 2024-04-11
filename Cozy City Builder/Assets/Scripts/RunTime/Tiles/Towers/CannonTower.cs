@@ -1,12 +1,11 @@
 using Managers;
 using NaughtyAttributes;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ThirthTower : TowerTileBase
+public class CannonTower : TowerTileBase
 {
     [HorizontalLine]
     [SerializeField] protected Transform firePoint;
@@ -45,14 +44,13 @@ public class ThirthTower : TowerTileBase
             }
         }
         Targets.RemoveWhere(e => deleteSet.Contains(e));
-        float dis = float.PositiveInfinity;
+        int armor = int.MinValue;
         foreach (var e in Targets)
         {
-            float disTotower = Vector3.Distance(e.transform.position, transform.position);
-            if (disTotower < dis)
+            if (e.Armor > armor)
             {
                 enemy = e;
-                dis = disTotower;
+                armor = e.Armor;
             }
         }
         return enemy;

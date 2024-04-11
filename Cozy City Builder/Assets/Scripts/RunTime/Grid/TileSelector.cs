@@ -69,9 +69,10 @@ public class TileSelector : SingletonMono<TileSelector>
     public SOTileData[] GetStartTiles()
     {
         var list = new SOTileData[4];
+        list[3] = startTiles[0];
         var startList = startTiles.ToList();
         startList.Shuffle();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             int index = Random.Range(0, startList.Count);
             list[i] = startList[index];
@@ -94,7 +95,6 @@ public class TileSelector : SingletonMono<TileSelector>
                     else
                         towers.Add(tile.Tile);
                 }
-
             }
         }
     }

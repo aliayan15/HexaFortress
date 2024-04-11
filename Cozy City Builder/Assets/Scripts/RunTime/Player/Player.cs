@@ -257,6 +257,10 @@ namespace Players
                 AddGold(GoldPerDay);
                 AddGold(-ExpensesPerDay);
             }
+            else if (_isBuildMode)
+            {
+                CanselSelection();
+            }
             if (state == TurnStates.TurnEnd)
             {
                 this.Timer(0.2f, () =>

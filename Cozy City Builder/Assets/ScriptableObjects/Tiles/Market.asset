@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ea929b53fd76944973d5c48c4876be, type: 3}
   m_Name: Market
   m_EditorClassIdentifier: 
-  BaseGold: 0
-  BonusGold: 10
+  BaseGold: 10
+  BonusGold: 5

@@ -161,12 +161,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8cd8e51b512be4dbb0f83fc44c6fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 5
+  tileType: 19
   fireTime: 3
   baseDamage: 30
   armorDamage: 20
-  damageUpgrade: 5
+  damageUpgrade: 10
   armorDamageUpgrade: 5
+  goldExpense: 10
   enemyType: 2
   enemyLayer:
     serializedVersion: 2
@@ -175,9 +176,10 @@ MonoBehaviour:
   rangeImage: {fileID: 6357966785640757888}
   firePoint: {fileID: 186552749096402595}
   muzzle: {fileID: 368307540440894570}
+  rangeDir: {fileID: 0}
   range: 6
   useAllAxisForMuzzle: 0
-  useHalfCircle: 0
+  isBasicTower: 0
   projectile: {fileID: 4393157522412721211, guid: acbf67012b1ec344ba60729eec8d31d3,
     type: 3}
   fireSound: 4

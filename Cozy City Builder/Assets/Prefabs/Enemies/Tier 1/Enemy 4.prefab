@@ -53,7 +53,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   level: 9
   health: 150
-  armor: 0
+  armor: 50
   moveSpeed: 1.2
   enemyType: 2
   reachedPositionDistance: 0.2

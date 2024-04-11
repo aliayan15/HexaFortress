@@ -53,7 +53,7 @@ MonoBehaviour:
   healthBar: {fileID: 8579399808815443182}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   level: 14
-  health: 500
+  health: 600
   armor: 0
   moveSpeed: 1.2
   enemyType: 4

@@ -1,6 +1,6 @@
 using Managers;
+using NaughtyAttributes;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerTileBase : TileBase, ITowerUpgradeable
@@ -11,6 +11,8 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     [SerializeField] protected int armorDamage;
     [SerializeField] protected int damageUpgrade;
     [SerializeField] protected int armorDamageUpgrade;
+    [SerializeField] private int goldExpense;
+    [HorizontalLine]
     [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected SOGameProperties data;
@@ -30,6 +32,19 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
         CheckUpgradeTile();
         if (rangeImage)
             rangeImage.SetActive(false);
+        GameManager.Instance.player.AddExpensesPerDay(goldExpense);
+        switch (MyType)
+        {
+            case TileType.Tower:
+                UpgradeManager.Instance.BacisTowers.Add(this);
+                break;
+            case TileType.Cannon:
+                UpgradeManager.Instance.CannonTowers.Add(this);
+                break;
+            case TileType.Mortar:
+                UpgradeManager.Instance.MortarTowers.Add(this);
+                break;
+        }
     }
 
     private void CheckUpgradeTile()
@@ -40,7 +55,7 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
             if (!surroundingTile.MyTile)
                 continue;
             if (surroundingTile.MyTile.MyType == TileType.TowerUpgrade)
-                DamageUpgradeTower();
+                UpgradeDamageTower();
         }
     }
 
@@ -54,7 +69,7 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
 
     public void UpgradeCritEffect()
     {
-        _damageData.CritChance += 10;
+        _damageData.CritChance += 5;
         PlayPartical();
     }
 
@@ -65,19 +80,25 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
 
     public void UpgradeSlowEffect()
     {
-        _damageData.SlowChance += 10;
+        _damageData.SlowChance += 5;
         PlayPartical();
     }
 
-    public void DamageUpgradeTower()
+    public void UpgradeDamageTower()
     {
         _damageData.Damage += damageUpgrade;
+        _damageData.ArmorDamage += armorDamageUpgrade;
         PlayPartical();
     }
 
     public void UpgradeArmorDamage()
     {
-        _damageData.ArmorDamage += armorDamageUpgrade;
+        _damageData.ArmorDamage += 5;
+        PlayPartical();
+    }
+    public void UpgradeHealthDamage()
+    {
+        _damageData.Damage += 5;
         PlayPartical();
     }
     #endregion
@@ -104,12 +125,8 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     protected override void OnTurnStateChange(TurnStates state)
     {
         _canFire = state == TurnStates.EnemySpawnStart;
-        if(_canFire)
-        {
-            this.StopAllCoroutines();
-            StartCoroutine(FireTimer());
-        }
+       
     }
 
-
+   
 }

@@ -23,7 +23,9 @@ public enum TileType
     TowerUpgrade,
     CastleRepair,
     CastleHealthUpgrade,
-    Sheep
+    Sheep,
+    Cannon,
+    Mortar
 }
 
 

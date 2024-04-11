@@ -29,19 +29,13 @@ namespace UI.CanvasManagers
         #region Tiles
         public void GetTiles()
         {
-            int tileWithPrice = 4;
-            //int freeTile = 3;
-
+            int tileWithPrice = 5;
             for (int i = 0; i < tileWithPrice; i++)
             {
                 if (i == 0) { selectTileButtons[i].SetTile(TileSelector.Instance.GetTowerTile()); continue; }
                 selectTileButtons[i].SetTile(TileSelector.Instance.GetTileWithPrice());
             }
-
-            //for (int i = 0; i < freeTile; i++)
-            //    selectTileButtons[i + tileWithPrice].SetTile(TileSelector.Instance.GetFreeTile());
-
-
+            // path tile
             selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile());
             int rndNum = Random.Range(0, 100);
             if (rndNum < 50)

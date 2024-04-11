@@ -16,10 +16,11 @@ public class TowerUpgradeTile : TileBase
         {
             if (!surroundingTile.MyTile)
                 continue;
-            if (surroundingTile.MyTile.MyType == TileType.Tower)
+            if (surroundingTile.MyTile.MyType == TileType.Tower || surroundingTile.MyTile.MyType == TileType.Cannon
+                || surroundingTile.MyTile.MyType == TileType.Mortar)
             {
-                TowerTileBase market = surroundingTile.MyTile as TowerTileBase;
-                market.DamageUpgradeTower();
+                TowerTileBase tower = surroundingTile.MyTile as TowerTileBase;
+                tower.UpgradeDamageTower();
             }
         }
         smokePar.Play();

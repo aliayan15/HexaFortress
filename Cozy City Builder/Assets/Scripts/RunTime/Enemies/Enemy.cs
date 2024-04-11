@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour, IDamageable
     public EnemyType EnemyType => enemyType;
     public int Level => level;
     public Transform TargetPoint => targetPoint;
+    public int TotalHealth => _currentHealth + _currentArmor;
+    public int Armor => _currentArmor;
 
     [SerializeField] private Transform targetPoint;
     [SerializeField, Child] private HealthBar healthBar;
