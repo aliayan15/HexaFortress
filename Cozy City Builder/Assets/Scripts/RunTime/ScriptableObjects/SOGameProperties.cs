@@ -11,6 +11,10 @@ public class SOGameProperties : ScriptableObject
     public ParticleSystem BonusPar;
     public ParticleSystem EnemyDeadPar;
     public ParticleSystem cannonExplosion;
+    [Header("Tile Icons")]
+    public Sprite TowerIcon;
+    public Sprite MortarIcon;
+    public Sprite CannonIcon;
 
     public static float GetTileRotation(int index)
     {

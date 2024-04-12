@@ -1,3 +1,4 @@
+using Managers;
 using MyUtilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ using UnityEngine;
 public class UpgradeManager : SingletonMono<UpgradeManager>
 {
     [SerializeField] private SOUpgradeData[] upgrades;
+    [SerializeField] private int[] upgradeDays;
 
-    public List<ITowerUpgradeable> BacisTowers;
-    public List<ITowerUpgradeable> CannonTowers;
-    public List<ITowerUpgradeable> MortarTowers;
+    public List<ITowerUpgradeable> BacisTowers = new List<ITowerUpgradeable>();
+    public List<ITowerUpgradeable> CannonTowers = new List<ITowerUpgradeable>();
+    public List<ITowerUpgradeable> MortarTowers = new List<ITowerUpgradeable>();
 
     private Dictionary<SOUpgradeData, int> _upgrades = new Dictionary<SOUpgradeData, int>();
 
@@ -38,7 +40,7 @@ public class UpgradeManager : SingletonMono<UpgradeManager>
             int current = _upgrades[data];
             _upgrades[data] = current + 1;
         }
-        Debug.Log(data.TileType + ": " + _upgrades[data]);
+        //Debug.Log(data.TileType + ": " + _upgrades[data]);
     }
 
     private void UpgradeBasicTower(UpgradeType type)
@@ -128,6 +130,41 @@ public class UpgradeManager : SingletonMono<UpgradeManager>
         return datas;
     }
 
+    public int GetUpgradeLevel(SOUpgradeData data)
+    {
+        if (!_upgrades.ContainsKey(data))
+        {
+            return 1;
+        }
+        return _upgrades[data] + 1;
+    }
+
+    #region State Change
+    private void OnTurnStateChange(TurnStates state)
+    {
+        if (state == TurnStates.TurnBegin)
+        {
+            // days to select upgrade
+            if (upgradeDays.Any(d => d == GameManager.Instance.DayCount))
+            {
+                this.Timer(1f, () =>
+                {
+                    UIManager.Instance.gameCanvasManager.ShowUpgrades(true);
+                });
+            }
+        }
+    }
+
+
+    private void OnEnable()
+    {
+        GameManager.OnTurnStateChange += OnTurnStateChange;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnTurnStateChange -= OnTurnStateChange;
+    }
+    #endregion
 }
 
 public enum UpgradeType

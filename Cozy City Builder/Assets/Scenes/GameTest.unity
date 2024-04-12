@@ -1937,9 +1937,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a4d2a4248de434db4a0cd9e762ecba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BacisTowers: []
-  CannonTowers: []
-  MortarTowers: []
+  upgrades:
+  - {fileID: 11400000, guid: bc3f6fd2b933fbb4e9b4a62fea216a37, type: 2}
+  - {fileID: 11400000, guid: bbdef2625c7b035479dff5f932a50a30, type: 2}
+  - {fileID: 11400000, guid: e9f299a878861cc478769b6ad7367a5d, type: 2}
+  - {fileID: 11400000, guid: 18314c43b0ecb55448c12c4d211ccb40, type: 2}
+  upgradeDays: 0300000004000000050000000600000011000000
 --- !u!4 &992944137
 Transform:
   m_ObjectHideFlags: 0

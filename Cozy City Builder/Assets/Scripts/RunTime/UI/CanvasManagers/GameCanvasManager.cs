@@ -24,6 +24,9 @@ namespace UI.CanvasManagers
         [SerializeField] private ToolTipTrigger castleToolTip;
         [SerializeField] private GameObject infoUI;
         [SerializeField] private Animator buildingUIAnim;
+        [Header("Upgrade")]
+        [SerializeField] GameObject upgrades;
+        [SerializeField] UpgradeButton[] upgradeButtons;
 
 
         #region Tiles
@@ -95,6 +98,25 @@ namespace UI.CanvasManagers
         {
             castleToolTip.content = "Game over when castle health reaches 0.\n" +
                 "Castle repair per day: " + TileManager.Instance.GetTileCount(TileType.CastleRepair);
+        }
+        #endregion
+
+        #region Upgrade
+        public void ShowUpgrades(bool show)
+        {
+            if (show)
+            {
+                this.upgrades.SetActive(true);
+                var upgrades = UpgradeManager.Instance.GetRandomUpgrade();
+                for (short i = 0; i < upgrades.Length; i++)
+                {
+                    upgradeButtons[i].Init(upgrades[i]);
+                }
+            }
+            else
+            {
+                upgrades.SetActive(false);
+            }
         }
         #endregion
 
