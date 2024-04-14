@@ -20,6 +20,6 @@ MonoBehaviour:
     type: 3}
   cannonExplosion: {fileID: 8016158643105111230, guid: 4188c54ef5c22e247b38c05d77dd0257,
     type: 3}
-  TowerIcon: {fileID: 21300000, guid: 83219fbdc8828cd43aaaf1598592c541, type: 3}
-  MortarIcon: {fileID: 21300000, guid: 83219fbdc8828cd43aaaf1598592c541, type: 3}
-  CannonIcon: {fileID: 21300000, guid: 83219fbdc8828cd43aaaf1598592c541, type: 3}
+  TowerIcon: {fileID: 21300000, guid: 80eff575d627f3d4bacbb621d2268f79, type: 3}
+  MortarIcon: {fileID: 21300000, guid: cb509e06b5c1259448ebb2abd5bfdced, type: 3}
+  CannonIcon: {fileID: 21300000, guid: 4278de2ce9fb7e74183c62c870ea3fef, type: 3}

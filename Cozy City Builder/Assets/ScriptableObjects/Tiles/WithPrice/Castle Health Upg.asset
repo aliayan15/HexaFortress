@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5125250910366814535, guid: 6d9b2f189df35df46ab96075a2c1b732, type: 3}
   TileType: 16
-  Icon: {fileID: 21300000, guid: 6a7de58f8b767d445b80c2bc1e3d1598, type: 3}
+  Icon: {fileID: 21300000, guid: 2d54c32b4defafd41be68d95bb958b04, type: 3}
   IsTherePrice: 1
   BasePrice: 50
   PriceIncrease: 50
