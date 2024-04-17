@@ -27,6 +27,9 @@ namespace UI.CanvasManagers
         [Header("Upgrade")]
         [SerializeField] GameObject upgrades;
         [SerializeField] UpgradeButton[] upgradeButtons;
+        [Header("Night")]
+        [SerializeField] private Image nightCircle;
+        [SerializeField] GameObject nightObj;
 
 
         #region Tiles
@@ -119,6 +122,15 @@ namespace UI.CanvasManagers
             }
         }
         #endregion
+
+        public void UpdateNightCircle(float ratio)
+        {
+            nightCircle.fillAmount = ratio;
+        }
+        public void ShowNightUI(bool show)
+        {
+            nightObj.SetActive(show);
+        }
 
         public void ShowInfoUI(bool show)
         {

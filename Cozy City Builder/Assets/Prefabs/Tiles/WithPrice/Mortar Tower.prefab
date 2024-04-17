@@ -182,7 +182,7 @@ MonoBehaviour:
   isBasicTower: 0
   projectile: {fileID: 4393157522412721211, guid: acbf67012b1ec344ba60729eec8d31d3,
     type: 3}
-  fireSound: 4
+  fireSound: 6
   drawGizmos: 0
 --- !u!1001 &186552748679601059
 PrefabInstance:

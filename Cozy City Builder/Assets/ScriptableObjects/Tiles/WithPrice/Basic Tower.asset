@@ -18,5 +18,5 @@ MonoBehaviour:
   IsTherePrice: 1
   BasePrice: 20
   PriceIncrease: 30
-  Header: Basic Tower
+  Header: Arrow Tower
   Description: Gives damage to nearby enemies.

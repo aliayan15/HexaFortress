@@ -1,7 +1,6 @@
 using DG.Tweening;
 using Managers;
 using MyUtilities;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +9,7 @@ using UnityEngine;
 public class TileManager : SingletonMono<TileManager>
 {
     public Dictionary<TileType, int> TileCount = new Dictionary<TileType, int>();
+    [HideInInspector]
     public List<Vector3> EnemySpawnPoints = new List<Vector3>();
 
     [SerializeField] private GameObject goldIconPref;

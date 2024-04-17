@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileType: 19
   Upgrade: 3
-  Description: Mortar slow efect.
+  Description: Mortar Tower bonus slow effect.

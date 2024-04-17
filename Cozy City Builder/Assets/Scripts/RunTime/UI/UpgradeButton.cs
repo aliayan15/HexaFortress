@@ -40,6 +40,7 @@ public class UpgradeButton : MonoBehaviour
     {
         UpgradeManager.Instance.Upgrade(_myData);
         UIManager.Instance.gameCanvasManager.ShowUpgrades(false);
+        AudioManager.Instance.PlayBtnSound();
     }
 }
 

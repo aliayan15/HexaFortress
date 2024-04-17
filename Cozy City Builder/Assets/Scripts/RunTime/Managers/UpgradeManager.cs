@@ -121,12 +121,12 @@ public class UpgradeManager : SingletonMono<UpgradeManager>
     {
         SOUpgradeData[] datas = new SOUpgradeData[3];
         var dataList = upgrades.ToList();
+        dataList.Shuffle();
         datas[0] = dataList[Random.Range(0, dataList.Count)];
         dataList.Remove(datas[0]);
         datas[1] = dataList[Random.Range(0, dataList.Count)];
         dataList.Remove(datas[1]);
         datas[2] = dataList[Random.Range(0, dataList.Count)];
-        dataList.Remove(datas[2]);
         return datas;
     }
 

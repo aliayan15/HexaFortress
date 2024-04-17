@@ -15,6 +15,7 @@ namespace Players
         [Header("Settings")]
         [SerializeField] private float tileMoveSpeed = 10.0f;
         [SerializeField] private short tileCountPerDay = 4;
+        [SerializeField] private float goNightTime = 2f;
         [Space(10)]
         [Header("Debug")]
         [SerializeField] private bool isDebug;
@@ -39,6 +40,8 @@ namespace Players
         private bool _canBuild = false;
         private short _placedTileCount = 0;
         private HexGridNode _lastInsertedGrid = null;
+        private bool _isSpaceHold = false;
+        private float _goNightTimer = 0;
 
         private void Awake()
         {
@@ -60,8 +63,26 @@ namespace Players
             if (!_canBuild) return; // onGame
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // skip to night
-                GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
+                _goNightTimer = 0;
+                _isSpaceHold = true;
+                UIManager.Instance.gameCanvasManager.ShowNightUI(true);
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                _isSpaceHold = false;
+                UIManager.Instance.gameCanvasManager.ShowNightUI(false);
+            }
+            if (_isSpaceHold)
+            {
+                _goNightTimer += Time.deltaTime;
+                UIManager.Instance.gameCanvasManager.UpdateNightCircle(_goNightTimer / goNightTime);
+                if (_goNightTimer >= goNightTime)
+                {
+                    // skip to night
+                    GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
+                    _isSpaceHold = false;
+                    UIManager.Instance.gameCanvasManager.ShowNightUI(false);
+                }
             }
 
             if (!_isBuildMode) return;

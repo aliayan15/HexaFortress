@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileType: 19
   Upgrade: 4
-  Description: Mortar crit efect.
+  Description: Mortar Tower bonus crit chance.

@@ -149,5 +149,7 @@ public enum SoundTypes
     BtnClick,
     TilePlace,
     TowerFire,
-    GoldProduce
+    GoldProduce,
+    Mortar,
+    Cannon
 }

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileType: 19
   Upgrade: 1
-  Description: Mortar Health damage.
+  Description: Mortar Tower bonus health damage.

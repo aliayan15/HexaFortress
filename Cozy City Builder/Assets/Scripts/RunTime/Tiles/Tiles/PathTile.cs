@@ -1,9 +1,4 @@
-using DG.Tweening;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Security.Cryptography;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 public class PathTile : TileBase
