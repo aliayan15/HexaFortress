@@ -28,6 +28,7 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
         base.Init(myNode);
         _fireTimer = new WaitForSeconds(fireTime);
         _damageData = new DamageData(baseDamage, armorDamage);
+        _damageData.TargetEnemyType = enemyType;
         StartCoroutine(FireTimer());
         CheckUpgradeTile();
         if (rangeImage)
@@ -62,8 +63,8 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     #region Upgrade
     public void SetEnemyTypeBonus(EnemyType type)
     {
-        if (_damageData.TypeBonus != EnemyType.None) return;
-        _damageData.TypeBonus = type;
+        if (_damageData.TargetEnemyType != EnemyType.None) return;
+        _damageData.TargetEnemyType = type;
         PlayPartical();
     }
 
@@ -108,11 +109,11 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     {
         while (true)
         {
-            yield return _fireTimer;
             if (_canFire)
             {
                 OnFire();
             }
+            yield return _fireTimer;
         }
     }
 
@@ -125,7 +126,6 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
     protected override void OnTurnStateChange(TurnStates state)
     {
         _canFire = state == TurnStates.EnemySpawnStart;
-       
     }
 
    

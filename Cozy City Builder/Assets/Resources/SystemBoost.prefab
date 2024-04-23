@@ -4305,12 +4305,12 @@ MonoBehaviour:
     Valume: 0.7
     AudioMixerGroup: {fileID: 0}
     AudioClips:
-    - {fileID: 8300000, guid: de6844927739e664b8ab19557b42c985, type: 3}
+    - {fileID: 8300000, guid: 0e8ea174b95848746af40b239cbb576a, type: 3}
   - SoundType: 7
     Valume: 0.5
     AudioMixerGroup: {fileID: 0}
     AudioClips:
-    - {fileID: 8300000, guid: c2551192dbdaf464f8a057773ee0b0cd, type: 3}
+    - {fileID: 8300000, guid: 0e8ea174b95848746af40b239cbb576a, type: 3}
   defauldSound: {fileID: 3924961075814154206}
   musicSound: {fileID: 0}
 --- !u!1 &5443233678378784933

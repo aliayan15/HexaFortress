@@ -51,9 +51,10 @@ MonoBehaviour:
   targetPoint: {fileID: 2127997363828312412}
   healthBar: {fileID: 2163330893990236035}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  charater: {fileID: 6003930795130248172}
   level: 9
   health: 150
-  armor: 50
+  armor: 30
   moveSpeed: 1.2
   enemyType: 2
   reachedPositionDistance: 0.2
@@ -223,6 +224,12 @@ Animator:
 --- !u!4 &2127997363828312412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 90a62bd1af481134b90eb5bb542f16c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1874222223255482039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6003930795130248172 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5282911555888706907, guid: 90a62bd1af481134b90eb5bb542f16c2,
     type: 3}
   m_PrefabInstance: {fileID: 1874222223255482039}
   m_PrefabAsset: {fileID: 0}

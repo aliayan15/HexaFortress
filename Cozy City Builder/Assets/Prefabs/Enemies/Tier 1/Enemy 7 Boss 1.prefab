@@ -83,6 +83,7 @@ MonoBehaviour:
   targetPoint: {fileID: 1794152390}
   healthBar: {fileID: 7513465907186947667}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  charater: {fileID: 1860702189189400920}
   level: 17
   health: 1500
   armor: 0
@@ -128,6 +129,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6624950886399822866}
     m_Modifications:
+    - target: {fileID: 1931651556569928136, guid: 706a963f4b3c5794bbfe1e00bcc7619a,
+        type: 3}
+      propertyPath: end.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3682597659717664301, guid: 706a963f4b3c5794bbfe1e00bcc7619a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 8883848745682112921, guid: 706a963f4b3c5794bbfe1e00bcc7619a,
         type: 3}
       propertyPath: end.x
@@ -962,6 +973,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89fd6614f8cfff248bb47801a69c4dc9, type: 3}
+--- !u!137 &1860702189189400920 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4765379547874591242, guid: 89fd6614f8cfff248bb47801a69c4dc9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6624950887126600530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6283054102794089987 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89fd6614f8cfff248bb47801a69c4dc9,

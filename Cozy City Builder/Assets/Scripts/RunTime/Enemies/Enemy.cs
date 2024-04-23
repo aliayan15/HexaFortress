@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private Transform targetPoint;
     [SerializeField, Child] private HealthBar healthBar;
     [SerializeField] private SOGameProperties data;
+    [SerializeField] private SkinnedMeshRenderer charater;
     [HorizontalLine]
     [Header("Stats")]
     [SerializeField] private int level;
@@ -39,6 +40,9 @@ public class Enemy : MonoBehaviour, IDamageable
     private float _slowTimer;
     private bool _isDead;
     private float _posY = 0.45f;
+    private bool _canPlayFlash = true;
+    private Color _baseColor;
+    private WaitForSeconds _flashWait = new WaitForSeconds(0.06f);
 
     private void OnValidate()
     {
@@ -59,6 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable
             ratioA = (float)_currentArmor / armor;
         healthBar.Init(ratioH + ratioA);
         healthBar.UpdateBar(ratioH, ratioA);
+        _baseColor = charater.material.color;
     }
 
     private void Update()
@@ -134,6 +139,8 @@ public class Enemy : MonoBehaviour, IDamageable
     public void TakeDamage(DamageData damage)
     {
         if (_isDead) return;
+        if ((damage.TargetEnemyType & enemyType) == 0) return;
+
         int rndCritNum = Random.Range(0, 101);
         if (rndCritNum <= damage.CritChance)
         {
@@ -146,7 +153,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if (rndSlowNum <= damage.SlowChance)
             SlowDown();
 
-        if (damage.TypeBonus == enemyType)
+        if (damage.TargetEnemyType == enemyType)
             damage.Damage = Mathf.FloorToInt(damage.Damage * 1.3f);
 
         if (_currentArmor > 0)
@@ -164,6 +171,8 @@ public class Enemy : MonoBehaviour, IDamageable
         if (armor > 0)
             ratioA = (float)_currentArmor / armor;
         healthBar.UpdateBar(ratioH, ratioA);
+        if (_canPlayFlash)
+            StartCoroutine(DamageFlash());
     }
 
     private void Ondead()
@@ -181,6 +190,19 @@ public class Enemy : MonoBehaviour, IDamageable
         _currentMoveSpeed = moveSpeed - (moveSpeed * slowPercent);
         _slowTimer = slowTime;
         _isSlow = true;
+    }
+
+    private IEnumerator DamageFlash()
+    {
+        _canPlayFlash = false;
+        charater.material.color = Color.red;
+        yield return _flashWait;
+        charater.material.color = _baseColor;
+        yield return _flashWait;
+        charater.material.color = Color.red;
+        yield return _flashWait;
+        charater.material.color = _baseColor;
+        _canPlayFlash = true;
     }
     #endregion
 }

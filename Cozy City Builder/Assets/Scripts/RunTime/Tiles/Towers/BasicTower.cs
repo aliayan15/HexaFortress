@@ -2,6 +2,7 @@ using Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BasicTower : TowerTileBase
@@ -58,7 +59,7 @@ public class BasicTower : TowerTileBase
         // shoot
         var bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
         bullet.SetTarget(_currentTarget.TargetPoint, _damageData);
-        AudioManager.Instance.Play2DSound(fireSound);
+        AudioManager.Instance.PlaySound(fireSound);
     }
 
     // get closest enemy
@@ -92,17 +93,29 @@ public class BasicTower : TowerTileBase
     private Enemy GetEnemyMortar()
     {
         var cols = Physics.OverlapSphere(transform.position, range, enemyLayer, QueryTriggerInteraction.Collide);
-        if (cols == null) return null;
-        if (cols.Length == 0) return null;
-        int index = cols.Length;
+        var colsList = cols.ToList();
+        if (colsList == null) return null;
+        if (colsList.Count == 0) return null;
+        for (int i = 0; i < colsList.Count; i++)
+        {
+            if (colsList[i].TryGetComponent(out Enemy enemy))
+            {
+                if ((enemy.EnemyType & enemyType) == 0)
+                {
+                    colsList.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+        int index = colsList.Count;
         if (index % 2 == 1)
         {
             index--;
         }
         index /= 2;
-        index = Mathf.Min(index, cols.Length - 1);
+        index = Mathf.Min(index, colsList.Count - 1);
         index = Mathf.Max(index, 0);
-        return cols[index].GetComponent<Enemy>();
+        return colsList[index].GetComponent<Enemy>();
     }
 
 #if UNITY_EDITOR

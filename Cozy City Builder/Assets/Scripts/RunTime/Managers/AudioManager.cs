@@ -57,7 +57,6 @@ namespace Managers
             Sound sound = GetClip(s);
             AudioClip soundClip = sound.GetClip();
             defauldSound.PlayClip(soundClip, sound.Valume, pitchMin, pitchMax, sound.AudioMixerGroup, priority);
-
         }
 
         /// <summary>
@@ -67,11 +66,24 @@ namespace Managers
         /// <param name="pos"></param>
         /// <param name="mValume"></param>
         /// <param name="priority"></param>
-        public void PlaySound(SoundTypes s, Vector3 pos, int priority = 128)
+        public void PlaySound(SoundTypes s, int priority = 128)
         {
-            float pitchMin = 1 - 0.08f;
-            float pitchMax = 1 + 0.08f;
-            PlaySound(s, pos, pitchMin, pitchMax, priority);
+            float pitchMin = 1 - 0.05f;
+            float pitchMax = 1 + 0.05f;
+            AudioPoolSource audioPoolSource;
+            if (AudioSources.Count < 1)
+            {
+                audioPoolSource = Instantiate(sourceObject, transform).GetComponent<AudioPoolSource>();
+            }
+            else
+            {
+                audioPoolSource = AudioSources[0];
+                AudioSources.Remove(audioPoolSource);
+                audioPoolSource.gameObject.SetActive(true);
+            }
+            Sound sound = GetClip(s);
+            AudioClip soundClip = sound.GetClip();
+            audioPoolSource.PlayClip(soundClip, sound.Valume, pitchMin, pitchMax, sound.AudioMixerGroup, priority);
 
         }
         public void PlaySound(SoundTypes s, Vector3 pos, float pitchMin, float pitchMax = 1, int priority = 128)
@@ -117,11 +129,28 @@ namespace Managers
         }
         #endregion
 
-       
+
 
         #region Audio Settings
-        
+
         #endregion
+
+        private void OnGameStateChange(GameStates state)
+        {
+            if (state == GameStates.GAME)
+            {
+                AudioSources.Clear();
+            }
+        }
+
+        private void OnEnable()
+        {
+            GameManager.OnGameStateChange += OnGameStateChange;
+        }
+        private void OnDisable()
+        {
+            GameManager.OnGameStateChange -= OnGameStateChange;
+        }
     }
 
     [System.Serializable]

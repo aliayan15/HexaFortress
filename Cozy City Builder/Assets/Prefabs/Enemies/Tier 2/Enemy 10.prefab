@@ -51,10 +51,12 @@ MonoBehaviour:
   targetPoint: {fileID: 0}
   healthBar: {fileID: 866616860004189797}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  charater: {fileID: 1354915292067390908}
   level: 1
   health: 15
+  armor: 0
   moveSpeed: 1.2
-  isFlyingUnit: 0
+  enemyType: 0
   reachedPositionDistance: 0.2
   slowPercent: 0.3
   slowTime: 2
@@ -177,6 +179,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c790f093e49c8e94eac9a6994537a743, type: 3}
+--- !u!137 &1354915292067390908 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9113422302317110064, guid: c790f093e49c8e94eac9a6994537a743,
+    type: 3}
+  m_PrefabInstance: {fileID: 7833097904990455436}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7727746460886589799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c790f093e49c8e94eac9a6994537a743,

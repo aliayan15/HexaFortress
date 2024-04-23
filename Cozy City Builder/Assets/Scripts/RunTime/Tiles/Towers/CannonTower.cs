@@ -29,7 +29,7 @@ public class CannonTower : TowerTileBase
         // shoot
         var bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
         bullet.SetTarget(_currentTarget.TargetPoint, _damageData);
-        AudioManager.Instance.Play2DSound(fireSound);
+        AudioManager.Instance.PlaySound(fireSound);
     }
 
     private Enemy GetEnemy()

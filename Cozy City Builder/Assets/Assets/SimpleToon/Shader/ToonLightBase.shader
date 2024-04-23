@@ -3,7 +3,7 @@ Shader "Lpk/LightModel/ToonLightBase"
     Properties
     {
         _BaseMap            ("Texture", 2D)                       = "white" {}
-        _BaseColor          ("Color", Color)                      = (0.5,0.5,0.5,1)
+        _Color          ("Color", Color)                      = (0.5,0.5,0.5,1)
         
         [Space]
         _ShadowStep         ("ShadowStep", Range(0, 1))           = 0.5
@@ -58,7 +58,7 @@ Shader "Lpk/LightModel/ToonLightBase"
             TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
 
             CBUFFER_START(UnityPerMaterial)
-                float4 _BaseColor;
+                float4 _Color;
                 float _ShadowStep;
                 float _ShadowStepSmooth;
                 float _SpecularStep;
@@ -153,13 +153,13 @@ Shader "Lpk/LightModel/ToonLightBase"
                 float rim = smoothstep((1-_RimStep) - _RimStepSmooth * 0.5, (1-_RimStep) + _RimStepSmooth * 0.5, 0.5 - NV);
                 
                 //diffuse
-                float3 diffuse = _MainLightColor.rgb * baseMap.rgb * _BaseColor.rgb * shadowNL * shadow;
+                float3 diffuse = _MainLightColor.rgb * baseMap.rgb * _Color.rgb * shadowNL * shadow;
                 
                 //specular
                 float3 specular = _SpecularColor.rgb * shadow * shadowNL *  specularNH;
                 
                 //ambient
-                float3 ambient =  rim * _RimColor.rgb + SampleSH(N) * _BaseColor.rgb * baseMap.rgb;
+                float3 ambient =  rim * _RimColor.rgb + SampleSH(N) * _Color.rgb * baseMap.rgb;
             
                 float3 finalColor = diffuse + ambient + specular;
                 //finalColor = MixFog(finalColor, input.fogCoord);

@@ -32,6 +32,7 @@ public class MillTile : TileBase
         GameManager.Instance.player.AddGoldPerDay(-ProdusedGoldAmount);
         ProdusedGoldAmount += data.BonusGold;
         GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
+        GameManager.Instance.player.PlayPartical(transform.position);
     }
 
     protected override void OnDisable()

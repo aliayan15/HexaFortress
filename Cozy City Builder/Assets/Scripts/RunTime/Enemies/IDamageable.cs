@@ -13,14 +13,14 @@ public struct DamageData
     public int ArmorDamage;
     public int CritChance;
     public int SlowChance;
-    public EnemyType TypeBonus;
+    public EnemyType TargetEnemyType;
     public DamageData(int d, int aD)
     {
         Damage = d;
         ArmorDamage = aD;
         CritChance = 0;
         SlowChance = 0;
-        TypeBonus = EnemyType.None;
+        TargetEnemyType = EnemyType.None;
     }
 }
 

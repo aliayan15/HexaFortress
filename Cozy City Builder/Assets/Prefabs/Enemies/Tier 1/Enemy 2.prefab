@@ -51,6 +51,7 @@ MonoBehaviour:
   targetPoint: {fileID: 33313349689978202}
   healthBar: {fileID: 6244207460286091798}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  charater: {fileID: 7598287174142894802}
   level: 3
   health: 40
   armor: 0
@@ -856,6 +857,12 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!137 &7598287174142894802 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7966422166751176803, guid: e983a3363d6c06c43b6ce0beb022482d,
+    type: 3}
+  m_PrefabInstance: {fileID: 575584638436756145}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3309623215480100176
 PrefabInstance:
   m_ObjectHideFlags: 0

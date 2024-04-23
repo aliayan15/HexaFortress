@@ -51,6 +51,7 @@ MonoBehaviour:
   targetPoint: {fileID: 7214931958122429904}
   healthBar: {fileID: 2065938647}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  charater: {fileID: 39851108236847381}
   level: 1
   health: 20
   armor: 0
@@ -823,6 +824,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 272c54f1732a0be45b23673a58d2e6a7, type: 3}
+--- !u!137 &39851108236847381 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2078486811228654802, guid: 272c54f1732a0be45b23673a58d2e6a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7181604364983556667}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7214931958122429904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 272c54f1732a0be45b23673a58d2e6a7,

@@ -2290,9 +2290,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
   tilesToUnlock:
   - Tile: {fileID: 11400000, guid: 8d05d4fc46e1b6d47a76e12516578538, type: 2}
-    UnlockDay: 5
+    UnlockDay: 4
   - Tile: {fileID: 11400000, guid: 784cdb8dcb5f60a4280cc75ebf1e8d30, type: 2}
-    UnlockDay: 10
+    UnlockDay: 7
   startTiles:
   - {fileID: 11400000, guid: 436ac6407415cda4480c21a863df24fa, type: 2}
   - {fileID: 11400000, guid: 246cc45d2acd53743a5606fc2736a284, type: 2}

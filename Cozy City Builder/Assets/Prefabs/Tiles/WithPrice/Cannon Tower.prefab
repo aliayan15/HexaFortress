@@ -419,7 +419,7 @@ MonoBehaviour:
   muzzle: {fileID: 962071732478137377}
   projectile: {fileID: 2151211913195403454, guid: b86cdad07d8e9a3459a2845ef7b1a0bb,
     type: 3}
-  fireSound: 7
+  fireSound: 6
 --- !u!1001 &780053307037861387
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -51,10 +51,12 @@ MonoBehaviour:
   targetPoint: {fileID: 0}
   healthBar: {fileID: 8556603214320102542}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  charater: {fileID: 8886302774584257380}
   level: 1
   health: 15
+  armor: 0
   moveSpeed: 1.2
-  isFlyingUnit: 0
+  enemyType: 0
   reachedPositionDistance: 0.2
   slowPercent: 0.3
   slowTime: 2
@@ -262,11 +264,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demon
       objectReference: {fileID: 0}
+    - target: {fileID: 7976820007744082955, guid: 797666cdc4730b14db27d8e7b3ba23ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797666cdc4730b14db27d8e7b3ba23ad, type: 3}
 --- !u!4 &1263125893587949176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 797666cdc4730b14db27d8e7b3ba23ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 1588995734749131155}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8886302774584257380 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7881090960832895735, guid: 797666cdc4730b14db27d8e7b3ba23ad,
     type: 3}
   m_PrefabInstance: {fileID: 1588995734749131155}
   m_PrefabAsset: {fileID: 0}

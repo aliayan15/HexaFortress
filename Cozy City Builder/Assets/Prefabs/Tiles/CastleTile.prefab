@@ -117,6 +117,7 @@ MonoBehaviour:
   armorDamage: 10
   damageUpgrade: 5
   armorDamageUpgrade: 5
+  goldExpense: 0
   enemyType: 6
   enemyLayer:
     serializedVersion: 2
@@ -125,9 +126,10 @@ MonoBehaviour:
   rangeImage: {fileID: 0}
   firePoint: {fileID: 620685606}
   muzzle: {fileID: 0}
-  range: 5
+  rangeDir: {fileID: 0}
+  range: 6
   useAllAxisForMuzzle: 0
-  useHalfCircle: 0
+  isBasicTower: 0
   projectile: {fileID: 6724775678528028015, guid: 7eacf619bbc24414d81e2d4fc4cee316,
     type: 3}
   fireSound: 4

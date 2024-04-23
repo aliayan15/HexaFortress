@@ -290,6 +290,12 @@ namespace Players
                         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
                 });
             }
+            if (GameManager.Instance.DayCount == 2)
+            {
+                tileCountPerDay = 5;
+                UIManager.Instance.gameCanvasManager.UpdateTileCountUI();
+            }
+                
         }
         private void OnGameStateChange(GameStates state)
         {
