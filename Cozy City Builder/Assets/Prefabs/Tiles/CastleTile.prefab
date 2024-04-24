@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 8742147265541878537}
   - component: {fileID: 1717599790558461261}
   - component: {fileID: 1273134735}
-  - component: {fileID: 1273134736}
   m_Layer: 0
   m_Name: CastleTile
   m_TagString: Untagged
@@ -150,21 +149,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7414856, y: 1, z: 0.7720947}
   m_Center: {x: 0.0028686523, y: 0.5, z: -0.006713867}
---- !u!114 &1273134736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221752344589035955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b097261c265f4418b230420cd4bcf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: Castle
-  content: Your Castle. Don't let the enemies reach it!!
-  showHeader: 1
 --- !u!1 &9199327792378253964
 GameObject:
   m_ObjectHideFlags: 0

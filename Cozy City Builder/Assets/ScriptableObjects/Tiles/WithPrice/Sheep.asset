@@ -19,4 +19,4 @@ MonoBehaviour:
   BasePrice: 50
   PriceIncrease: 25
   Header: Sheep Farm
-  Description: Produces gold. Extra gold for every surrounding grass
+  Description: Produces gold. Extra gold for every adjacent grass.

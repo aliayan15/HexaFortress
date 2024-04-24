@@ -19,4 +19,4 @@ MonoBehaviour:
   BasePrice: 30
   PriceIncrease: 30
   Header: Market
-  Description: Produces gold  for every surrounding houses.
+  Description: Produces gold for every adjacent house.

@@ -2018,7 +2018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerpTime: 0.3
-  dayColor: {r: 0.91764706, g: 0.91764706, b: 0.91764706, a: 1}
+  dayColor: {r: 0.54509807, g: 0.6156863, b: 0.83137256, a: 1}
   nightColor: {r: 0.32156864, g: 0.34509805, b: 0.43529412, a: 1}
   floorMat: {fileID: 2100000, guid: fba97bfaa5424f244944868fa35edbe9, type: 2}
   lightDayColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2259,7 +2259,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e277d9f787255b54aaf8dda5ff664b5d, type: 2}
   - {fileID: 11400000, guid: ac22f9be7ebaf2b48a0bb5a4234be4be, type: 2}
   - {fileID: 11400000, guid: 3d2f6f7c9ea39ab458a9a7b7bb1f5495, type: 2}
-  - {fileID: 11400000, guid: 663aa36c7fe035c45ab9fea29e6f0ae8, type: 2}
   - {fileID: 11400000, guid: 077b41c1067cddb4ab3c8586983fc19d, type: 2}
   - {fileID: 11400000, guid: 0cd4fcaa35d65fa4f93786a146151546, type: 2}
   pathTiles:
@@ -2292,6 +2291,8 @@ MonoBehaviour:
   - Tile: {fileID: 11400000, guid: 8d05d4fc46e1b6d47a76e12516578538, type: 2}
     UnlockDay: 4
   - Tile: {fileID: 11400000, guid: 784cdb8dcb5f60a4280cc75ebf1e8d30, type: 2}
+    UnlockDay: 7
+  - Tile: {fileID: 11400000, guid: 663aa36c7fe035c45ab9fea29e6f0ae8, type: 2}
     UnlockDay: 7
   startTiles:
   - {fileID: 11400000, guid: 436ac6407415cda4480c21a863df24fa, type: 2}

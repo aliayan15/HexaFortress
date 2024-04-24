@@ -16,6 +16,7 @@ public class SOTileData : ScriptableObject
     public int PriceIncrease;
     [Header("Description")]
     public string Header;
+    [TextAreaAttribute]
     public string Description;
     
 }

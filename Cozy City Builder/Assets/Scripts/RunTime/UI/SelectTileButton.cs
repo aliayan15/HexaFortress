@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SelectTileButton : MonoBehaviour
 {
     [SerializeField, Self] private CanvasGrupItem canvasItem;
     [SerializeField, Self] private LayoutElement layoutElement;
@@ -82,6 +82,12 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
         _isPressed = true;
         AudioManager.Instance.PlayBtnSound();
     }
+    public void UpdatePrice()
+    {
+        if (!_myTile)
+            return;
+        priceText.text = TileManager.Instance.GetPriceOfTile(_myTile.TileType, _myTile.BasePrice, _myTile.PriceIncrease).ToString();
+    }
 
     private void OnTileCanceled()
     {
@@ -97,7 +103,7 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
             TileManager.Instance.AddNewTile(_myTile.TileType);
         }
 
-
+        UIManager.Instance.gameCanvasManager.UpdateTilePrice();
         UnsubscribeAction();
         DeActivate();
     }
@@ -110,14 +116,6 @@ public class SelectTileButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
         _isPressed = false;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
-    }
+   
 }
 

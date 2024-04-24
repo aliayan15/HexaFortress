@@ -19,4 +19,16 @@ MonoBehaviour:
   BasePrice: 20
   PriceIncrease: 30
   Header: Arrow Tower
-  Description: Gives damage to nearby enemies.
+  Description: 'Gives damage to enemies in range. For both ground and air enemies.
+
+    -5
+    maintenance expenses every day.
+
+    Health Damage: 20
+
+    Armor Damage: 10
+
+    Fire
+    Time: 1.5
+
+'

@@ -237,6 +237,10 @@ namespace Players
         // Check placed tile count for spawn enemy
         private void CheckPlacedTileCount()
         {
+            // firs day 4 tile then 5 tile
+            if (GameManager.Instance.DayCount == 2)
+                tileCountPerDay = 5;
+
             RemainingTileCount = tileCountPerDay - _placedTileCount;
             if (RemainingTileCount <= 0)
             {
@@ -290,12 +294,6 @@ namespace Players
                         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
                 });
             }
-            if (GameManager.Instance.DayCount == 2)
-            {
-                tileCountPerDay = 5;
-                UIManager.Instance.gameCanvasManager.UpdateTileCountUI();
-            }
-                
         }
         private void OnGameStateChange(GameStates state)
         {

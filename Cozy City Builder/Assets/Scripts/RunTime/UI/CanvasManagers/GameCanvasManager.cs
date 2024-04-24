@@ -70,6 +70,11 @@ namespace UI.CanvasManagers
                 button.DeActivate();
             buildingUIAnim.SetTrigger("Close");
         }
+        public void UpdateTilePrice()
+        {
+            foreach (SelectTileButton button in selectTileButtons)
+                button.UpdatePrice();
+        }
         #endregion
 
         #region Top UI
@@ -137,6 +142,10 @@ namespace UI.CanvasManagers
             infoUI.SetActive(show);
             if (!show)
                 PlayerPrefs.SetInt("Info", 1);
+        }
+        public void ToggleInfoUI()
+        {
+            ShowInfoUI(!infoUI.activeInHierarchy);
         }
 
         public void StartAgain()

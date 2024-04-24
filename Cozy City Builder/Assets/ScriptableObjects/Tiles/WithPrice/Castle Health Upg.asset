@@ -19,4 +19,7 @@ MonoBehaviour:
   BasePrice: 50
   PriceIncrease: 50
   Header: Castle Health Upgrade
-  Description: Increase castle max health +1.
+  Description: 'Increase castle max health +1.
+
+    -10 maintenance expenses every
+    day.'

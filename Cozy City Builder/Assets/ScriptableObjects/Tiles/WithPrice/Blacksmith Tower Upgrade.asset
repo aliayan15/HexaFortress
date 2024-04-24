@@ -19,4 +19,7 @@ MonoBehaviour:
   BasePrice: 30
   PriceIncrease: 30
   Header: Blacksmith
-  Description: Upgrades surrounding towers.
+  Description: 'Upgrades every adjacent tower.
+
+    -15 maintenance expenses every
+    day.'

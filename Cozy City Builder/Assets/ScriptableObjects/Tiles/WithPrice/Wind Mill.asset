@@ -19,4 +19,4 @@ MonoBehaviour:
   BasePrice: 30
   PriceIncrease: 20
   Header: Windmill
-  Description: Gives extra gold production to fielts.
+  Description: Produces gold. Extra gold for every adjacent field.

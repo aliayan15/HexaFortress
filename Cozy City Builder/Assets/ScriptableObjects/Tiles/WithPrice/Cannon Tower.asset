@@ -19,4 +19,14 @@ MonoBehaviour:
   BasePrice: 100
   PriceIncrease: 50
   Header: Cannon Tower
-  Description: Gives damage to nearby enemies.
+  Description: 'Gives damage to  enemies in range. For both ground and air enemies.
+
+    -10
+    maintenance expenses every day.
+
+    Health Damage: 25
+
+    Armor Damage: 40
+
+    Fire
+    Time: 1.5'
