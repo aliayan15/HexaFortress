@@ -16,5 +16,6 @@ public class TileButtonDescTrigger : ToolTipTrigger
         if (tileButton.MyTile == null) return;
         ToolTipSystem.Show(tileButton.MyTile.Description, tileButton.MyTile.Header);
     }
+   
 }
 

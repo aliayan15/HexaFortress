@@ -17,6 +17,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: d15a5eb0975af6f4a9cf30349395b677, type: 3}
   IsTherePrice: 1
   BasePrice: 15
-  PriceIncrease: 10
+  PriceIncrease: 5
   Header: Fields
-  Description: Produces gold. Extra gold for every adjacent Windmill.
+  Description: Produces gold. Extra gold for every adjacent Windmill. Place it next
+    to Windmill.

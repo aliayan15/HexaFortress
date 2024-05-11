@@ -3,6 +3,7 @@ using Managers;
 using MyUtilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -40,8 +41,9 @@ public class TileManager : SingletonMono<TileManager>
     private IEnumerator EconomyTileProdection()
     {
         yield return new WaitForSeconds(1f);
-        var time = new WaitForSeconds(0.3f);
-        foreach (var tile in _economyTiles)
+        var time = new WaitForSeconds(0.2f);
+        var tiles = _economyTiles.ToList();
+        foreach (var tile in tiles)
         {
             // create gold icon
             StartCoroutine(CreateGoldIceon(tile.transform));
@@ -89,9 +91,19 @@ public class TileManager : SingletonMono<TileManager>
     public int GetPriceOfTile(TileType type, int basePrice, int priceIncrease)
     {
         int count = GetTileCount(type);
+        //switch (type)
+        //{
+        //    case TileType.Grass:
+        //    case TileType.Fielts:
+        //    case TileType.House:
+        //        count = Mathf.Min(count, 7);
+        //        break;
+            
+        //    default:
+        //        break;
+        //}
         return basePrice + (count * priceIncrease);
     }
-
 
 
     private void OnTurnStateChange(TurnStates states)

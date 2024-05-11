@@ -19,7 +19,6 @@ MonoBehaviour:
   BasePrice: 50
   PriceIncrease: 50
   Header: Castle Repair
-  Description: 'Repair castle health every day (+1).
+  Description: 'Repairs the castle health every day (+1).
 
-    -10 maintenance expenses
-    every day.'
+    Spends -10 per day.'

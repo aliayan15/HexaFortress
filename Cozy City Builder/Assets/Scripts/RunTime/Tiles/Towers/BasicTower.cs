@@ -107,6 +107,8 @@ public class BasicTower : TowerTileBase
                 }
             }
         }
+        if (colsList.Count == 0) return null;
+
         int index = colsList.Count;
         if (index % 2 == 1)
         {

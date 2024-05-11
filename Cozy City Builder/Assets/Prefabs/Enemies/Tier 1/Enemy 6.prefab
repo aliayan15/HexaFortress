@@ -54,9 +54,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   charater: {fileID: 8186408132349390271}
   level: 14
-  health: 400
-  armor: 100
-  moveSpeed: 1.2
+  health: 270
+  armor: 0
+  moveSpeed: 1.4
   enemyType: 4
   reachedPositionDistance: 0.2
   slowPercent: 0.3

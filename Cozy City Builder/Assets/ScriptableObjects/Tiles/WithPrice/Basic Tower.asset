@@ -21,14 +21,13 @@ MonoBehaviour:
   Header: Arrow Tower
   Description: 'Gives damage to enemies in range. For both ground and air enemies.
 
-    -5
-    maintenance expenses every day.
+    Spends
+    -5 per day.
 
     Health Damage: 20
 
     Armor Damage: 10
 
-    Fire
-    Time: 1.5
+    Fire Time: 1.5
 
 '

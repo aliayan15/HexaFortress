@@ -19,4 +19,5 @@ MonoBehaviour:
   BasePrice: 5
   PriceIncrease: 5
   Header: Grass
-  Description: Empty area. Gives bonus gold to each adjacent sheep farm.
+  Description: Empty area. Gives bonus gold to each adjacent Sheep Farm. Place it
+    next to Sheep Farm

@@ -1956,7 +1956,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9f299a878861cc478769b6ad7367a5d, type: 2}
   - {fileID: 11400000, guid: 18314c43b0ecb55448c12c4d211ccb40, type: 2}
   - {fileID: 11400000, guid: 49fbdf8626b549e4fad0576f5ebc652b, type: 2}
-  upgradeDays: 0300000006000000090000000d00000011000000
+  upgradeDays: 0300000006000000090000000d0000000f0000001200000015000000180000001b0000001e000000
 --- !u!4 &992944137
 Transform:
   m_ObjectHideFlags: 0
@@ -2357,14 +2357,21 @@ MonoBehaviour:
   - {fileID: 1874222223779149295, guid: c83cc5fe3d895d745a61a7fc45a4b79a, type: 3}
   - {fileID: 7263314570791981563, guid: b264ef757581b09498eb8666a3055ce7, type: 3}
   - {fileID: 3426581273459180596, guid: aff75d49bb2e9c14b9c83cdc2d2562ae, type: 3}
-  tier2: []
+  tier2:
+  - {fileID: 876009534224836919, guid: 06030205ced8ef94f97c21e66e548858, type: 3}
+  - {fileID: 3794293520506996684, guid: a582f38248c6e5342ae088a6a4744e10, type: 3}
+  - {fileID: 8047079793324231557, guid: 6d65d38960e24084a8214f41b85c6962, type: 3}
+  - {fileID: 1250054331068877235, guid: 3b3db3671394bf34ea5342593bac6c3d, type: 3}
+  - {fileID: 4373220859135918266, guid: e193d3ab47317a149b62d289894a558e, type: 3}
+  - {fileID: 1519127421670482286, guid: 8608d2cf3f1722d42b07827fa9c06f5a, type: 3}
+  - {fileID: 7944730626938492914, guid: 2f5044fa64a93a5489ff8f7d4766e547, type: 3}
   tier3: []
   boss1: {fileID: 6624950886399822867, guid: 1ffd546b9bfdf6248a3b8af64d52d11b, type: 3}
-  boss2: {fileID: 0}
+  boss2: {fileID: 1068731380474884635, guid: f191cbf135f738c4dadc722c395e0879, type: 3}
   boss3: {fileID: 0}
   tier2Day: 18
-  tier3Day: 40
-  gameEndDay: 18
+  tier3Day: 36
+  gameEndDay: 36
   spawnPointY: 0.46
 --- !u!4 &1839547370
 Transform:

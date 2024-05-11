@@ -21,5 +21,4 @@ MonoBehaviour:
   Header: Castle Health Upgrade
   Description: 'Increase castle max health +1.
 
-    -10 maintenance expenses every
-    day.'
+    Spends -10 per day.'

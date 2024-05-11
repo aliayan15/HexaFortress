@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &182467354044928356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5089833190151604074}
+  m_Layer: 7
+  m_Name: Point (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5089833190151604074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182467354044928356}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.356, z: -0.069}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7944730626938492915}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7944730626938492913
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +64,7 @@ Transform:
   m_Children:
   - {fileID: 1003024496089586197}
   - {fileID: 7697736364186171488}
+  - {fileID: 5089833190151604074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48,18 +80,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ec405db334349479960f2e66559559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPoint: {fileID: 0}
+  targetPoint: {fileID: 5089833190151604074}
   healthBar: {fileID: 1003024496089586194}
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   charater: {fileID: 5642578962686321715}
-  level: 1
-  health: 15
-  armor: 0
-  moveSpeed: 1.2
-  enemyType: 0
+  level: 33
+  health: 500
+  armor: 500
+  moveSpeed: 1.4
+  enemyType: 4
   reachedPositionDistance: 0.2
   slowPercent: 0.3
-  slowTime: 2
+  slowTime: 3
   damageToCastle: 1
 --- !u!65 &640865604610412575
 BoxCollider:
@@ -72,8 +104,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22332764, y: 0.4214384, z: 0.17364502}
-  m_Center: {x: -0.0014038086, y: 0.19155553, z: -0.003326416}
+  m_Size: {x: 0.22332764, y: 0.1866492, z: 0.23137999}
+  m_Center: {x: -0.0014038086, y: 0.37823212, z: -0.10917401}
 --- !u!54 &1568041898960390003
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,7 +162,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: abdc60fb88698c14d89671cf089e2b3d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.029
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: abdc60fb88698c14d89671cf089e2b3d,
         type: 3}
@@ -216,7 +248,7 @@ PrefabInstance:
     - target: {fileID: 8883848745689646913, guid: 706a963f4b3c5794bbfe1e00bcc7619a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.646
+      value: 0.675
       objectReference: {fileID: 0}
     - target: {fileID: 8883848745689646913, guid: 706a963f4b3c5794bbfe1e00bcc7619a,
         type: 3}

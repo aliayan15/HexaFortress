@@ -19,4 +19,5 @@ MonoBehaviour:
   BasePrice: 30
   PriceIncrease: 20
   Header: Windmill
-  Description: Produces gold. Extra gold for every adjacent field.
+  Description: Produces gold. Extra gold for every adjacent field. Place it next
+    to Fields.

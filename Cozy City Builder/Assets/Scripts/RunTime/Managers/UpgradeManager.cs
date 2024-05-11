@@ -121,6 +121,25 @@ public class UpgradeManager : SingletonMono<UpgradeManager>
     {
         SOUpgradeData[] datas = new SOUpgradeData[3];
         var dataList = upgrades.ToList();
+        // remove locked towers upgrades
+        for (int i = 0; i < dataList.Count; i++)
+        {
+            bool isUnlocked = false;
+            foreach (var tower in TileSelector.Instance.Towers)
+            {
+                if (dataList[i].TileType == tower.TileType)
+                {
+                    isUnlocked = true;
+                    break;
+                }
+            }
+            if (!isUnlocked)
+            {
+                dataList.RemoveAt(i);
+                i--;
+            }
+        }
+        Debug.Log("Towers count:" + TileSelector.Instance.Towers.Count);
         dataList.Shuffle();
         datas[0] = dataList[Random.Range(0, dataList.Count)];
         dataList.Remove(datas[0]);

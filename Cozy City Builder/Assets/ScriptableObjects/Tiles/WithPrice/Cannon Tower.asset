@@ -21,12 +21,11 @@ MonoBehaviour:
   Header: Cannon Tower
   Description: 'Gives damage to  enemies in range. For both ground and air enemies.
 
-    -10
-    maintenance expenses every day.
+    Spends
+    -10 per day.
 
     Health Damage: 25
 
     Armor Damage: 40
 
-    Fire
-    Time: 1.5'
+    Fire Time: 1.5'

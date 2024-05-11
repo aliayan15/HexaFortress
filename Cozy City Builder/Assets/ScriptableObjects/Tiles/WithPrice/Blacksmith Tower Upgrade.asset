@@ -18,8 +18,8 @@ MonoBehaviour:
   IsTherePrice: 1
   BasePrice: 30
   PriceIncrease: 30
-  Header: Blacksmith
-  Description: 'Upgrades every adjacent tower.
+  Header: Tower Upgrade
+  Description: 'Upgrades every adjacent tower. Place it next to towers.
 
-    -15 maintenance expenses every
-    day.'
+    Spends
+    -10 per day.'

@@ -97,7 +97,7 @@ public abstract class TileBase : MonoBehaviour
 
     public virtual void OnDayBegin()
     {
-        Debug.Log("Gold");
+        //Debug.Log("Gold");
     }
 
     protected virtual void OnEnable()

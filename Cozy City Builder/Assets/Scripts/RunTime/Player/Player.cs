@@ -294,6 +294,7 @@ namespace Players
                         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
                 });
             }
+            ToolTipSystem.Instance.CanShow3dWorldUI = _canBuild;
         }
         private void OnGameStateChange(GameStates state)
         {

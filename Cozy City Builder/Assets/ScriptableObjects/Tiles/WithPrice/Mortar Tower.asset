@@ -21,12 +21,11 @@ MonoBehaviour:
   Header: Mortar Tower
   Description: 'Gives area damage. Only for ground enemies.
 
-    -15 maintenance
-    expenses every day.
+    Spends -15 per day.
 
-    Health Damage: 30
+    Health
+    Damage: 30
 
     Armor Damage: 20
 
-    Fire Time:
-    2.5'
+    Fire Time: 2.5'

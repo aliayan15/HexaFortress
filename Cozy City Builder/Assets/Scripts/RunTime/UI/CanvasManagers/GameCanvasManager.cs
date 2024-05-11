@@ -125,6 +125,7 @@ namespace UI.CanvasManagers
             {
                 upgrades.SetActive(false);
             }
+            ToolTipSystem.Instance.CanShow3dWorldUI = !show;
         }
         #endregion
 
@@ -142,6 +143,7 @@ namespace UI.CanvasManagers
             infoUI.SetActive(show);
             if (!show)
                 PlayerPrefs.SetInt("Info", 1);
+            ToolTipSystem.Instance.CanShow3dWorldUI = !show;
         }
         public void ToggleInfoUI()
         {

@@ -15,6 +15,8 @@ public class TileSelector : SingletonMono<TileSelector>
     [SerializeField] private SOTileData[] startTiles;
     [SerializeField] private List<SOTileData> towers;
 
+    public List<SOTileData> Towers => towers;
+
     private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
     private List<SOTileData> _openPathTilesList = new List<SOTileData>();
 
@@ -88,12 +90,22 @@ public class TileSelector : SingletonMono<TileSelector>
         {
             foreach (var tile in tilesToUnlock)
             {
-                if (GameManager.Instance.DayCount == tile.UnlockDay && !tiles.Contains(tile.Tile))
+                if (GameManager.Instance.DayCount == tile.UnlockDay)
                 {
-                    if (tile.Tile.TileType != TileType.Tower)
-                        tiles.Add(tile.Tile);
-                    else
-                        towers.Add(tile.Tile);
+                    switch (tile.Tile.TileType)
+                    {
+                        case TileType.Cannon:
+                        case TileType.Mortar:
+                        case TileType.Tower:
+                            if (!towers.Contains(tile.Tile))
+                                towers.Add(tile.Tile);
+                            break;
+                        default:
+                            if (!tiles.Contains(tile.Tile))
+                                tiles.Add(tile.Tile);
+                            break;
+
+                    }
                 }
             }
         }

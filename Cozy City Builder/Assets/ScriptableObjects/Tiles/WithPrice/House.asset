@@ -20,4 +20,4 @@ MonoBehaviour:
   PriceIncrease: 5
   Header: House
   Description: The place people live in your Kingdom. Gives bonus gold to each adjacent
-    market.
+    Market. Place it next to Market.
