@@ -91,17 +91,18 @@ public class TileManager : SingletonMono<TileManager>
     public int GetPriceOfTile(TileType type, int basePrice, int priceIncrease)
     {
         int count = GetTileCount(type);
-        //switch (type)
-        //{
-        //    case TileType.Grass:
-        //    case TileType.Fielts:
-        //    case TileType.House:
-        //        count = Mathf.Min(count, 7);
-        //        break;
-            
-        //    default:
-        //        break;
-        //}
+        switch (type)
+        {
+            case TileType.Grass:
+            case TileType.Fielts:
+            case TileType.House:
+            case TileType.TowerUpgrade:
+                count = Mathf.Min(count, 6);
+                break;
+
+            default:
+                break;
+        }
         return basePrice + (count * priceIncrease);
     }
 

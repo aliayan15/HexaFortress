@@ -291,10 +291,50 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3773368730949671011, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: -722188493401636389, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.4451272
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 83.75467
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c3215113684fed14e901cd3f69983c56,
         type: 3}
       propertyPath: m_Name
       value: Ninja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 84.82024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 151.87502
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: c3215113684fed14e901cd3f69983c56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 151.87502
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3215113684fed14e901cd3f69983c56, type: 3}
@@ -304,6 +344,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1315381693468022112}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2197833032926996529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c3215113684fed14e901cd3f69983c56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1315381693468022112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3085158101607223316
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2197833032926996529}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 73df402f75cdf914e8ee9c02962a6c3a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!137 &5024453679419963481 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -2883607033254400711, guid: c3215113684fed14e901cd3f69983c56,

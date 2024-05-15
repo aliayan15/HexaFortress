@@ -166,8 +166,8 @@ MonoBehaviour:
   fireTime: 2.5
   baseDamage: 30
   armorDamage: 20
-  damageUpgrade: 10
-  armorDamageUpgrade: 5
+  damageUpgrade: 15
+  armorDamageUpgrade: 10
   goldExpense: 10
   enemyType: 2
   enemyLayer:

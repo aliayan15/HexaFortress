@@ -38,13 +38,26 @@ namespace UI.CanvasManagers
             int tileWithPrice = 5;
             for (int i = 0; i < tileWithPrice; i++)
             {
-                if (i == 0) { selectTileButtons[i].SetTile(TileSelector.Instance.GetTowerTile()); continue; }
+                if (i == 0)
+                {
+                    selectTileButtons[i].SetTile(TileSelector.Instance.GetTowerTile());
+                    continue;
+                }
+                if (i == 2)
+                {
+                    int rndNum1 = Random.Range(0, 100);
+                    if (rndNum1 < 40) // second tower
+                    {
+                        selectTileButtons[i].SetTile(TileSelector.Instance.GetTowerTile());
+                        continue;
+                    }
+                }
                 selectTileButtons[i].SetTile(TileSelector.Instance.GetTileWithPrice());
             }
             // path tile
             selectTileButtons[7].SetTile(TileSelector.Instance.GetPathTile());
-            int rndNum = Random.Range(0, 100);
-            if (rndNum < 50)
+            int rndNum2 = Random.Range(0, 100);
+            if (rndNum2 < 70) // 2 path chance
                 selectTileButtons[8].SetTile(TileSelector.Instance.GetPathTile());
             else
                 selectTileButtons[8].DeActivate();

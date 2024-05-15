@@ -50,8 +50,8 @@ MonoBehaviour:
   rayLayer:
     serializedVersion: 2
     m_Bits: 192
-  lifeTime: 7
-  radius: 1
+  lifeTime: 3
+  radius: 1.2
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
 --- !u!23 &6613420602483278120
 MeshRenderer:

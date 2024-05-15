@@ -54,9 +54,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   charater: {fileID: 2876886620415241284}
   level: 36
-  health: 1000
+  health: 2000
   armor: 1000
-  moveSpeed: 1.2
+  moveSpeed: 1
   enemyType: 2
   reachedPositionDistance: 0.2
   slowPercent: 0.3
@@ -211,6 +211,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cc3f0c5bb2572e44b8deeaf6e73cd78, type: 3}
+--- !u!1 &75915995870241155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cc3f0c5bb2572e44b8deeaf6e73cd78,
+    type: 3}
+  m_PrefabInstance: {fileID: 994412488656198866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7979737562391604188
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75915995870241155}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b66bcf311bdb14f4da931eea88f0ebf4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &740390921051175737 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4cc3f0c5bb2572e44b8deeaf6e73cd78,

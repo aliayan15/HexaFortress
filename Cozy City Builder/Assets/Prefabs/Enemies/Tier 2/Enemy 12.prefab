@@ -85,9 +85,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   charater: {fileID: 6289064581375749750}
   level: 27
-  health: 1000
+  health: 850
   armor: 0
-  moveSpeed: 1.3
+  moveSpeed: 1.2
   enemyType: 2
   reachedPositionDistance: 0.2
   slowPercent: 0.3
@@ -291,13 +291,70 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3773368730949671011, guid: 28106cef5b85f104eb5570ce8aba1dc4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: -722188493401636389, guid: 28106cef5b85f104eb5570ce8aba1dc4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -3.782101
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: 28106cef5b85f104eb5570ce8aba1dc4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 81.58001
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: 28106cef5b85f104eb5570ce8aba1dc4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 67.49997
+      objectReference: {fileID: 0}
+    - target: {fileID: 683016262716161782, guid: 28106cef5b85f104eb5570ce8aba1dc4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 67.49997
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 28106cef5b85f104eb5570ce8aba1dc4,
         type: 3}
       propertyPath: m_Name
       value: PinkBlob
       objectReference: {fileID: 0}
+    - target: {fileID: 7602925383370758586, guid: 28106cef5b85f104eb5570ce8aba1dc4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.57981
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28106cef5b85f104eb5570ce8aba1dc4, type: 3}
+--- !u!1 &3704665369041431947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 28106cef5b85f104eb5570ce8aba1dc4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4587184877147443418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8500408424504845042
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3704665369041431947}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25229633578c5a941ac87a689d401a0f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &4044880262408419121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 28106cef5b85f104eb5570ce8aba1dc4,

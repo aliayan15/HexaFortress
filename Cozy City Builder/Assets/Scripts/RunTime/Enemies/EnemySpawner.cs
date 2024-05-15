@@ -11,11 +11,11 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     [Header("Enemies")]
     [SerializeField] private Enemy[] tier1;
     [SerializeField] private Enemy[] tier2;
-    [SerializeField] private Enemy[] tier3;
+    //[SerializeField] private Enemy[] tier3;
     [Header("Bosses")]
     [SerializeField] private Enemy boss1;
     [SerializeField] private Enemy boss2;
-    [SerializeField] private Enemy boss3;
+    //[SerializeField] private Enemy boss3;
     [Space(5)]
     [SerializeField] private int tier2Day;
     [SerializeField] private int tier3Day;
@@ -45,7 +45,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     {
         if (TileManager.Instance.EnemySpawnPoints.Count == 0) yield break;
         // total count(not)
-        var time = new WaitForSeconds(1f / TileManager.Instance.EnemySpawnPoints.Count);
+        var time = new WaitForSeconds(1f);
         int count = GameManager.Instance.DayCount * GameManager.Instance.DayCount;
         // set path for each spawn point
         _paths.Clear();
@@ -77,12 +77,12 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
 
     private int SpawnFromTiers()
     {
-        if (GameManager.Instance.DayCount >= tier3Day)
-        {
-            int num = SpawnFromArray(tier3, 3f);
-            if (num > 0)
-                return num;
-        }
+        //if (GameManager.Instance.DayCount >= tier3Day)
+        //{
+        //    int num = SpawnFromArray(tier3, 3f);
+        //    if (num > 0)
+        //        return num;
+        //}
         if (GameManager.Instance.DayCount >= tier2Day)
         {
             int num = SpawnFromArray(tier2, 2f);
@@ -103,7 +103,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
             if (canSpawnThisEnemy)
             {
                 SpawnEnemy(enemies[i]);
-                num = Mathf.Max(Mathf.RoundToInt(enemies[i].Level / multiplier), 1);
+                num = enemies[i].Level;
                 break;
             }
             else

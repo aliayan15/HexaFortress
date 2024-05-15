@@ -256,7 +256,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
@@ -1956,7 +1956,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9f299a878861cc478769b6ad7367a5d, type: 2}
   - {fileID: 11400000, guid: 18314c43b0ecb55448c12c4d211ccb40, type: 2}
   - {fileID: 11400000, guid: 49fbdf8626b549e4fad0576f5ebc652b, type: 2}
-  upgradeDays: 0300000006000000090000000d0000000f0000001200000015000000180000001b0000001e000000
+  upgradeDays: 0300000006000000090000000c0000000f000000110000001300000016000000180000001a0000001c0000001e000000
 --- !u!4 &992944137
 Transform:
   m_ObjectHideFlags: 0
@@ -2003,7 +2003,7 @@ Transform:
   m_Children:
   - {fileID: 951779756}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1097701572
 MonoBehaviour:
@@ -2094,31 +2094,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6063883063791155074, guid: c28ec7b1c5780b04db22940f6398ba77,
-        type: 3}
-      propertyPath: lowBorder.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063883063791155074, guid: c28ec7b1c5780b04db22940f6398ba77,
-        type: 3}
-      propertyPath: lowBorder.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063883063791155074, guid: c28ec7b1c5780b04db22940f6398ba77,
-        type: 3}
-      propertyPath: highBorder.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063883063791155074, guid: c28ec7b1c5780b04db22940f6398ba77,
-        type: 3}
-      propertyPath: highBorder.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063883063791155076, guid: c28ec7b1c5780b04db22940f6398ba77,
-        type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6063883063791155076, guid: c28ec7b1c5780b04db22940f6398ba77,
         type: 3}
       propertyPath: m_Name
@@ -2179,16 +2154,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6063883064022240068, guid: c28ec7b1c5780b04db22940f6398ba77,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063883064022240068, guid: c28ec7b1c5780b04db22940f6398ba77,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c28ec7b1c5780b04db22940f6398ba77, type: 3}
 --- !u!1 &1562625835
@@ -2220,7 +2185,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644370428
 GameObject:
@@ -2260,39 +2225,37 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac22f9be7ebaf2b48a0bb5a4234be4be, type: 2}
   - {fileID: 11400000, guid: 3d2f6f7c9ea39ab458a9a7b7bb1f5495, type: 2}
   - {fileID: 11400000, guid: 077b41c1067cddb4ab3c8586983fc19d, type: 2}
-  - {fileID: 11400000, guid: 0cd4fcaa35d65fa4f93786a146151546, type: 2}
+  - {fileID: 11400000, guid: 7042c9863684d2249a22898576071564, type: 2}
   pathTiles:
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
   - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
+  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
   - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
   - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
+  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
-  - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
-  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
-  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
-  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
-  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
-  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
+  - {fileID: 11400000, guid: ca51adc51eeae96459b58626e6e27ff8, type: 2}
   - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
-  - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
-  - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
+  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
+  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
+  - {fileID: 11400000, guid: ca51adc51eeae96459b58626e6e27ff8, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
   - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
   tilesToUnlock:
+  - Tile: {fileID: 11400000, guid: 663aa36c7fe035c45ab9fea29e6f0ae8, type: 2}
+    UnlockDay: 7
   - Tile: {fileID: 11400000, guid: 8d05d4fc46e1b6d47a76e12516578538, type: 2}
     UnlockDay: 4
   - Tile: {fileID: 11400000, guid: 784cdb8dcb5f60a4280cc75ebf1e8d30, type: 2}
-    UnlockDay: 7
-  - Tile: {fileID: 11400000, guid: 663aa36c7fe035c45ab9fea29e6f0ae8, type: 2}
     UnlockDay: 7
   startTiles:
   - {fileID: 11400000, guid: 436ac6407415cda4480c21a863df24fa, type: 2}
@@ -2365,10 +2328,8 @@ MonoBehaviour:
   - {fileID: 4373220859135918266, guid: e193d3ab47317a149b62d289894a558e, type: 3}
   - {fileID: 1519127421670482286, guid: 8608d2cf3f1722d42b07827fa9c06f5a, type: 3}
   - {fileID: 7944730626938492914, guid: 2f5044fa64a93a5489ff8f7d4766e547, type: 3}
-  tier3: []
   boss1: {fileID: 6624950886399822867, guid: 1ffd546b9bfdf6248a3b8af64d52d11b, type: 3}
   boss2: {fileID: 1068731380474884635, guid: f191cbf135f738c4dadc722c395e0879, type: 3}
-  boss3: {fileID: 0}
   tier2Day: 18
   tier3Day: 36
   gameEndDay: 36

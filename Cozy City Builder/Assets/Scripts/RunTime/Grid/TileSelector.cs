@@ -19,6 +19,7 @@ public class TileSelector : SingletonMono<TileSelector>
 
     private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
     private List<SOTileData> _openPathTilesList = new List<SOTileData>();
+    private int _getTowerIndex = 0;
 
     private void Start()
     {
@@ -40,7 +41,11 @@ public class TileSelector : SingletonMono<TileSelector>
 
     public SOTileData GetTowerTile()
     {
-        return towers[Random.Range(0, towers.Count)];
+        var tower = towers[_getTowerIndex];
+        _getTowerIndex++;
+        if (_getTowerIndex >= towers.Count)
+            _getTowerIndex = 0;
+        return tower;
     }
 
     public SOTileData GetTileWithPrice()
@@ -86,29 +91,29 @@ public class TileSelector : SingletonMono<TileSelector>
     #region State Change
     private void OnTurnStateChange(TurnStates state)
     {
-        if (state == TurnStates.TurnBegin)
+        if (state != TurnStates.TurnBegin)
+            return;
+        foreach (var tile in tilesToUnlock)
         {
-            foreach (var tile in tilesToUnlock)
+            if (GameManager.Instance.DayCount == tile.UnlockDay)
             {
-                if (GameManager.Instance.DayCount == tile.UnlockDay)
+                switch (tile.Tile.TileType)
                 {
-                    switch (tile.Tile.TileType)
-                    {
-                        case TileType.Cannon:
-                        case TileType.Mortar:
-                        case TileType.Tower:
-                            if (!towers.Contains(tile.Tile))
-                                towers.Add(tile.Tile);
-                            break;
-                        default:
-                            if (!tiles.Contains(tile.Tile))
-                                tiles.Add(tile.Tile);
-                            break;
+                    case TileType.Cannon:
+                    case TileType.Mortar:
+                    case TileType.Tower:
+                        if (!towers.Contains(tile.Tile))
+                            towers.Add(tile.Tile);
+                        break;
+                    default:
+                        if (!tiles.Contains(tile.Tile))
+                            tiles.Add(tile.Tile);
+                        break;
 
-                    }
                 }
             }
         }
+
     }
 
 

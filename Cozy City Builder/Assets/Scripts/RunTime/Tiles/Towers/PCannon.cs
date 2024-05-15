@@ -27,7 +27,9 @@ public class PCannon : Projectile
             _endPos = _target.position;
         _time += Time.fixedDeltaTime * speed;
         transform.position = GetPathPos(_time);
-        transform.forward = GetPathPos(_time + 0.001f) - transform.position;
+        Vector3 forward = GetPathPos(_time + 0.001f) - transform.position;
+        if (forward != Vector3.zero)
+            transform.forward = forward;
         if (_time >= 1)
         {
             CheckHit(1f);

@@ -45,14 +45,6 @@ public class CameraManager : SingletonMono<CameraManager>
 
     private void HandleInput()
     {
-        //if (Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    _movementSpeed = fastSpeed;
-        //}
-        //else
-        //{
-        //    _movementSpeed = normalSpeed;
-        //}
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
