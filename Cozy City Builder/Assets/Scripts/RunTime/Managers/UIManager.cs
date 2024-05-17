@@ -3,6 +3,7 @@ using UI;
 using MyUtilities.UI;
 using UI.CanvasManagers;
 using MyUtilities;
+using DG.Tweening;
 
 namespace Managers
 {
@@ -30,6 +31,8 @@ namespace Managers
         public void SetGameOver()
         {
             _canvases.HideAllExceptOne(GAMEOVER);
+            GAMEOVER.canvasGroup.alpha = 0;
+            GAMEOVER.canvasGroup.DOFade(1f, 1f);
         }
         public void SetGameWin()
         {
@@ -48,6 +51,9 @@ namespace Managers
             _canvases.HideAllExceptOne(GAME);
         }
 
-
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

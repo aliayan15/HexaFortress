@@ -54,7 +54,7 @@ MonoBehaviour:
   charater: {fileID: 6003930795130248172}
   level: 9
   health: 150
-  armor: 30
+  armor: 50
   moveSpeed: 1.2
   enemyType: 2
   reachedPositionDistance: 0.2

@@ -2246,10 +2246,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
   - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
-  - {fileID: 11400000, guid: ec77b17cc2875ce4a8806dcdf29dab17, type: 2}
   - {fileID: 11400000, guid: ca51adc51eeae96459b58626e6e27ff8, type: 2}
   - {fileID: 11400000, guid: d06172047daf156429225794421278d3, type: 2}
-  - {fileID: 11400000, guid: f16f3ceccc94596499679610527d23d3, type: 2}
   tilesToUnlock:
   - Tile: {fileID: 11400000, guid: 663aa36c7fe035c45ab9fea29e6f0ae8, type: 2}
     UnlockDay: 7

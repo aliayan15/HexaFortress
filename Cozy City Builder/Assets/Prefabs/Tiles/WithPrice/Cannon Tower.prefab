@@ -467,8 +467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileType: 18
   fireTime: 1.5
-  baseDamage: 25
-  armorDamage: 40
+  baseDamage: 30
+  armorDamage: 30
   damageUpgrade: 15
   armorDamageUpgrade: 10
   goldExpense: 10

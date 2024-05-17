@@ -137,10 +137,10 @@ namespace Managers
         {
             DayCount += day;
             UIManager.Instance.gameCanvasManager.UpdateDayUI();
-            if (DayCount == EnemySpawner.Instance.GameEndDay)
-            {
-                SetState(GameStates.GAMEWIN);
-            }
+            //if (DayCount == EnemySpawner.Instance.GameEndDay)
+            //{
+            //    SetState(GameStates.GAMEWIN);
+            //}
         }
         #endregion
 

@@ -107,7 +107,7 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
                 break;
             }
             else
-                rndPlus += 0.05f;
+                rndPlus += 0.02f;
         }
         return num;
     }
