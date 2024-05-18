@@ -12,6 +12,7 @@ public class CameraManager : SingletonMono<CameraManager>
 
     [SerializeField] private Camera cam;
     [SerializeField] private Transform myCamera;
+    [SerializeField] private Transform globalLight;
     [Space(5)]
     [Header("Settings")]
     [SerializeField] private float normalSpeed;
@@ -32,6 +33,14 @@ public class CameraManager : SingletonMono<CameraManager>
 
     private void Start()
     {
+        int rndRosY = -Random.Range(20, 160);
+        Quaternion ros = Quaternion.Euler(new Vector3(0, rndRosY, 0));
+        transform.rotation = ros;
+        Vector3 rosAngle = globalLight.rotation.eulerAngles;
+        rosAngle.y = rndRosY;
+        ros = Quaternion.Euler(rosAngle);
+        globalLight.rotation = ros;
+
         _newPosition = transform.position;
         _newRotation = transform.rotation;
         _newZoom = myCamera.transform.localPosition;

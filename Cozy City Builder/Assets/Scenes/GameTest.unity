@@ -2094,6 +2094,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6063883063791155074, guid: c28ec7b1c5780b04db22940f6398ba77,
+        type: 3}
+      propertyPath: globalLight
+      value: 
+      objectReference: {fileID: 410087041}
     - target: {fileID: 6063883063791155076, guid: c28ec7b1c5780b04db22940f6398ba77,
         type: 3}
       propertyPath: m_Name
