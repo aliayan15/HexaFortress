@@ -7842,6 +7842,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dev Command Terminal
       objectReference: {fileID: 0}
+    - target: {fileID: 222532347371367613, guid: 527911648b31b0e44b781e22ee247ee1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 222532347371367614, guid: 527911648b31b0e44b781e22ee247ee1,
         type: 3}
       propertyPath: m_RootOrder

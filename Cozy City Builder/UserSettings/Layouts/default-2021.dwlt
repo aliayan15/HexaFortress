@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy 2
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 60
+  controlID: 121
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -340,7 +340,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -631,9 +631,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 5.080235, y: 4.310768, z: -8.340554}
+    m_Target: {x: 7.169635, y: -1.7980604, z: 5.133312}
     speed: 2
-    m_Value: {x: 5.080235, y: 4.310768, z: -8.340554}
+    m_Value: {x: 7.169635, y: -1.7980604, z: 5.133312}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -680,13 +680,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.2796827, y: 0.28447068, z: -0.08715901, w: -0.9128299}
+    m_Target: {x: 0.06453995, y: 0.9318095, z: -0.29162434, w: 0.20622082}
     speed: 2
-    m_Value: {x: -0.27968258, y: 0.28447053, z: -0.08715896, w: -0.91282946}
+    m_Value: {x: 0.06453975, y: 0.9318067, z: -0.29162347, w: 0.20622021}
   m_Size:
-    m_Target: 12.124355
+    m_Target: 11.925186
     speed: 2
-    m_Value: 12.124355
+    m_Value: 11.925186
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -704,7 +704,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewRotation: {x: -0.2796827, y: 0.28447068, z: -0.08715901, w: -0.9128299}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -776,7 +776,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 36fbffff
+      m_ExpandedIDs: 3062fcffd464fcff9865fcff0868fcff1c6dfcff9ad3fcff2241fdffe69dfdff1ca5fdff1ea5fdff382bfeffa690feffc6a1feff7c09ffffe671ffffee71fffff071ffff36fbfffff4ffffff92af0000f6af0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -881,23 +881,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/RunTime/Managers
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/RunTime/Managers
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: E:\GitHub\Cozy-Puzzle-Game\Cozy City Builder
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 216}
-    m_SelectedIDs: 8e850000
-    m_LastClickedID: 34190
-    m_ExpandedIDs: 000000003c8500003e85000040850000428500004485000046850000488500004a8500004c8500004e850000508500007c85000000ca9a3b
+    scrollPos: {x: 0, y: 28}
+    m_SelectedIDs: 70850000
+    m_LastClickedID: 34160
+    m_ExpandedIDs: 000000003c850000408500004285000046850000488500004a8500004c8500004e8500005085000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300008c8f000032900000206d00002e6d0000426d00004c6d00005a6d0000726d0000846d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
