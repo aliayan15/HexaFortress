@@ -13,7 +13,7 @@ namespace MyUtilities
             else
             {
                 Debug.LogWarning($"More that one instance of {typeof(T).Name} found.", this);
-                Instance = this as T;
+                Destroy(this);
             }
         }
     }
