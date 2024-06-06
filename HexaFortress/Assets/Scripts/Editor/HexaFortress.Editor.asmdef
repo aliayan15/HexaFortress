@@ -1,7 +1,9 @@
 {
     "name": "HexaFortress.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:adf7e91cefc62db42a01c96083a67d66"
+    ],
     "includePlatforms": [
         "Editor"
     ],
