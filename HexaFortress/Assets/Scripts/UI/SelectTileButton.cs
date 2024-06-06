@@ -1,5 +1,6 @@
 using KBCore.Refs;
 using Managers;
+using Players;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -68,7 +69,7 @@ public class SelectTileButton : MonoBehaviour
         if (!_isCurrentTileFree)
         {
             TilePrice = TileManager.Instance.GetPriceOfTile(_myTile.TileType, _myTile.BasePrice, _myTile.PriceIncrease);
-            if (GameManager.Instance.player.MyGold < TilePrice)
+            if (Player.Instance.MyGold < TilePrice)
             {
                 Debug.Log("Not enough Gold!");
                 return;
@@ -76,9 +77,9 @@ public class SelectTileButton : MonoBehaviour
         }
         // player build
         if (_isPressed) return;
-        GameManager.Instance.player.EnterBuildMode(_myTile);
-        GameManager.Instance.player.OnTilePlaced += OnTilePlaced;
-        GameManager.Instance.player.OnTileCanceled += OnTileCanceled;
+        Player.Instance.EnterBuildMode(_myTile);
+        Player.Instance.OnTilePlaced += OnTilePlaced;
+        Player.Instance.OnTileCanceled += OnTileCanceled;
         _isPressed = true;
         AudioManager.Instance.PlayBtnSound();
     }
@@ -99,7 +100,7 @@ public class SelectTileButton : MonoBehaviour
         if (!_myTile) return;
         if (!_isCurrentTileFree)
         {
-            GameManager.Instance.player.AddGold(-TilePrice);
+            Player.Instance.AddGold(-TilePrice);
             TileManager.Instance.AddNewTile(_myTile.TileType);
         }
 
@@ -111,8 +112,8 @@ public class SelectTileButton : MonoBehaviour
     private void UnsubscribeAction()
     {
         if (!_isPressed) return;
-        GameManager.Instance.player.OnTilePlaced -= OnTilePlaced;
-        GameManager.Instance.player.OnTileCanceled -= OnTileCanceled;
+        Player.Instance.OnTilePlaced -= OnTilePlaced;
+        Player.Instance.OnTileCanceled -= OnTileCanceled;
         _isPressed = false;
     }
 

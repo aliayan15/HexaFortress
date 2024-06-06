@@ -1,6 +1,4 @@
-using Managers;
-using System.Collections;
-using System.Collections.Generic;
+using Players;
 using UnityEngine;
 
 
@@ -24,7 +22,7 @@ public class TowerUpgradeTile : TileBase
             }
         }
         smokePar.Play();
-        GameManager.Instance.player.AddExpensesPerDay(goldExpense);
+        Player.Instance.AddExpensesPerDay(goldExpense);
     }
 }
 

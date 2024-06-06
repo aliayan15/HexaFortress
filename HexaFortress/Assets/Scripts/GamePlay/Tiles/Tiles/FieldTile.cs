@@ -13,7 +13,7 @@ public class FieldTile : TileBase
     {
         base.Init(myNode);
         ProdusedGoldAmount = data.BaseGold;
-        GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
+        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
         TileManager.Instance.AddEconomyTile(this);
     }
 

@@ -6,8 +6,8 @@ using UnityEngine;
 public class SOGameProperties : ScriptableObject
 {
     [Header("Tiles")]
-    public CastleTile Castle;
-    public PathTile PathTile;
+    //public CastleTile Castle;
+    //public PathTile PathTile;
     public ParticleSystem BonusPar;
     public ParticleSystem EnemyDeadPar;
     public ParticleSystem cannonExplosion;

@@ -2,6 +2,7 @@ using Managers;
 using MyUtilities;
 using System.Collections;
 using System.Collections.Generic;
+using Players;
 using UnityEngine;
 
 
@@ -81,11 +82,11 @@ public class CameraManager : SingletonMono<CameraManager>
         //    _newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
         //}
 
-        if (Input.mouseScrollDelta.y > 0 && !GameManager.Instance.player.IsBuilding)
+        if (Input.mouseScrollDelta.y > 0 && !Player.Instance.IsBuilding)
         {
             _newZoom += zoomAmount;
         }
-        if (Input.mouseScrollDelta.y < 0 && !GameManager.Instance.player.IsBuilding)
+        if (Input.mouseScrollDelta.y < 0 && !Player.Instance.IsBuilding)
         {
             _newZoom -= zoomAmount;
         }

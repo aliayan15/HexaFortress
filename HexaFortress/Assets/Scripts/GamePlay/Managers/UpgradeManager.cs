@@ -161,7 +161,8 @@ public class UpgradeManager : SingletonMono<UpgradeManager>
             {
                 this.Timer(1f, () =>
                 {
-                    UIManager.Instance.gameCanvasManager.ShowUpgrades(true);
+                    // TODO send event
+                    //UIManager.Instance.gameCanvasManager.ShowUpgrades(true);
                 });
             }
         }

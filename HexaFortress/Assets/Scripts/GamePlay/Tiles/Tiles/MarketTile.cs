@@ -1,4 +1,5 @@
 using Managers;
+using Players;
 using UnityEngine;
 
 
@@ -12,7 +13,7 @@ public class MarketTile : TileBase,ITileBonusEffect
         base.Init(myNode);
         var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
         ProdusedGoldAmount = data.BaseGold;
-        GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
+        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
         foreach (var surroundingTile in neighbourGrids)
         {
             if (!surroundingTile.MyTile)
@@ -25,10 +26,10 @@ public class MarketTile : TileBase,ITileBonusEffect
 
     public void DoBonusEffect()
     {
-        GameManager.Instance.player.AddGoldPerDay(-ProdusedGoldAmount);
+        Player.Instance.AddGoldPerDay(-ProdusedGoldAmount);
         ProdusedGoldAmount += data.BonusGold;
-        GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
-        GameManager.Instance.player.PlayPartical(transform.position);
+        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+        Player.Instance.PlayPartical(transform.position);
     }
     protected override void OnEnable()
     {

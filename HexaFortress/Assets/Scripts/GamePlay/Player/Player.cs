@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Players
 {
-    public class Player : MonoBehaviour
+    public class Player : SingletonMono<Player>
     {
         [SerializeField] private LayerMask gridPosLayer;
         [SerializeField] private GameObject pfUnwalkable;
@@ -42,11 +42,6 @@ namespace Players
         private HexGridNode _lastInsertedGrid = null;
         private bool _isSpaceHold = false;
         private float _goNightTimer = 0;
-
-        private void Awake()
-        {
-            GameManager.Instance.player = this;
-        }
 
         private void Start()
         {

@@ -16,7 +16,7 @@ public class CastleBonusHealthTile : TileBase
     {
         base.Init(myNode);
         GridManager.Instance.PlayerCastle.UpgradeHealth(bonusHealth);
-        GameManager.Instance.player.AddExpensesPerDay(goldExpense);
+        Player.Instance.AddExpensesPerDay(goldExpense);
     }
 }
 

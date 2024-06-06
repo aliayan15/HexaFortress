@@ -1,7 +1,4 @@
-using Managers;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Players;
 using UnityEngine;
 
 
@@ -13,7 +10,7 @@ public class MillTile : TileBase
     {
         base.Init(myNode);
         ProdusedGoldAmount = data.BaseGold;
-        GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
+        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
         // if there is fielt near, add extra gold
         var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
         foreach (var surroundingTile in surroundingTiles)
@@ -29,10 +26,10 @@ public class MillTile : TileBase
 
     private void DoBonusEffect()
     {
-        GameManager.Instance.player.AddGoldPerDay(-ProdusedGoldAmount);
+        Player.Instance.AddGoldPerDay(-ProdusedGoldAmount);
         ProdusedGoldAmount += data.BonusGold;
-        GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
-        GameManager.Instance.player.PlayPartical(transform.position);
+        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+        Player.Instance.PlayPartical(transform.position);
     }
 
     protected override void OnDisable()

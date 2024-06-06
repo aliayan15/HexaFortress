@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Managers;
 using NaughtyAttributes;
+using Players;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -93,7 +94,7 @@ namespace UI.CanvasManagers
         #region Top UI
         public void UpdateGoldUI()
         {
-            goldText.text = GameManager.Instance.player.MyGold.ToString();
+            goldText.text = Player.Instance.MyGold.ToString();
         }
         public void UpdateDayUI()
         {
@@ -107,13 +108,13 @@ namespace UI.CanvasManagers
         }
         public void UpdateTileCountUI()
         {
-            tileCountText.text = GameManager.Instance.player.RemainingTileCount.ToString();
+            tileCountText.text = Player.Instance.RemainingTileCount.ToString();
         }
 
         public void UpdateGoldToolTip()
         {
-            goldToolTip.content = "Daily gold producing: +" + GameManager.Instance.player.GoldPerDay + "\n"
-                + "Daily gold spending: -" + GameManager.Instance.player.ExpensesPerDay;
+            goldToolTip.content = "Daily gold producing: +" + Player.Instance.GoldPerDay + "\n"
+                + "Daily gold spending: -" + Player.Instance.ExpensesPerDay;
         }
         public void UpdateCastleToolTip()
         {

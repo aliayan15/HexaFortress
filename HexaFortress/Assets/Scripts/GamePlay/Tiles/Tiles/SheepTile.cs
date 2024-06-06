@@ -13,7 +13,7 @@ public class SheepTile : TileBase, ITileBonusEffect
     {
         base.Init(myNode);
         ProdusedGoldAmount = data.BaseGold;
-        GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
+        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
         var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
         foreach (var surroundingTile in surroundingTiles)
         {
@@ -27,10 +27,10 @@ public class SheepTile : TileBase, ITileBonusEffect
 
     public void DoBonusEffect()
     {
-        GameManager.Instance.player.AddGoldPerDay(-ProdusedGoldAmount);
+        Player.Instance.AddGoldPerDay(-ProdusedGoldAmount);
         ProdusedGoldAmount += data.BonusGold;
-        GameManager.Instance.player.AddGoldPerDay(ProdusedGoldAmount);
-        GameManager.Instance.player.PlayPartical(transform.position);
+        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+        Player.Instance.PlayPartical(transform.position);
     }
 
     protected override void OnEnable()

@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Players;
 using UnityEngine;
 
 
@@ -42,7 +43,7 @@ public class GridManager : SingletonMono<GridManager>
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
         // bug fix - Start of the game we are not adding gold.
-        GameManager.Instance.player.AddGold(-GameManager.Instance.player.GoldPerDay);
+        Player.Instance.AddGold(-Player.Instance.GoldPerDay);
     }
 
     private void CreatePlayerCastle()

@@ -1,6 +1,7 @@
 using Managers;
 using NaughtyAttributes;
 using System.Collections;
+using Players;
 using UnityEngine;
 
 public class TowerTileBase : TileBase, ITowerUpgradeable
@@ -33,7 +34,7 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
         CheckUpgradeTile();
         if (rangeImage)
             rangeImage.SetActive(false);
-        GameManager.Instance.player.AddExpensesPerDay(goldExpense);
+        Player.Instance.AddExpensesPerDay(goldExpense);
         switch (MyType)
         {
             case TileType.Tower:
@@ -76,7 +77,7 @@ public class TowerTileBase : TileBase, ITowerUpgradeable
 
     private void PlayPartical()
     {
-        GameManager.Instance.player.PlayPartical(transform.position);
+        Player.Instance.PlayPartical(transform.position);
     }
 
     public void UpgradeSlowEffect()

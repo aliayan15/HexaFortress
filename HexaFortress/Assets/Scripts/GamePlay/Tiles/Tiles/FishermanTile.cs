@@ -1,5 +1,6 @@
 ﻿using Managers;
 using System.Collections;
+using Players;
 using UnityEngine;
 
 
@@ -47,6 +48,6 @@ public class FishermanTile : TileBase
     protected override void OnTurnStateChange(TurnStates state)
     {
         if (state != TurnStates.TurnBegin) return;
-        GameManager.Instance.player.AddGold(ProdusedGoldAmount);
+        Player.Instance.AddGold(ProdusedGoldAmount);
     }
 }

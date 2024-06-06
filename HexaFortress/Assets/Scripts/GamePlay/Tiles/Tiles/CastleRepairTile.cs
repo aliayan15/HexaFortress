@@ -1,6 +1,7 @@
 using Managers;
 using System.Collections;
 using System.Collections.Generic;
+using Players;
 using UnityEngine;
 
 /// <summary>
@@ -16,7 +17,7 @@ public class CastleRepairTile : TileBase
     {
         base.Init(myNode);
         UIManager.Instance.gameCanvasManager.UpdateCastleToolTip();
-        GameManager.Instance.player.AddExpensesPerDay(goldExpense);
+        Player.Instance.AddExpensesPerDay(goldExpense);
     }
 
     protected override void OnTurnStateChange(TurnStates state)

@@ -1,5 +1,6 @@
 using Managers;
 using NaughtyAttributes;
+using Players;
 using UnityEngine;
 
 
@@ -21,7 +22,7 @@ public class CastleTile : BasicTower
         base.Init(myNode);
         myNode.SetIsWalkable(true);
         _currentCastleHealth = castleHealth;
-        GameManager.Instance.player.AddGoldPerDay(goldPerDay);
+        Player.Instance.AddGoldPerDay(goldPerDay);
     }
 
     public void TakeDamage(short damage)
@@ -40,7 +41,7 @@ public class CastleTile : BasicTower
         castleHealth += bonusHealth;
         _currentCastleHealth += bonusHealth;
         UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
-        GameManager.Instance.player.PlayPartical(transform.position);
+        Player.Instance.PlayPartical(transform.position);
     }
     public void RepairHealth(short repairAmount)
     {

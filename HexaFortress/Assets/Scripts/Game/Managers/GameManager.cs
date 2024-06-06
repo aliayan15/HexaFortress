@@ -27,9 +27,7 @@ namespace Managers
     {
         public static event Action<GameStates> OnGameStateChange;
 
-        [HideInInspector] public Player player { get; set; }
         public int DayCount { get; private set; } = 1;
-
 
         [Space(10)]
         [Header("Debug")]
@@ -89,22 +87,22 @@ namespace Managers
 
         private void SetGameWin()
         {
-            UIManager.Instance.SetGameWin();
+            //UIManager.Instance.SetGameWin();
         }
 
         private void SetGame()
         {
-            UIManager.Instance.SetGame();
+            //UIManager.Instance.SetGame();
         }
 
         private void SetMenu()
         {
-            UIManager.Instance.SetMenu();
+            //UIManager.Instance.SetMenu();
         }
 
         private void SetGameOver()
         {
-            UIManager.Instance.SetGameOver();
+            //UIManager.Instance.SetGameOver();
         }
         #endregion
 
@@ -135,7 +133,7 @@ namespace Managers
         public void IncreaseDay(int day)
         {
             DayCount += day;
-            UIManager.Instance.gameCanvasManager.UpdateDayUI();
+            //UIManager.Instance.gameCanvasManager.UpdateDayUI();
             //if (DayCount == EnemySpawner.Instance.GameEndDay)
             //{
             //    SetState(GameStates.GAMEWIN);
@@ -167,7 +165,7 @@ namespace Managers
         {
             GameState = GameStates.NONE;
             TurnState = TurnStates.None;
-            UIManager.Instance.SetLoading();
+            //UIManager.Instance.SetLoading();
             DontDestroyOnLoad(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // next scene can be game or menu scene.
         }
