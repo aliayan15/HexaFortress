@@ -1,34 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-    
-public class GrassTile : TileBase
+namespace HexaFortress.GamePlay
 {
-    public override void Init(HexGridNode myNode)
+    public class GrassTile : TileBase
     {
-        base.Init(myNode);
-        // if there is fielt near, add extra gold
-        var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
-        foreach (var surroundingTile in surroundingTiles)
+        public override void Init(HexGridNode myNode)
         {
-            if (!surroundingTile.MyTile)
-                continue;
-            if (surroundingTile.MyTile.MyType == TileType.Sheep)
+            base.Init(myNode);
+            // if there is fielt near, add extra gold
+            var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
+            foreach (var surroundingTile in surroundingTiles)
             {
-                if (surroundingTile.MyTile.TryGetComponent(out ITileBonusEffect tileBonusEffect))
-                    tileBonusEffect.DoBonusEffect();
+                if (!surroundingTile.MyTile)
+                    continue;
+                if (surroundingTile.MyTile.MyType == TileType.Sheep)
+                {
+                    if (surroundingTile.MyTile.TryGetComponent(out ITileBonusEffect tileBonusEffect))
+                        tileBonusEffect.DoBonusEffect();
+                }
+
             }
+        }
+        protected override void OnDisable()
+        {
 
         }
-    }
-    protected override void OnDisable()
-    {
+        protected override void OnEnable()
+        {
 
-    }
-    protected override void OnEnable()
-    {
-
+        }
     }
 }
 

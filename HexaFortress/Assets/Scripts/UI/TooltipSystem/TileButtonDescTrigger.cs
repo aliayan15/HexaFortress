@@ -1,21 +1,24 @@
 using KBCore.Refs;
 using UnityEngine;
 
-[RequireComponent(typeof(SelectTileButton))]
-public class TileButtonDescTrigger : ToolTipTrigger
+namespace HexaFortress.UI
 {
-    [SerializeField, Self] SelectTileButton tileButton;
-
-    private void OnValidate()
+    [RequireComponent(typeof(SelectTileButton))]
+    public class TileButtonDescTrigger : ToolTipTrigger
     {
-        this.ValidateRefs();
-    }
+        [SerializeField, Self] SelectTileButton tileButton;
 
-    protected override void Show()
-    {
-        if (tileButton.MyTile == null) return;
-        ToolTipSystem.Show(tileButton.MyTile.Description, tileButton.MyTile.Header);
-    }
+        private void OnValidate()
+        {
+            this.ValidateRefs();
+        }
+
+        protected override void Show()
+        {
+            if (tileButton.MyTile == null) return;
+            ToolTipSystem.Show(tileButton.MyTile.Description, tileButton.MyTile.Header);
+        }
    
+    }
 }
 

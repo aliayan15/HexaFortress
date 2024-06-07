@@ -1,45 +1,44 @@
-using Managers;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-public class SheepTile : TileBase, ITileBonusEffect
+namespace HexaFortress.GamePlay
 {
-    public int ProdusedGoldAmount { get; private set; }
-    [SerializeField] private SOTileGoldData data;
-
-    public override void Init(HexGridNode myNode)
+    public class SheepTile : TileBase, ITileBonusEffect
     {
-        base.Init(myNode);
-        ProdusedGoldAmount = data.BaseGold;
-        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
-        var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
-        foreach (var surroundingTile in surroundingTiles)
+        public int ProdusedGoldAmount { get; private set; }
+        [SerializeField] private SOTileGoldData data;
+
+        public override void Init(HexGridNode myNode)
         {
-            if (!surroundingTile.MyTile)
-                continue;
-            if (surroundingTile.MyTile.MyType == TileType.Grass)
-                DoBonusEffect();
+            base.Init(myNode);
+            ProdusedGoldAmount = data.BaseGold;
+            Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+            var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
+            foreach (var surroundingTile in surroundingTiles)
+            {
+                if (!surroundingTile.MyTile)
+                    continue;
+                if (surroundingTile.MyTile.MyType == TileType.Grass)
+                    DoBonusEffect();
+            }
+            TileManager.Instance.AddEconomyTile(this);
         }
-        TileManager.Instance.AddEconomyTile(this);
-    }
 
-    public void DoBonusEffect()
-    {
-        Player.Instance.AddGoldPerDay(-ProdusedGoldAmount);
-        ProdusedGoldAmount += data.BonusGold;
-        Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
-        Player.Instance.PlayPartical(transform.position);
-    }
+        public void DoBonusEffect()
+        {
+            Player.Instance.AddGoldPerDay(-ProdusedGoldAmount);
+            ProdusedGoldAmount += data.BonusGold;
+            Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+            Player.Instance.PlayPartical(transform.position);
+        }
 
-    protected override void OnEnable()
-    {
+        protected override void OnEnable()
+        {
 
-    }
-    protected override void OnDisable()
-    {
+        }
+        protected override void OnDisable()
+        {
 
+        }
     }
 }
 

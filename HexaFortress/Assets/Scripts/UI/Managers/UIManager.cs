@@ -1,11 +1,10 @@
-using UnityEngine;
-using UI;
-using MyUtilities.UI;
-using UI.CanvasManagers;
-using MyUtilities;
 using DG.Tweening;
+using MyUtilities;
+using MyUtilities.UI;
+using UI;
+using UnityEngine;
 
-namespace Managers
+namespace HexaFortress.UI
 {
     public class UIManager : SingletonMono<UIManager>
     {

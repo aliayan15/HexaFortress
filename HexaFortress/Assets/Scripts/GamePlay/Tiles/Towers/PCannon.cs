@@ -1,61 +1,64 @@
+using HexaFortress.Game;
 using UnityEngine;
 
-
-public class PCannon : Projectile
+namespace HexaFortress.GamePlay
 {
-    [SerializeField] private float radius;
-    [SerializeField] private SOGameProperties data;
-    private Vector3 control;
-    private Vector3 _startPos;
-    private Vector3 _endPos;
-    private float _time = 0;
-
-    public override void SetTarget(Transform target, DamageData damage)
+    public class PCannon : Projectile
     {
-        base.SetTarget(target, damage);
-        _startPos = transform.position;
-        var dis = target.position - _startPos;
-        var controlPos = (dis / 2) + _startPos;
-        controlPos.y = _startPos.y + 0.1f;
-        control = controlPos;
-        _endPos = target.position;
-    }
+        [SerializeField] private float radius;
+        [SerializeField] private SOGameProperties data;
+        private Vector3 control;
+        private Vector3 _startPos;
+        private Vector3 _endPos;
+        private float _time = 0;
 
-    protected override void FixedUpdate()
-    {
-        if (_target != null)
-            _endPos = _target.position;
-        _time += Time.fixedDeltaTime * speed;
-        transform.position = GetPathPos(_time);
-        Vector3 forward = GetPathPos(_time + 0.001f) - transform.position;
-        if (forward != Vector3.zero)
-            transform.forward = forward;
-        if (_time >= 1)
+        public override void SetTarget(Transform target, DamageData damage)
         {
-            CheckHit(1f);
+            base.SetTarget(target, damage);
+            _startPos = transform.position;
+            var dis = target.position - _startPos;
+            var controlPos = (dis / 2) + _startPos;
+            controlPos.y = _startPos.y + 0.1f;
+            control = controlPos;
+            _endPos = target.position;
         }
-    }
 
-    private Vector3 GetPathPos(float t)
-    {
-        Vector3 ac = Vector3.Lerp(_startPos, control, t);
-        Vector3 cb = Vector3.Lerp(control, _endPos, t);
-
-        return Vector3.Lerp(ac, cb, t);
-    }
-
-    protected override void CheckHit(float distance)
-    {
-        var colls = Physics.OverlapSphere(transform.position, radius, rayLayer);
-        foreach (var item in colls)
+        protected override void FixedUpdate()
         {
-            if (item.TryGetComponent(out IDamageable enemy))
+            if (_target != null)
+                _endPos = _target.position;
+            _time += Time.fixedDeltaTime * speed;
+            transform.position = GetPathPos(_time);
+            Vector3 forward = GetPathPos(_time + 0.001f) - transform.position;
+            if (forward != Vector3.zero)
+                transform.forward = forward;
+            if (_time >= 1)
             {
-                enemy.TakeDamage(_damageData);
+                CheckHit(1f);
             }
         }
-        Instantiate(data.cannonExplosion, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+
+        private Vector3 GetPathPos(float t)
+        {
+            Vector3 ac = Vector3.Lerp(_startPos, control, t);
+            Vector3 cb = Vector3.Lerp(control, _endPos, t);
+
+            return Vector3.Lerp(ac, cb, t);
+        }
+
+        protected override void CheckHit(float distance)
+        {
+            var colls = Physics.OverlapSphere(transform.position, radius, rayLayer);
+            foreach (var item in colls)
+            {
+                if (item.TryGetComponent(out IDamageable enemy))
+                {
+                    enemy.TakeDamage(_damageData);
+                }
+            }
+            Instantiate(data.cannonExplosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }
 

@@ -1,28 +1,29 @@
-using Players;
 using UnityEngine;
 
-
-public class TowerUpgradeTile : TileBase
+namespace HexaFortress.GamePlay
 {
-    [SerializeField] private int goldExpense;
-    [SerializeField] ParticleSystem smokePar;
-    public override void Init(HexGridNode myNode)
+    public class TowerUpgradeTile : TileBase
     {
-        base.Init(myNode);
-        var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
-        foreach (var surroundingTile in neighbourGrids)
+        [SerializeField] private int goldExpense;
+        [SerializeField] ParticleSystem smokePar;
+        public override void Init(HexGridNode myNode)
         {
-            if (!surroundingTile.MyTile)
-                continue;
-            if (surroundingTile.MyTile.MyType == TileType.Tower || surroundingTile.MyTile.MyType == TileType.Cannon
-                || surroundingTile.MyTile.MyType == TileType.Mortar)
+            base.Init(myNode);
+            var neighbourGrids = GridManager.Instance.GetSurroundingGrids(_myHexNode);
+            foreach (var surroundingTile in neighbourGrids)
             {
-                TowerTileBase tower = surroundingTile.MyTile as TowerTileBase;
-                tower.UpgradeDamageTower();
+                if (!surroundingTile.MyTile)
+                    continue;
+                if (surroundingTile.MyTile.MyType == TileType.Tower || surroundingTile.MyTile.MyType == TileType.Cannon
+                                                                    || surroundingTile.MyTile.MyType == TileType.Mortar)
+                {
+                    TowerTileBase tower = surroundingTile.MyTile as TowerTileBase;
+                    tower.UpgradeDamageTower();
+                }
             }
+            smokePar.Play();
+            Player.Instance.AddExpensesPerDay(goldExpense);
         }
-        smokePar.Play();
-        Player.Instance.AddExpensesPerDay(goldExpense);
     }
 }
 

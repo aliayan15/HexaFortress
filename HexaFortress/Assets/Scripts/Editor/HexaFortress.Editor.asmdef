@@ -1,6 +1,6 @@
 {
     "name": "HexaFortress.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "HexaFortress",
     "references": [
         "GUID:adf7e91cefc62db42a01c96083a67d66"
     ],

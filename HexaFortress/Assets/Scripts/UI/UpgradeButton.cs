@@ -1,46 +1,47 @@
+using HexaFortress.GamePlay;
 using Managers;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class UpgradeButton : MonoBehaviour
+namespace HexaFortress.UI
 {
-    [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI dec;
-    [SerializeField] private TextMeshProUGUI level;
-    [Space(10)]
-    [SerializeField] private SOGameProperties gameData;
-
-    private SOUpgradeData _myData;
-
-
-    public void Init(SOUpgradeData data)
+    public class UpgradeButton : MonoBehaviour
     {
-        _myData = data;
-        switch (data.TileType)
+        [SerializeField] private Image icon;
+        [SerializeField] private TextMeshProUGUI dec;
+        [SerializeField] private TextMeshProUGUI level;
+        [Space(10)]
+        [SerializeField] private SOGameProperties gameData;
+
+        private SOUpgradeData _myData;
+
+
+        public void Init(SOUpgradeData data)
         {
-            case TileType.Tower:
-                icon.sprite = gameData.TowerIcon;
-                break;
-            case TileType.Cannon:
-                icon.sprite = gameData.CannonIcon;
-                break;
-            case TileType.Mortar:
-                icon.sprite = gameData.MortarIcon;
-                break;
+            _myData = data;
+            switch (data.TileType)
+            {
+                case TileType.Tower:
+                    icon.sprite = gameData.TowerIcon;
+                    break;
+                case TileType.Cannon:
+                    icon.sprite = gameData.CannonIcon;
+                    break;
+                case TileType.Mortar:
+                    icon.sprite = gameData.MortarIcon;
+                    break;
+            }
+            dec.text = data.Description;
+            level.text = "Level: " + UpgradeManager.Instance.GetUpgradeLevel(data);
         }
-        dec.text = data.Description;
-        level.text = "Level: " + UpgradeManager.Instance.GetUpgradeLevel(data);
-    }
 
-    public void OnSelect()
-    {
-        UpgradeManager.Instance.Upgrade(_myData);
-        UIManager.Instance.gameCanvasManager.ShowUpgrades(false);
-        AudioManager.Instance.PlayBtnSound();
+        public void OnSelect()
+        {
+            UpgradeManager.Instance.Upgrade(_myData);
+            UIManager.Instance.gameCanvasManager.ShowUpgrades(false);
+            AudioManager.Instance.PlayBtnSound();
+        }
     }
 }
 

@@ -1,69 +1,64 @@
-using Managers;
-using UnityEngine;
 using DG.Tweening;
+using HexaFortress.Game;
 using NaughtyAttributes;
+using UnityEngine;
 
-
-public class DayColorController : MonoBehaviour
+namespace HexaFortress.GamePlay
 {
-
-    [Space(10)]
-    [SerializeField] private float lerpTime;
-    [HorizontalLine]
-    [Header("Floor")]
-    [SerializeField] private Color dayColor;
-    [SerializeField] private Color nightColor;
-    [SerializeField] private Material floorMat;
-    [HorizontalLine]
-    [Header("Floor")]
-    [SerializeField] private Color lightDayColor;
-    [SerializeField] private Color lightNightColor;
-    [SerializeField] private Light myLight;
-
-
-    private void Start()
+    public class DayColorController : MonoBehaviour
     {
-        floorMat.color = dayColor;
-    }
 
-    private void DayCircle(bool dayBegin)
-    {
-        if (dayBegin)
+        [Space(10)]
+        [SerializeField] private float lerpTime;
+        [HorizontalLine]
+        [Header("Floor")]
+        [SerializeField] private Color dayColor;
+        [SerializeField] private Color nightColor;
+        [SerializeField] private Material floorMat;
+        [HorizontalLine]
+        [Header("Floor")]
+        [SerializeField] private Color lightDayColor;
+        [SerializeField] private Color lightNightColor;
+        [SerializeField] private Light myLight;
+
+
+        private void Start()
         {
-            floorMat.DOColor(dayColor, lerpTime);
-            myLight.DOColor(lightDayColor, lerpTime);
+            floorMat.color = dayColor;
         }
-        else
+
+        private void DayCircle(bool dayBegin)
         {
-            // enemy spawn
-            floorMat.DOColor(nightColor, lerpTime);
-            myLight.DOColor(lightNightColor, lerpTime);
+            if (dayBegin)
+            {
+                floorMat.DOColor(dayColor, lerpTime);
+                myLight.DOColor(lightDayColor, lerpTime);
+            }
+            else
+            {
+                // enemy spawn
+                floorMat.DOColor(nightColor, lerpTime);
+                myLight.DOColor(lightNightColor, lerpTime);
+            }
         }
-    }
 
-    #region State Change
-    private void OnTurnStateChange(TurnStates state)
-    {
-        if (state == TurnStates.TurnBegin)
-            DayCircle(true);
-        if (state == TurnStates.EnemySpawnStart)
-            DayCircle(false);
+        #region State Change
+        private void OnTurnStateChange(TurnStateChangeEvent evt)
+        {
+            if (evt.TurnState == TurnStates.TurnBegin)
+                DayCircle(true);
+            if (evt.TurnState == TurnStates.EnemySpawnStart)
+                DayCircle(false);
+        }
+        private void OnEnable()
+        {
+            EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
+        }
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
+        }
+        #endregion
     }
-    private void OnGameStateChange(GameStates state)
-    {
-
-    }
-
-    private void OnEnable()
-    {
-        GameManager.OnTurnStateChange += OnTurnStateChange;
-        GameManager.OnGameStateChange += OnGameStateChange;
-    }
-    private void OnDisable()
-    {
-        GameManager.OnTurnStateChange -= OnTurnStateChange;
-        GameManager.OnGameStateChange -= OnGameStateChange;
-    }
-    #endregion
 }
 

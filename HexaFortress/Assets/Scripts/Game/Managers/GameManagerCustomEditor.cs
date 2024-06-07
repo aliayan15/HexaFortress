@@ -1,8 +1,8 @@
 #if UNITY_EDITOR
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-namespace Managers
+namespace HexaFortress.Game
 {
 
     [CustomEditor(typeof(GameManager))]

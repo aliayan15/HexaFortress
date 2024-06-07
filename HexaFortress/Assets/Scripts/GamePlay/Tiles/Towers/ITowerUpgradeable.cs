@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using HexaFortress.Game;
 
-
-public interface ITowerUpgradeable
+namespace HexaFortress.GamePlay
 {
-    public void UpgradeSlowEffect();
-    public void UpgradeCritEffect();
-    public void UpgradeDamageTower();
-    public void UpgradeArmorDamage();
-    public void UpgradeHealthDamage();
-    public void SetEnemyTypeBonus(EnemyType type);
+    public interface ITowerUpgradeable
+    {
+        public void UpgradeSlowEffect();
+        public void UpgradeCritEffect();
+        public void UpgradeDamageTower();
+        public void UpgradeArmorDamage();
+        public void UpgradeHealthDamage();
+        public void SetEnemyTypeBonus(EnemyType type);
 
+    }
 }

@@ -1,55 +1,57 @@
-﻿using System.Collections;
+﻿using HexaFortress.Game;
 using UnityEngine;
 
-
-public class Projectile : MonoBehaviour
+namespace HexaFortress.GamePlay
 {
-    [SerializeField] protected float speed;
-    [SerializeField] protected LayerMask rayLayer;
-    [SerializeField] protected float lifeTime = 5f;
-
-    protected DamageData _damageData;
-    protected Transform _target;
-    public virtual void SetTarget(Transform target, DamageData damage)
+    public class Projectile : MonoBehaviour
     {
-        _damageData = damage;
-        _target = target;
-        transform.LookAt(_target);
-    }
+        [SerializeField] protected float speed;
+        [SerializeField] protected LayerMask rayLayer;
+        [SerializeField] protected float lifeTime = 5f;
 
-    protected virtual void FixedUpdate()
-    {
-        // chack with ray
-        float distance = speed * Time.fixedDeltaTime;
-        CheckHit(distance);
-        Move(distance);
-        // lifetime
-        lifeTime -= Time.fixedDeltaTime;
-        if (lifeTime < 0)
-            Destroy();
-    }
-
-    protected virtual void Move(float distance)
-    {
-        // move
-        if (_target != null)
-            transform.LookAt(_target);
-        transform.Translate(transform.forward * distance, Space.World);
-    }
-
-    protected virtual void CheckHit(float distance)
-    {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, distance + 0.25f, rayLayer, QueryTriggerInteraction.Collide))
+        protected DamageData _damageData;
+        protected Transform _target;
+        public virtual void SetTarget(Transform target, DamageData damage)
         {
-            if (hitInfo.collider.TryGetComponent(out IDamageable enemy))
-                enemy.TakeDamage(_damageData);
-            Destroy();
-            return;
+            _damageData = damage;
+            _target = target;
+            transform.LookAt(_target);
         }
-    }
 
-    protected void Destroy()
-    {
-        Destroy(gameObject);
+        protected virtual void FixedUpdate()
+        {
+            // chack with ray
+            float distance = speed * Time.fixedDeltaTime;
+            CheckHit(distance);
+            Move(distance);
+            // lifetime
+            lifeTime -= Time.fixedDeltaTime;
+            if (lifeTime < 0)
+                Destroy();
+        }
+
+        protected virtual void Move(float distance)
+        {
+            // move
+            if (_target != null)
+                transform.LookAt(_target);
+            transform.Translate(transform.forward * distance, Space.World);
+        }
+
+        protected virtual void CheckHit(float distance)
+        {
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, distance + 0.25f, rayLayer, QueryTriggerInteraction.Collide))
+            {
+                if (hitInfo.collider.TryGetComponent(out IDamageable enemy))
+                    enemy.TakeDamage(_damageData);
+                Destroy();
+                return;
+            }
+        }
+
+        protected void Destroy()
+        {
+            Destroy(gameObject);
+        }
     }
 }

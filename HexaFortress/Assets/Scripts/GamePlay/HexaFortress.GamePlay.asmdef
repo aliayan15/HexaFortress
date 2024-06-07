@@ -1,12 +1,12 @@
 {
     "name": "HexaFortress.GamePlay",
-    "rootNamespace": "",
+    "rootNamespace": "HexaFortress",
     "references": [
         "GUID:adf7e91cefc62db42a01c96083a67d66",
         "GUID:5a7b7949e0e6cab4a8be69f88844497c",
-        "GUID:fc50d8c74320a7341bcf2960fc91d0ec",
         "GUID:776d03a35f1b52c4a9aed9f56d7b4229",
-        "GUID:33759803a11f4d538227861a78aba30b"
+        "GUID:33759803a11f4d538227861a78aba30b",
+        "GUID:13a6fdc14ca9df84eb8019bc66fa9e5d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

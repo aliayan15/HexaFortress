@@ -1,6 +1,6 @@
 {
     "name": "HexaFortress.UI",
-    "rootNamespace": "",
+    "rootNamespace": "HexaFortress",
     "references": [
         "GUID:adf7e91cefc62db42a01c96083a67d66",
         "GUID:5322dc1ecd5db99429c9b869040fbbba",
@@ -8,7 +8,9 @@
         "GUID:2bafac87e7f4b9b418d9448d219b01ab",
         "GUID:5a7b7949e0e6cab4a8be69f88844497c",
         "GUID:fb4b1507bc50018479e1921f267a9cb0",
-        "GUID:e3497e4c4a3b3e84cab36378bbcccc18"
+        "GUID:e3497e4c4a3b3e84cab36378bbcccc18",
+        "GUID:776d03a35f1b52c4a9aed9f56d7b4229",
+        "GUID:33759803a11f4d538227861a78aba30b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

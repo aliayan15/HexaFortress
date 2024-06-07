@@ -1,29 +1,29 @@
-using Managers;
-using System.Collections;
-using System.Collections.Generic;
-using Players;
+using HexaFortress.Game;
 using UnityEngine;
 
-/// <summary>
-/// Repair castle health every day.
-/// </summary>
-public class CastleRepairTile : TileBase
+namespace HexaFortress.GamePlay
 {
-    [Header("Stats")]
-    [SerializeField] private short repairAmount = 1;
-    [SerializeField] private int goldExpense;
-
-    public override void Init(HexGridNode myNode)
+    /// <summary>
+    /// Repair castle health every day.
+    /// </summary>
+    public class CastleRepairTile : TileBase
     {
-        base.Init(myNode);
-        UIManager.Instance.gameCanvasManager.UpdateCastleToolTip();
-        Player.Instance.AddExpensesPerDay(goldExpense);
-    }
+        [Header("Stats")]
+        [SerializeField] private short repairAmount = 1;
+        [SerializeField] private int goldExpense;
 
-    protected override void OnTurnStateChange(TurnStates state)
-    {
-        if (state == TurnStates.TurnBegin)
-            GridManager.Instance.PlayerCastle.RepairHealth(repairAmount);
+        public override void Init(HexGridNode myNode)
+        {
+            base.Init(myNode);
+            // TODO UIManager.Instance.gameCanvasManager.UpdateCastleToolTip();
+            Player.Instance.AddExpensesPerDay(goldExpense);
+        }
+
+        protected override void OnTurnStateChange(TurnStates state)
+        {
+            if (state == TurnStates.TurnBegin)
+                GridManager.Instance.PlayerCastle.RepairHealth(repairAmount);
+        }
     }
 }
 

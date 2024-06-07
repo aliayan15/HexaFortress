@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 1097701571}
   - component: {fileID: 1097701572}
   m_Layer: 0
-  m_Name: Day Color Controller
+  m_Name: Floor & Day Color Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,6 +722,7 @@ GameObject:
   - component: {fileID: 1378693267}
   - component: {fileID: 1378693266}
   - component: {fileID: 1378693268}
+  - component: {fileID: 1378693269}
   m_Layer: 0
   m_Name: Grid Manager
   m_TagString: Untagged
@@ -769,10 +770,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1378693266}
-  gameData: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   gridSize: {x: 40, y: 40}
   placeHolder: {fileID: 8248576966113486457, guid: c5643584019ae8b4cb1a14287be2f43b,
     type: 3}
+--- !u!114 &1378693269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378693265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776d71b9b64d4e489f131d48ecd7da54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  gameConfig: {fileID: 11400000, guid: a591514ef1f28bb4ba7d54218ae2f82b, type: 2}
   floor: {fileID: 1097701571}
 --- !u!1001 &1394693225
 PrefabInstance:

@@ -1,13 +1,12 @@
-using UnityEngine.UI;
-using System.Collections.Generic;
-using UnityEngine;
-using Managers;
+using HexaFortress.Game;
+using HexaFortress.GamePlay;
 using NaughtyAttributes;
-using Players;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-namespace UI.CanvasManagers
+namespace HexaFortress.UI
 {
     public class GameCanvasManager : MonoBehaviour
     {
@@ -100,12 +99,7 @@ namespace UI.CanvasManagers
         {
             dayText.text = "Day " + GameManager.Instance.DayCount;
         }
-        public void UpdateCastleHealthUI()
-        {
-            var castle = GridManager.Instance.PlayerCastle;
-            castleHealthText.text = "Castle " + castle.CastleHealth + "/" + castle.MaxCastleHealth;
-            healthSlider.value = (float)castle.CastleHealth / castle.MaxCastleHealth;
-        }
+       
         public void UpdateTileCountUI()
         {
             tileCountText.text = Player.Instance.RemainingTileCount.ToString();
@@ -166,16 +160,23 @@ namespace UI.CanvasManagers
 
         public void StartAgain()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
-        private void OnTurnStateChange(TurnStates state)
+        
+        private void UpdateCastleHealthUI(CastleHealthChangeEvent evt)
         {
-            if (state == TurnStates.EnemySpawnStart)
+            castleHealthText.text = "Castle " + evt.CurrentHealth + "/" + evt.MaxHealth;
+            healthSlider.value = (float)evt.CurrentHealth/ evt.MaxHealth;
+        }
+        
+        #region State Change
+        private void OnTurnStateChange(TurnStateChangeEvent evt)
+        {
+            if (evt.TurnState == TurnStates.EnemySpawnStart)
             {
                 CloseAllTileButtons();
             }
-            if (state == TurnStates.TurnBegin)
+            if (evt.TurnState == TurnStates.TurnBegin)
             {
                 if (GameManager.Instance.DayCount == 1)
                     GetStartTiles();
@@ -184,21 +185,19 @@ namespace UI.CanvasManagers
                 UpdateGoldUI();
                 UpdateDayUI();
                 UpdateTileCountUI();
-                UpdateCastleHealthUI();
             }
         }
 
-        private void OnGameStateChange(GameStates state)
+        private void OnGameStateChange(GameStateChangeEvent evt)
         {
-            if (state != GameStates.GAME && state != GameStates.NONE)
+            if (evt.GameState != GameStates.GAME && evt.GameState != GameStates.NONE)
             {
                 CloseAllTileButtons();
                 UpdateGoldUI();
                 UpdateDayUI();
                 UpdateTileCountUI();
-                UpdateCastleHealthUI();
             }
-            if (state == GameStates.GAME)
+            if (evt.GameState == GameStates.GAME)
             {
                 UpdateCastleToolTip();
             }
@@ -206,15 +205,17 @@ namespace UI.CanvasManagers
 
         private void OnEnable()
         {
-            GameManager.OnGameStateChange += OnGameStateChange;
-            GameManager.OnTurnStateChange += OnTurnStateChange;
+            EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
+            EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
+            EventManager.AddListener<CastleHealthChangeEvent>(UpdateCastleHealthUI);
         }
 
         private void OnDisable()
         {
-            GameManager.OnGameStateChange -= OnGameStateChange;
-            GameManager.OnTurnStateChange -= OnTurnStateChange;
+            EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
+            EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
+            EventManager.RemoveListener<CastleHealthChangeEvent>(UpdateCastleHealthUI);
         }
-
+        #endregion
     }
 }

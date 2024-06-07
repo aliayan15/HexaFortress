@@ -1,191 +1,191 @@
-using Managers;
-using MyUtilities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HexaFortress.Game;
+using MyUtilities;
 using UnityEngine;
 
-
-public class UpgradeManager : SingletonMono<UpgradeManager>
+namespace HexaFortress.GamePlay
 {
-    [SerializeField] private SOUpgradeData[] upgrades;
-    [SerializeField] private int[] upgradeDays;
-
-    public List<ITowerUpgradeable> BacisTowers = new List<ITowerUpgradeable>();
-    public List<ITowerUpgradeable> CannonTowers = new List<ITowerUpgradeable>();
-    public List<ITowerUpgradeable> MortarTowers = new List<ITowerUpgradeable>();
-
-    private Dictionary<SOUpgradeData, int> _upgrades = new Dictionary<SOUpgradeData, int>();
-
-    public void Upgrade(SOUpgradeData data)
+    public class UpgradeManager : SingletonMono<UpgradeManager>
     {
-        switch (data.TileType)
-        {
-            case TileType.Cannon:
-                UpgradeCannonTower(data.Upgrade);
-                break;
-            case TileType.Mortar:
-                UpgradeMortarTower(data.Upgrade);
-                break;
-            case TileType.Tower:
-                UpgradeBasicTower(data.Upgrade);
-                break;
-        }
-        if (!_upgrades.ContainsKey(data))
-        {
-            _upgrades.Add(data, 1);
-        }
-        else
-        {
-            int current = _upgrades[data];
-            _upgrades[data] = current + 1;
-        }
-        //Debug.Log(data.TileType + ": " + _upgrades[data]);
-    }
+        [SerializeField] private SOUpgradeData[] upgrades;
+        [SerializeField] private int[] upgradeDays;
 
-    private void UpgradeBasicTower(UpgradeType type)
-    {
-        foreach (var item in BacisTowers)
+        public List<ITowerUpgradeable> BacisTowers = new List<ITowerUpgradeable>();
+        public List<ITowerUpgradeable> CannonTowers = new List<ITowerUpgradeable>();
+        public List<ITowerUpgradeable> MortarTowers = new List<ITowerUpgradeable>();
+
+        private Dictionary<SOUpgradeData, int> _upgrades = new Dictionary<SOUpgradeData, int>();
+
+        public void Upgrade(SOUpgradeData data)
         {
-            switch (type)
+            switch (data.TileType)
             {
-                case UpgradeType.HealthDamage:
-                    item.UpgradeHealthDamage();
+                case TileType.Cannon:
+                    UpgradeCannonTower(data.Upgrade);
                     break;
-                case UpgradeType.ArmorDamage:
-                    item.UpgradeArmorDamage();
+                case TileType.Mortar:
+                    UpgradeMortarTower(data.Upgrade);
                     break;
-                case UpgradeType.Slow:
-                    item.UpgradeSlowEffect();
-                    break;
-                case UpgradeType.Crit:
-                    item.UpgradeCritEffect();
-                    break;
-                default:
+                case TileType.Tower:
+                    UpgradeBasicTower(data.Upgrade);
                     break;
             }
-        }
-    }
-    private void UpgradeMortarTower(UpgradeType type)
-    {
-        foreach (var item in MortarTowers)
-        {
-            switch (type)
+            if (!_upgrades.ContainsKey(data))
             {
-                case UpgradeType.HealthDamage:
-                    item.UpgradeHealthDamage();
-                    break;
-                case UpgradeType.ArmorDamage:
-                    item.UpgradeArmorDamage();
-                    break;
-                case UpgradeType.Slow:
-                    item.UpgradeSlowEffect();
-                    break;
-                case UpgradeType.Crit:
-                    item.UpgradeCritEffect();
-                    break;
-                default:
-                    break;
+                _upgrades.Add(data, 1);
             }
-        }
-    }
-    private void UpgradeCannonTower(UpgradeType type)
-    {
-        foreach (var item in CannonTowers)
-        {
-            switch (type)
+            else
             {
-                case UpgradeType.HealthDamage:
-                    item.UpgradeHealthDamage();
-                    break;
-                case UpgradeType.ArmorDamage:
-                    item.UpgradeArmorDamage();
-                    break;
-                case UpgradeType.Slow:
-                    item.UpgradeSlowEffect();
-                    break;
-                case UpgradeType.Crit:
-                    item.UpgradeCritEffect();
-                    break;
-                default:
-                    break;
+                int current = _upgrades[data];
+                _upgrades[data] = current + 1;
             }
+            //Debug.Log(data.TileType + ": " + _upgrades[data]);
         }
-    }
 
-    /// <summary>
-    /// Return 3 different upgrade
-    /// </summary>
-    /// <returns></returns>
-    public SOUpgradeData[] GetRandomUpgrade()
-    {
-        SOUpgradeData[] datas = new SOUpgradeData[3];
-        var dataList = upgrades.ToList();
-        // remove locked towers upgrades
-        for (int i = 0; i < dataList.Count; i++)
+        private void UpgradeBasicTower(UpgradeType type)
         {
-            bool isUnlocked = TileManager.Instance.GetTileCount(dataList[i].TileType) > 0;
-
-            if (!isUnlocked && dataList.Count > 3)
+            foreach (var item in BacisTowers)
             {
-                dataList.RemoveAt(i);
-                i--;
-            }
-        }
-        //Debug.Log("Towers count:" + TileSelector.Instance.Towers.Count);
-        dataList.Shuffle();
-        datas[0] = dataList[Random.Range(0, dataList.Count)];
-        dataList.Remove(datas[0]);
-        datas[1] = dataList[Random.Range(0, dataList.Count)];
-        dataList.Remove(datas[1]);
-        datas[2] = dataList[Random.Range(0, dataList.Count)];
-        return datas;
-    }
-
-    public int GetUpgradeLevel(SOUpgradeData data)
-    {
-        if (!_upgrades.ContainsKey(data))
-        {
-            return 1;
-        }
-        return _upgrades[data] + 1;
-    }
-
-    #region State Change
-    private void OnTurnStateChange(TurnStates state)
-    {
-        if (state == TurnStates.TurnBegin)
-        {
-            // days to select upgrade
-            if (upgradeDays.Any(d => d == GameManager.Instance.DayCount))
-            {
-                this.Timer(1f, () =>
+                switch (type)
                 {
-                    // TODO send event
-                    //UIManager.Instance.gameCanvasManager.ShowUpgrades(true);
-                });
+                    case UpgradeType.HealthDamage:
+                        item.UpgradeHealthDamage();
+                        break;
+                    case UpgradeType.ArmorDamage:
+                        item.UpgradeArmorDamage();
+                        break;
+                    case UpgradeType.Slow:
+                        item.UpgradeSlowEffect();
+                        break;
+                    case UpgradeType.Crit:
+                        item.UpgradeCritEffect();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+        private void UpgradeMortarTower(UpgradeType type)
+        {
+            foreach (var item in MortarTowers)
+            {
+                switch (type)
+                {
+                    case UpgradeType.HealthDamage:
+                        item.UpgradeHealthDamage();
+                        break;
+                    case UpgradeType.ArmorDamage:
+                        item.UpgradeArmorDamage();
+                        break;
+                    case UpgradeType.Slow:
+                        item.UpgradeSlowEffect();
+                        break;
+                    case UpgradeType.Crit:
+                        item.UpgradeCritEffect();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        private void UpgradeCannonTower(UpgradeType type)
+        {
+            foreach (var item in CannonTowers)
+            {
+                switch (type)
+                {
+                    case UpgradeType.HealthDamage:
+                        item.UpgradeHealthDamage();
+                        break;
+                    case UpgradeType.ArmorDamage:
+                        item.UpgradeArmorDamage();
+                        break;
+                    case UpgradeType.Slow:
+                        item.UpgradeSlowEffect();
+                        break;
+                    case UpgradeType.Crit:
+                        item.UpgradeCritEffect();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Return 3 different upgrade
+        /// </summary>
+        /// <returns></returns>
+        public SOUpgradeData[] GetRandomUpgrade()
+        {
+            SOUpgradeData[] datas = new SOUpgradeData[3];
+            var dataList = upgrades.ToList();
+            // remove locked towers upgrades
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                bool isUnlocked = TileManager.Instance.GetTileCount(dataList[i].TileType) > 0;
+
+                if (!isUnlocked && dataList.Count > 3)
+                {
+                    dataList.RemoveAt(i);
+                    i--;
+                }
+            }
+            //Debug.Log("Towers count:" + TileSelector.Instance.Towers.Count);
+            dataList.Shuffle();
+            datas[0] = dataList[Random.Range(0, dataList.Count)];
+            dataList.Remove(datas[0]);
+            datas[1] = dataList[Random.Range(0, dataList.Count)];
+            dataList.Remove(datas[1]);
+            datas[2] = dataList[Random.Range(0, dataList.Count)];
+            return datas;
+        }
+
+        public int GetUpgradeLevel(SOUpgradeData data)
+        {
+            if (!_upgrades.ContainsKey(data))
+            {
+                return 1;
+            }
+            return _upgrades[data] + 1;
+        }
+
+        #region State Change
+        private void OnTurnStateChange(TurnStateChangeEvent evt)
+        {
+            if (evt.TurnState == TurnStates.TurnBegin)
+            {
+                // days to select upgrade
+                if (upgradeDays.Any(d => d == GameManager.Instance.DayCount))
+                {
+                    this.Timer(1f, () =>
+                    {
+                        // TODO send event
+                        //UIManager.Instance.gameCanvasManager.ShowUpgrades(true);
+                    });
+                }
+            }
+        }
+
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
+        }
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
+        }
+        #endregion
     }
 
-
-    private void OnEnable()
+    public enum UpgradeType
     {
-        GameManager.OnTurnStateChange += OnTurnStateChange;
+        None,
+        HealthDamage,
+        ArmorDamage,
+        Slow,
+        Crit
     }
-    private void OnDisable()
-    {
-        GameManager.OnTurnStateChange -= OnTurnStateChange;
-    }
-    #endregion
 }
-
-public enum UpgradeType
-{
-    None,
-    HealthDamage,
-    ArmorDamage,
-    Slow,
-    Crit
-}
-

@@ -1,64 +1,76 @@
-using Managers;
+using HexaFortress.Game;
+using MyUtilities.EventChannel;
 using NaughtyAttributes;
-using Players;
 using UnityEngine;
 
-
-public class CastleTile : BasicTower
+namespace HexaFortress.GamePlay
 {
-    public Transform PathPoint;
-    public int CastleHealth => _currentCastleHealth;
-    public int MaxCastleHealth => castleHealth;
-
-    [HorizontalLine]
-    [Header("Castle")]
-    [SerializeField] private int castleHealth;
-    [SerializeField] private short goldPerDay = 10;
-
-    private int _currentCastleHealth;
-
-    public override void Init(HexGridNode myNode)
+    [RequireComponent(typeof(FloatEventListener))]
+    public class CastleTile : BasicTower
     {
-        base.Init(myNode);
-        myNode.SetIsWalkable(true);
-        _currentCastleHealth = castleHealth;
-        Player.Instance.AddGoldPerDay(goldPerDay);
-    }
+        [Header("Refs")] public Transform PathPoint;
 
-    public void TakeDamage(short damage)
-    {
-        _currentCastleHealth -= damage;
-        if (_currentCastleHealth <= 0)
+        [HorizontalLine] [Header("Castle")] [SerializeField]
+        private int castleHealth;
+
+        [SerializeField] private short goldPerDay = 10;
+
+        private int _currentCastleHealth;
+
+        public override void Init(HexGridNode myNode)
         {
-            GameManager.Instance.SetState(GameStates.GAMEOVER);
-            //Debug.Log("Game over");
-        }
-        UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
-    }
-
-    public void UpgradeHealth(int bonusHealth)
-    {
-        castleHealth += bonusHealth;
-        _currentCastleHealth += bonusHealth;
-        UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
-        Player.Instance.PlayPartical(transform.position);
-    }
-    public void RepairHealth(short repairAmount)
-    {
-        _currentCastleHealth += repairAmount;
-        if (_currentCastleHealth > castleHealth)
+            base.Init(myNode);
+            myNode.SetIsWalkable(true);
             _currentCastleHealth = castleHealth;
-        UIManager.Instance.gameCanvasManager.UpdateCastleHealthUI();
-    }
+            Player.Instance.AddGoldPerDay(goldPerDay);
+            InvokeHealthChangeEvent();
+        }
 
-    protected override void OnTurnStateChange(TurnStates state)
-    {
-        base.OnTurnStateChange(state);
-    }
+        public void TakeDamage(short damage)
+        {
+            _currentCastleHealth -= damage;
+            if (_currentCastleHealth <= 0)
+            {
+                GameManager.Instance.SetState(GameStates.GAMEOVER);
+                //Debug.Log("Game over");
+            }
 
-    protected override void Update()
-    {
+            InvokeHealthChangeEvent();
+        }
 
+        public void UpgradeHealth(int bonusHealth)
+        {
+            castleHealth += bonusHealth;
+            _currentCastleHealth += bonusHealth;
+            InvokeHealthChangeEvent();
+            Player.Instance.PlayPartical(transform.position);
+        }
+
+        public void RepairHealth(short repairAmount)
+        {
+            _currentCastleHealth += repairAmount;
+            if (_currentCastleHealth > castleHealth)
+                _currentCastleHealth = castleHealth;
+            InvokeHealthChangeEvent();
+        }
+
+        private void InvokeHealthChangeEvent()
+        {
+            var evt = Events.CastleHealthChangeEvent;
+            evt.MaxHealth = castleHealth;
+            evt.CurrentHealth = _currentCastleHealth;
+            EventManager.Broadcast(evt);
+        }
+
+        protected override void Update()
+        {
+        }
+
+        protected override void OnTurnStateChange(TurnStates state)
+        {
+            base.OnTurnStateChange(state);
+            if (state == TurnStates.TurnBegin)
+                InvokeHealthChangeEvent();
+        }
     }
 }
-

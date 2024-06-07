@@ -1,53 +1,53 @@
-﻿using Managers;
-using System.Collections;
-using Players;
+﻿using HexaFortress.Game;
 using UnityEngine;
 
-
-public class FishermanTile : TileBase
+namespace HexaFortress.GamePlay
 {
-    public int ProdusedGoldAmount { get; private set; }
-    [SerializeField] private SOTileGoldData data;
-
-    public override bool CanBuildHere(HexGridNode grid)
+    public class FishermanTile : TileBase
     {
-        bool canPlace = false;
-        var surroundingTiles = GridManager.Instance.GetSurroundingGrids(_myHexNode);
-        foreach (var surroundingTile in surroundingTiles)
+        public int ProdusedGoldAmount { get; private set; }
+        [SerializeField] private SOTileGoldData data;
+
+        public override bool CanBuildHere(HexGridNode grid)
         {
-            if (!surroundingTile.MyTile)
-                continue;
-            if (surroundingTile.MyTile.MyType == TileType.Water)
-                canPlace = true;
-            if (surroundingTile.MyTile.MyType == TileType.FishHouse)
-                return false;
+            bool canPlace = false;
+            var surroundingTiles = GridManager.Instance.GetSurroundingGrids(_myHexNode);
+            foreach (var surroundingTile in surroundingTiles)
+            {
+                if (!surroundingTile.MyTile)
+                    continue;
+                if (surroundingTile.MyTile.MyType == TileType.Water)
+                    canPlace = true;
+                if (surroundingTile.MyTile.MyType == TileType.FishHouse)
+                    return false;
+            }
+            return canPlace;
         }
-        return canPlace;
-    }
 
-    public override void Init(HexGridNode myNode)
-    {
-        base.Init(myNode);
-        ProdusedGoldAmount = data.BaseGold;
-        // if there is mill near, add extra gold
-        var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
-        foreach (var surroundingTile in surroundingTiles)
+        public override void Init(HexGridNode myNode)
         {
-            if (!surroundingTile.MyTile)
-                continue;
-            if (surroundingTile.MyTile.MyType == TileType.FishTile)
-                DoBonusEffect();
+            base.Init(myNode);
+            ProdusedGoldAmount = data.BaseGold;
+            // if there is mill near, add extra gold
+            var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
+            foreach (var surroundingTile in surroundingTiles)
+            {
+                if (!surroundingTile.MyTile)
+                    continue;
+                if (surroundingTile.MyTile.MyType == TileType.FishTile)
+                    DoBonusEffect();
+            }
         }
-    }
 
-    public void DoBonusEffect()
-    {
-        ProdusedGoldAmount += data.BonusGold;
-    }
+        public void DoBonusEffect()
+        {
+            ProdusedGoldAmount += data.BonusGold;
+        }
 
-    protected override void OnTurnStateChange(TurnStates state)
-    {
-        if (state != TurnStates.TurnBegin) return;
-        Player.Instance.AddGold(ProdusedGoldAmount);
+        protected override void OnTurnStateChange(TurnStates state)
+        {
+            if (state != TurnStates.TurnBegin) return;
+            Player.Instance.AddGold(ProdusedGoldAmount);
+        }
     }
 }

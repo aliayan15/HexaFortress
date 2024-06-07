@@ -4,7 +4,7 @@ using MyUtilities;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
-namespace Managers
+namespace HexaFortress.Game
 {
     public enum GameStates
     {
@@ -174,7 +174,8 @@ namespace Managers
         {
             DayCount = 1;
             SetState(GameStates.GAME);
-            AudioManager.Instance.ClearAudioList();
+            //TODO AudioManager
+            //AudioManager.Instance.ClearAudioList();
         }
 
         #region Mouse Visibility

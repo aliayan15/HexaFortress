@@ -1,11 +1,11 @@
+using System.Collections.Generic;
+using HexaFortress.Game;
 using Managers;
 using MyUtilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Players
+namespace HexaFortress.GamePlay
 {
     public class Player : SingletonMono<Player>
     {
@@ -43,11 +43,13 @@ namespace Players
         private bool _isSpaceHold = false;
         private float _goNightTimer = 0;
 
+       
+
         private void Start()
         {
             GameManager.Instance.StartGame();
-            if (PlayerPrefs.GetInt("Info", 0) == 0)
-                UIManager.Instance.gameCanvasManager.ShowInfoUI(true);
+            // if (PlayerPrefs.GetInt("Info", 0) == 0)
+            //     UIManager.Instance.gameCanvasManager.ShowInfoUI(true);
         }
 
         private void Update()
@@ -60,23 +62,23 @@ namespace Players
             {
                 _goNightTimer = 0;
                 _isSpaceHold = true;
-                UIManager.Instance.gameCanvasManager.ShowNightUI(true);
+               // UIManager.Instance.gameCanvasManager.ShowNightUI(true);
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 _isSpaceHold = false;
-                UIManager.Instance.gameCanvasManager.ShowNightUI(false);
+                //UIManager.Instance.gameCanvasManager.ShowNightUI(false);
             }
             if (_isSpaceHold)
             {
                 _goNightTimer += Time.deltaTime;
-                UIManager.Instance.gameCanvasManager.UpdateNightCircle(_goNightTimer / goNightTime);
+                //UIManager.Instance.gameCanvasManager.UpdateNightCircle(_goNightTimer / goNightTime);
                 if (_goNightTimer >= goNightTime)
                 {
                     // skip to night
                     GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
                     _isSpaceHold = false;
-                    UIManager.Instance.gameCanvasManager.ShowNightUI(false);
+                    //UIManager.Instance.gameCanvasManager.ShowNightUI(false);
                 }
             }
 
@@ -141,21 +143,21 @@ namespace Players
         #region Building
         private void CanselSelection()
         {
-            _isBuildMode = false;
+            SetIsBuilding(false);
             Destroy(_tileToBuild.gameObject);
             _tileBase.OnPlayerHand(false);
             _tileBase = null;
-            ToolTipSystem.Instance.CanShowUI = true;
+            SetToolTipCanShowUI(true);
             OnTileCanceled?.Invoke();
         }
         private void PlaceTile(HexGridNode grid)
         {
-            _isBuildMode = false;
+            SetIsBuilding(false);
             _tileToBuild.transform.position = grid.Position;
             _tileBase.Init(grid);
             OnTilePlaced?.Invoke();
             // placement anim
-            ToolTipSystem.Instance.CanShowUI = true;
+            SetToolTipCanShowUI(false);
             var anim = _tileToBuild.gameObject.AddComponent<CurveAnimation>();
             anim.curve = placementAnimY;
 
@@ -181,8 +183,8 @@ namespace Players
             _tileBase = _tileToBuild.GetComponent<TileBase>();
             Vector3 pos = GetTargetPosition();
             _tileToBuild.position = pos;
-            _isBuildMode = true;
-            ToolTipSystem.Instance.CanShowUI = false;
+            SetIsBuilding(true);
+            SetToolTipCanShowUI(false);
             _tileBase.OnPlayerHand(true);
         }
 
@@ -241,9 +243,16 @@ namespace Players
             {
                 GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
             }
-            UIManager.Instance.gameCanvasManager.UpdateTileCountUI();
+            //UIManager.Instance.gameCanvasManager.UpdateTileCountUI();
         }
         #endregion
+
+        private void SetToolTipCanShowUI(bool canShow)
+        {
+            var evt = Events.ToolTipCanShowUIEvent;
+            evt.CanShow = canShow;
+            EventManager.Broadcast(evt);
+        }
 
         #region Gold
         public void AddGold(int amount)
@@ -251,18 +260,18 @@ namespace Players
             MyGold += amount;
             if (MyGold < 0)
                 MyGold = 0;
-            UIManager.Instance.gameCanvasManager.UpdateGoldUI();
+            //UIManager.Instance.gameCanvasManager.UpdateGoldUI();
         }
 
         public void AddGoldPerDay(int amount)
         {
             GoldPerDay += amount;
-            UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
+            //UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
         }
         public void AddExpensesPerDay(int amount)
         {
             ExpensesPerDay += amount;
-            UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
+            //UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
         }
         #endregion
 
@@ -289,13 +298,13 @@ namespace Players
                         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
                 });
             }
-            ToolTipSystem.Instance.CanShow3dWorldUI = _canBuild;
+            //ToolTipSystem.Instance.CanShow3dWorldUI = _canBuild;
         }
         private void OnGameStateChange(GameStates state)
         {
             bool isGame = state == GameStates.GAME;
             _canBuild = isGame;
-            ToolTipSystem.Instance.CanShowUI = isGame;
+            //ToolTipSystem.Instance.CanShowUI = isGame;
         }
 
         private void OnEnable()
@@ -342,6 +351,14 @@ namespace Players
             var par = Instantiate(gameData.BonusPar, pos, Quaternion.identity);
             par.transform.position += Vector3.up * 0.2f;
             par.Play();
+        }
+
+        private void SetIsBuilding(bool isBuilding)
+        {
+            _isBuildMode = isBuilding;
+            OnPlayerBuildModeEvent evt = Events.OnPlayerBuildModeEvent;
+            evt.IsBuilding = isBuilding;
+            EventManager.Broadcast(evt);
         }
     }
 }
