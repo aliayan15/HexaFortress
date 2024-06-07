@@ -134,22 +134,22 @@ namespace HexaFortress.GamePlay
         }
 
         #region State Change
-        private void OnTurnStateChange(TurnStates state)
+        private void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            if (state == TurnStates.TurnBegin)
+            if (evt.TurnState == TurnStates.TurnBegin)
                 OnTurnChange?.Invoke(true);
-            if(state == TurnStates.EnemySpawnStart)
+            if(evt.TurnState == TurnStates.EnemySpawnStart)
                 OnTurnChange?.Invoke(false);
         }
 
 
         private void OnEnable()
         {
-            GameManager.OnTurnStateChange += OnTurnStateChange;
+            EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
         }
         private void OnDisable()
         {
-            GameManager.OnTurnStateChange -= OnTurnStateChange;
+            EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
         }
         #endregion
 

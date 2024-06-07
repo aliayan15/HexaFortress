@@ -19,9 +19,9 @@ namespace HexaFortress.GamePlay
             Player.Instance.AddExpensesPerDay(goldExpense);
         }
 
-        protected override void OnTurnStateChange(TurnStates state)
+        protected override void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            if (state == TurnStates.TurnBegin)
+            if (evt.TurnState == TurnStates.TurnBegin)
                 GridManager.Instance.PlayerCastle.RepairHealth(repairAmount);
         }
     }

@@ -187,7 +187,6 @@ namespace HexaFortress.UI
                 UpdateTileCountUI();
             }
         }
-
         private void OnGameStateChange(GameStateChangeEvent evt)
         {
             if (evt.GameState != GameStates.GAME && evt.GameState != GameStates.NONE)

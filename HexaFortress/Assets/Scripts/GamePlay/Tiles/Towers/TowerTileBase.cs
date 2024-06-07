@@ -125,9 +125,9 @@ namespace HexaFortress.GamePlay
         }
         #endregion
 
-        protected override void OnTurnStateChange(TurnStates state)
+        protected override void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            _canFire = state == TurnStates.EnemySpawnStart;
+            _canFire = evt.TurnState == TurnStates.EnemySpawnStart;
         }
 
    

@@ -154,22 +154,22 @@ namespace HexaFortress.GamePlay
             GameManager.Instance.SetTurnState(TurnStates.TurnEnd);
         }
 
-        private void OnTurnStateChange(TurnStates state)
+        private void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            if (state == TurnStates.EnemySpawnStart)
+            if (evt.TurnState == TurnStates.EnemySpawnStart)
             {
                 StartSpawn();
             }
-            if (state == TurnStates.TurnEnd)
+            if (evt.TurnState == TurnStates.TurnEnd)
             {
                 GameManager.Instance.IncreaseDay(1);
             }
         }
 
-        private void OnGameStateChange(GameStates state)
+        private void OnGameStateChange(GameStateChangeEvent evt)
         {
             // when game over stop spawning
-            if (state == GameStates.GAMEOVER)
+            if (evt.GameState == GameStates.GAMEOVER)
             {
                 StopAllCoroutines();
             }
@@ -177,13 +177,13 @@ namespace HexaFortress.GamePlay
 
         private void OnEnable()
         {
-            GameManager.OnGameStateChange += OnGameStateChange;
-            GameManager.OnTurnStateChange += OnTurnStateChange;
+            EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
+            EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
         }
         private void OnDisable()
         {
-            GameManager.OnGameStateChange -= OnGameStateChange;
-            GameManager.OnTurnStateChange -= OnTurnStateChange;
+            EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
+            EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
         }
 
         private void OnDrawGizmos()

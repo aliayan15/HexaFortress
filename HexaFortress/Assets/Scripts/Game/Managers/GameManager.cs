@@ -25,7 +25,6 @@ namespace HexaFortress.Game
 
     public class GameManager : SingletonMono<GameManager>
     {
-        public static event Action<GameStates> OnGameStateChange;
 
         public int DayCount { get; private set; } = 1;
 
@@ -51,7 +50,9 @@ namespace HexaFortress.Game
             set
             {
                 _gameState = value;
-                OnGameStateChange?.Invoke(value);
+                var evt = Events.GameStateChangeEvent;
+                evt.GameState = value;
+                EventManager.Broadcast(evt);
             }
         }
 
@@ -84,7 +85,7 @@ namespace HexaFortress.Game
 
             if (isDebuging) Debug.Log(GameState);
         }
-
+        // TODO UI
         private void SetGameWin()
         {
             //UIManager.Instance.SetGameWin();
@@ -106,23 +107,21 @@ namespace HexaFortress.Game
         }
         #endregion
 
-        #region Game Turn State
+        #region Turn State
 
-        public static event Action<TurnStates> OnTurnStateChange;
         [Space(5)]
-        [Header("Game Turn State")]
+        [Header("Turn State")]
         [SerializeField] private TurnStates turnStateToSet;
         private TurnStates _turnState;
         public TurnStates TurnState
         {
-            get
-            {
-                return _turnState;
-            }
+            get => _turnState;
             private set
             {
                 _turnState = value;
-                OnTurnStateChange?.Invoke(value);
+                var evt = Events.TurnStateChangeEvent;
+                evt.TurnState = value;
+                EventManager.Broadcast(evt);
             }
         }
 
@@ -133,16 +132,10 @@ namespace HexaFortress.Game
         public void IncreaseDay(int day)
         {
             DayCount += day;
-            //UIManager.Instance.gameCanvasManager.UpdateDayUI();
-            //if (DayCount == EnemySpawner.Instance.GameEndDay)
-            //{
-            //    SetState(GameStates.GAMEWIN);
-            //}
+            // TODO UIManager.Instance.gameCanvasManager.UpdateDayUI();
         }
         #endregion
-
-
-
+        
         private void Start()
         {
 #if UNITY_EDITOR
@@ -155,7 +148,7 @@ namespace HexaFortress.Game
 #else
             LoadNextScene();
 #endif
-            //Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+            
             ShowCursor(true);
             Application.targetFrameRate = 60;
         }
@@ -165,7 +158,7 @@ namespace HexaFortress.Game
         {
             GameState = GameStates.NONE;
             TurnState = TurnStates.None;
-            //UIManager.Instance.SetLoading();
+            // TODO UIManager.Instance.SetLoading();
             DontDestroyOnLoad(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // next scene can be game or menu scene.
         }
@@ -185,8 +178,6 @@ namespace HexaFortress.Game
                 Cursor.lockState = CursorLockMode.None;
             Cursor.visible = show;
         }
-
-
         #endregion
 
     }

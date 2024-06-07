@@ -48,6 +48,7 @@ namespace HexaFortress.GamePlay
         private void Start()
         {
             GameManager.Instance.StartGame();
+            //TODO UIManager
             // if (PlayerPrefs.GetInt("Info", 0) == 0)
             //     UIManager.Instance.gameCanvasManager.ShowInfoUI(true);
         }
@@ -62,23 +63,23 @@ namespace HexaFortress.GamePlay
             {
                 _goNightTimer = 0;
                 _isSpaceHold = true;
-               // UIManager.Instance.gameCanvasManager.ShowNightUI(true);
+               //TODO  UIManager.Instance.gameCanvasManager.ShowNightUI(true);
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 _isSpaceHold = false;
-                //UIManager.Instance.gameCanvasManager.ShowNightUI(false);
+                //TODO UIManager.Instance.gameCanvasManager.ShowNightUI(false);
             }
             if (_isSpaceHold)
             {
                 _goNightTimer += Time.deltaTime;
-                //UIManager.Instance.gameCanvasManager.UpdateNightCircle(_goNightTimer / goNightTime);
+                //TODO UIManager.Instance.gameCanvasManager.UpdateNightCircle(_goNightTimer / goNightTime);
                 if (_goNightTimer >= goNightTime)
                 {
                     // skip to night
                     GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
                     _isSpaceHold = false;
-                    //UIManager.Instance.gameCanvasManager.ShowNightUI(false);
+                    //TODO UIManager.Instance.gameCanvasManager.ShowNightUI(false);
                 }
             }
 
@@ -243,7 +244,7 @@ namespace HexaFortress.GamePlay
             {
                 GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
             }
-            //UIManager.Instance.gameCanvasManager.UpdateTileCountUI();
+            //TODO UIManager.Instance.gameCanvasManager.UpdateTileCountUI();
         }
         #endregion
 
@@ -260,25 +261,25 @@ namespace HexaFortress.GamePlay
             MyGold += amount;
             if (MyGold < 0)
                 MyGold = 0;
-            //UIManager.Instance.gameCanvasManager.UpdateGoldUI();
+            //TODO UIManager.Instance.gameCanvasManager.UpdateGoldUI();
         }
 
         public void AddGoldPerDay(int amount)
         {
             GoldPerDay += amount;
-            //UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
+            //TODO UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
         }
         public void AddExpensesPerDay(int amount)
         {
             ExpensesPerDay += amount;
-            //UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
+            //TODO UIManager.Instance.gameCanvasManager.UpdateGoldToolTip();
         }
         #endregion
 
         #region State Change
-        private void OnTurnStateChange(TurnStates state)
+        private void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            _canBuild = state == TurnStates.TurnBegin;
+            _canBuild = evt.TurnState == TurnStates.TurnBegin;
             if (_canBuild)
             {
                 _placedTileCount = 0;
@@ -290,7 +291,7 @@ namespace HexaFortress.GamePlay
             {
                 CanselSelection();
             }
-            if (state == TurnStates.TurnEnd)
+            if (evt.TurnState == TurnStates.TurnEnd)
             {
                 this.Timer(0.2f, () =>
                 {
@@ -298,24 +299,24 @@ namespace HexaFortress.GamePlay
                         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
                 });
             }
-            //ToolTipSystem.Instance.CanShow3dWorldUI = _canBuild;
+            //TODO ToolTipSystem.Instance.CanShow3dWorldUI = _canBuild;
         }
-        private void OnGameStateChange(GameStates state)
+        private void OnGameStateChange(GameStateChangeEvent evt)
         {
-            bool isGame = state == GameStates.GAME;
+            bool isGame = evt.GameState == GameStates.GAME;
             _canBuild = isGame;
-            //ToolTipSystem.Instance.CanShowUI = isGame;
+            //TODO ToolTipSystem.Instance.CanShowUI = isGame;
         }
 
         private void OnEnable()
         {
-            GameManager.OnTurnStateChange += OnTurnStateChange;
-            GameManager.OnGameStateChange += OnGameStateChange;
+            EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
+            EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
         }
         private void OnDisable()
         {
-            GameManager.OnTurnStateChange -= OnTurnStateChange;
-            GameManager.OnGameStateChange -= OnGameStateChange;
+            EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
+            EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
         }
         #endregion
 

@@ -89,7 +89,7 @@ namespace HexaFortress.GamePlay
         {
         }
 
-        protected virtual void OnTurnStateChange(TurnStates state)
+        protected virtual void OnTurnStateChange(TurnStateChangeEvent evt)
         {
 
         }
@@ -101,11 +101,11 @@ namespace HexaFortress.GamePlay
 
         protected virtual void OnEnable()
         {
-            GameManager.OnTurnStateChange += OnTurnStateChange;
+            EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
         }
         protected virtual void OnDisable()
         {
-            GameManager.OnTurnStateChange -= OnTurnStateChange;
+            EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
         }
     }
 }

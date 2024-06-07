@@ -136,9 +136,9 @@ namespace Managers
 
         #endregion
 
-        private void OnGameStateChange(GameStates state)
+        private void OnGameStateChange(GameStateChangeEvent evt)
         {
-            if (state == GameStates.GAME)
+            if (evt.GameState == GameStates.GAME)
             {
                 AudioSources.Clear();
             }
@@ -146,11 +146,11 @@ namespace Managers
 
         private void OnEnable()
         {
-            GameManager.OnGameStateChange += OnGameStateChange;
+            EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
         }
         private void OnDisable()
         {
-            GameManager.OnGameStateChange -= OnGameStateChange;
+            EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
         }
     }
 

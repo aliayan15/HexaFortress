@@ -5,14 +5,11 @@ using UnityEngine;
 
 namespace HexaFortress.GamePlay
 {
-    [RequireComponent(typeof(FloatEventListener))]
     public class CastleTile : BasicTower
     {
         [Header("Refs")] public Transform PathPoint;
-
-        [HorizontalLine] [Header("Castle")] [SerializeField]
-        private int castleHealth;
-
+        [HorizontalLine] [Header("Castle")] 
+        [SerializeField] private int castleHealth;
         [SerializeField] private short goldPerDay = 10;
 
         private int _currentCastleHealth;
@@ -66,10 +63,9 @@ namespace HexaFortress.GamePlay
         {
         }
 
-        protected override void OnTurnStateChange(TurnStates state)
+        protected override void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            base.OnTurnStateChange(state);
-            if (state == TurnStates.TurnBegin)
+            if (evt.TurnState == TurnStates.TurnBegin)
                 InvokeHealthChangeEvent();
         }
     }
