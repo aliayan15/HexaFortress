@@ -19,7 +19,7 @@ namespace HexaFortress.GamePlay
             base.Init(myNode);
             myNode.SetIsWalkable(true);
             _currentCastleHealth = castleHealth;
-            Player.Instance.AddGoldPerDay(goldPerDay);
+            GameModel.Instance.PlayerData.AddGoldPerDay(goldPerDay);
             InvokeHealthChangeEvent();
         }
 

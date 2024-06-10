@@ -12,12 +12,11 @@ using UnityEngine;
 namespace HexaFortress.GamePlay
 {
     [RequireComponent(typeof(UnityEngine.Grid))]
-    [RequireComponent(typeof(CastleTilePlacer))]
+    [RequireComponent(typeof(StartTilesPlacer))]
     public class GridManager : SingletonMono<GridManager>
     {
         public Vector2 GridSize => gridSize;
         public HexPathFinding PathFinding { get; private set; }
-        public CastleTile PlayerCastle { get; private set; }
         public Action<bool> OnTurnChange;
 
         [SerializeField, Self] private UnityEngine.Grid grid;
@@ -44,8 +43,8 @@ namespace HexaFortress.GamePlay
             PathFinding = new HexPathFinding(this, gridSize);
             yield return new WaitForSeconds(0.1f);
             GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
-            // bug fix - Start of the game we are not adding gold.
-            Player.Instance.AddGold(-Player.Instance.GoldPerDay);
+            //TODO bug fix - Start of the game we are not adding gold. casle
+            GameModel.Instance.PlayerData.AddGold(-GameModel.Instance.PlayerData.GoldPerDay);
         }
 
         private void CreateHexGrid()

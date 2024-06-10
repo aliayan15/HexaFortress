@@ -3,11 +3,10 @@ using UnityEngine;
 
 namespace HexaFortress.GamePlay
 {
-    public class CastleTilePlacer:MonoBehaviour
+    public class StartTilesPlacer:MonoBehaviour
     {
         [Header("Refs")]
         [SerializeField] private SOGameProperties gameData;
-        [SerializeField] private GameConfig gameConfig;
         [SerializeField] private Transform floor;
 
         private void Awake()
@@ -17,11 +16,12 @@ namespace HexaFortress.GamePlay
 
         private void OnGridCreated()
         {
-            CreatePlayerCastle();
+            CreateStartupTiles();
         }
 
-        private void CreatePlayerCastle()
+        private void CreateStartupTiles()
         {
+            // create castle
             int coordX = Mathf.FloorToInt(GridManager.Instance.GridSize.x / 2);
             int coordY = Mathf.FloorToInt(GridManager.Instance.GridSize.y / 2);
             var castleGrid = GridManager.Instance.GetGridNode(coordX, coordY);
@@ -30,7 +30,7 @@ namespace HexaFortress.GamePlay
             castleObj.name = "Player Castle";
             castle.Init(castleGrid);
             CameraManager.Instance.TeleportPosition(castleGrid.Position);
-            gameConfig.CastleTile = castle;
+            GameModel.Instance.CastleTile = castle;
 
             // create one path
             var pathNode = GridManager.Instance.GetGridNode(castle.PathPoint.position);

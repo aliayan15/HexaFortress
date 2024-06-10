@@ -157,7 +157,7 @@ namespace HexaFortress.GamePlay
             if (evt.TurnState == TurnStates.TurnBegin)
             {
                 // days to select upgrade
-                if (upgradeDays.Any(d => d == GameManager.Instance.DayCount))
+                if (upgradeDays.Any(d => d == GameModel.Instance.PlayerData.DayCount))
                 {
                     this.Timer(1f, () =>
                     {

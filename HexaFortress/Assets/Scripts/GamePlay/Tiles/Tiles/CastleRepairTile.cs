@@ -8,6 +8,7 @@ namespace HexaFortress.GamePlay
     /// </summary>
     public class CastleRepairTile : TileBase
     {
+        [SerializeField] private UIEvents events;
         [Header("Stats")]
         [SerializeField] private short repairAmount = 1;
         [SerializeField] private int goldExpense;
@@ -15,14 +16,14 @@ namespace HexaFortress.GamePlay
         public override void Init(HexGridNode myNode)
         {
             base.Init(myNode);
-            // TODO UIManager.Instance.gameCanvasManager.UpdateCastleToolTip();
-            Player.Instance.AddExpensesPerDay(goldExpense);
+            events.OnCastleToolTipChage.Invoke();
+            GameModel.Instance.PlayerData.AddExpensesPerDay(goldExpense);
         }
 
         protected override void OnTurnStateChange(TurnStateChangeEvent evt)
         {
             if (evt.TurnState == TurnStates.TurnBegin)
-                GridManager.Instance.PlayerCastle.RepairHealth(repairAmount);
+                GameModel.Instance.CastleTile.RepairHealth(repairAmount);
         }
     }
 }

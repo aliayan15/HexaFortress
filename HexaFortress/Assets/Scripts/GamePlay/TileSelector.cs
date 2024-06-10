@@ -92,7 +92,7 @@ namespace HexaFortress.GamePlay
         {
             foreach (var tile in tilesToUnlock)
             {
-                if (GameManager.Instance.DayCount != tile.UnlockDay)
+                if (GameModel.Instance.PlayerData.DayCount != tile.UnlockDay)
                     return;
                 switch (tile.Tile.TileType)
                 {

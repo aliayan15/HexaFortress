@@ -35,7 +35,7 @@ namespace HexaFortress.GamePlay
             CheckUpgradeTile();
             if (rangeImage)
                 rangeImage.SetActive(false);
-            Player.Instance.AddExpensesPerDay(goldExpense);
+            GameModel.Instance.PlayerData.AddExpensesPerDay(goldExpense);
             switch (MyType)
             {
                 case TileType.Tower:

@@ -11,7 +11,7 @@ namespace HexaFortress.GamePlay
         {
             base.Init(myNode);
             ProdusedGoldAmount = data.BaseGold;
-            Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+            GameModel.Instance.PlayerData.AddGoldPerDay(ProdusedGoldAmount);
             var surroundingTiles = GridManager.Instance.GetSurroundingGrids(myNode);
             foreach (var surroundingTile in surroundingTiles)
             {
@@ -25,9 +25,9 @@ namespace HexaFortress.GamePlay
 
         public void DoBonusEffect()
         {
-            Player.Instance.AddGoldPerDay(-ProdusedGoldAmount);
+            GameModel.Instance.PlayerData.AddGoldPerDay(-ProdusedGoldAmount);
             ProdusedGoldAmount += data.BonusGold;
-            Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+            GameModel.Instance.PlayerData.AddGoldPerDay(ProdusedGoldAmount);
             Player.Instance.PlayPartical(transform.position);
         }
 

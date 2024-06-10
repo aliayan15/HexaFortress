@@ -1,4 +1,6 @@
+using System;
 using DG.Tweening;
+using HexaFortress.Game;
 using MyUtilities;
 using MyUtilities.UI;
 using UI;
@@ -26,33 +28,66 @@ namespace HexaFortress.UI
             base.Awake();
             _canvases = new[] { MENU, GAME, GAMEOVER, GAMEWIN, LOADING };
         }
-
-        public void SetGameOver()
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+        private void SetLoading()
+        {
+            _canvases.HideAllExceptOne(LOADING);
+        }
+        private void SetGameOver()
         {
             _canvases.HideAllExceptOne(GAMEOVER);
             GAMEOVER.canvasGroup.alpha = 0;
             GAMEOVER.canvasGroup.DOFade(1f, 1f);
         }
-        public void SetGameWin()
+        private void SetGameWin()
         {
             _canvases.HideAllExceptOne(GAMEWIN);
         }
-        public void SetLoading()
-        {
-            _canvases.HideAllExceptOne(LOADING);
-        }
-        public void SetMenu()
+       
+        private void SetMenu()
         {
             _canvases.HideAllExceptOne(MENU);
         }
-        public void SetGame()
+        private void SetGame()
         {
             _canvases.HideAllExceptOne(GAME);
         }
 
-        public void QuitGame()
+        
+        private void OnGameStateChange(GameStateChangeEvent obj)
         {
-            Application.Quit();
+            switch (obj.GameState)
+            {
+                case GameStates.GAME:
+                    SetGame();
+                    break;
+                case GameStates.MENU:
+                    SetMenu();
+                    break;
+                case GameStates.GAMEOVER:
+                    SetGameOver();
+                    break;
+                case GameStates.GAMEWIN:
+                    SetGameWin();
+                    break;
+                case GameStates.LOADING:
+                    SetLoading();
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void OnEnable()
+        {
+            EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
         }
     }
 }

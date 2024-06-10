@@ -111,7 +111,7 @@ namespace HexaFortress.GamePlay
 
         private void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            if (evt.TurnState == TurnStates.TurnBegin && GameManager.Instance.DayCount != 1)
+            if (evt.TurnState == TurnStates.TurnBegin && GameModel.Instance.PlayerData.DayCount != 1)
                 StartCoroutine(EconomyTileProdection());
         }
 

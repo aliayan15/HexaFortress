@@ -11,7 +11,7 @@ namespace HexaFortress.GamePlay
         {
             base.Init(myNode);
             ProdusedGoldAmount = data.BaseGold;
-            Player.Instance.AddGoldPerDay(ProdusedGoldAmount);
+            GameModel.Instance.PlayerData.AddGoldPerDay(ProdusedGoldAmount);
             TileManager.Instance.AddEconomyTile(this);
         }
 

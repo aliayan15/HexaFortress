@@ -14,8 +14,8 @@ namespace HexaFortress.GamePlay
         public override void Init(HexGridNode myNode)
         {
             base.Init(myNode);
-            GridManager.Instance.PlayerCastle.UpgradeHealth(bonusHealth);
-            Player.Instance.AddExpensesPerDay(goldExpense);
+            GameModel.Instance.CastleTile.UpgradeHealth(bonusHealth);
+            GameModel.Instance.PlayerData.AddExpensesPerDay(goldExpense);
         }
     }
 }

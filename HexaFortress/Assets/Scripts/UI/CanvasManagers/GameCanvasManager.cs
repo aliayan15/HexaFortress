@@ -10,10 +10,8 @@ namespace HexaFortress.UI
 {
     public class GameCanvasManager : MonoBehaviour
     {
-
-        [SerializeField]
-        [Tooltip("Sondan basla")]
-        private SelectTileButton[] selectTileButtons;
+        [SerializeField] private UIEvents events;
+        [SerializeField] private SelectTileButton[] selectTileButtons;
         [HorizontalLine]
         [SerializeField] private TextMeshProUGUI goldText;
         [SerializeField] private TextMeshProUGUI dayText;
@@ -30,13 +28,15 @@ namespace HexaFortress.UI
         [Header("Night")]
         [SerializeField] private Image nightCircle;
         [SerializeField] GameObject nightObj;
-
+        private readonly int _openAnimID = Animator.StringToHash("Open");
+        private readonly int _closeAnimID = Animator.StringToHash("Close");
+        private const string _infoKey = "Info";
 
         #region Tiles
-        public void GetTiles()
+        private void GetTiles()
         {
-            int tileWithPrice = 5;
-            for (int i = 0; i < tileWithPrice; i++)
+            var tileWithPrice = 5;
+            for (var i = 0; i < tileWithPrice; i++)
             {
                 if (i == 0)
                 {
@@ -65,7 +65,7 @@ namespace HexaFortress.UI
             foreach (SelectTileButton button in selectTileButtons)
                 if (button.MyTile == null)
                     button.DeActivate();
-            buildingUIAnim.SetTrigger("Open");
+            buildingUIAnim.SetTrigger(_openAnimID);
 
         }
         private void GetStartTiles()
@@ -75,13 +75,13 @@ namespace HexaFortress.UI
             {
                 selectTileButtons[i].SetTile(tiles[i]);
             }
-            buildingUIAnim.SetTrigger("Open");
+            buildingUIAnim.SetTrigger(_openAnimID);
         }
         private void CloseAllTileButtons()
         {
             foreach (SelectTileButton button in selectTileButtons)
                 button.DeActivate();
-            buildingUIAnim.SetTrigger("Close");
+            buildingUIAnim.SetTrigger(_closeAnimID);
         }
         public void UpdateTilePrice()
         {
@@ -91,29 +91,36 @@ namespace HexaFortress.UI
         #endregion
 
         #region Top UI
-        public void UpdateGoldUI()
+        private void UpdateCastleHealthUI(CastleHealthChangeEvent evt)
         {
-            goldText.text = Player.Instance.MyGold.ToString();
+            castleHealthText.text = $"Castle {evt.CurrentHealth}/{evt.MaxHealth}";
+            healthSlider.value = (float)evt.CurrentHealth/ evt.MaxHealth;
         }
-        public void UpdateDayUI()
+        private void UpdateGoldUI(int gold)
         {
-            dayText.text = "Day " + GameManager.Instance.DayCount;
+            goldText.text = gold.ToString();
+        }
+        private void UpdateDayUI(int dayCount)
+        {
+            dayText.text = $"Day {dayCount}";
         }
        
-        public void UpdateTileCountUI()
+        private void UpdateTileCountUI(int remainingTileCount)
         {
-            tileCountText.text = Player.Instance.RemainingTileCount.ToString();
+            tileCountText.text = remainingTileCount.ToString();
         }
 
-        public void UpdateGoldToolTip()
+        private void UpdateGoldToolTip(int goldPerDay, int expensesPerDay)
         {
-            goldToolTip.content = "Daily gold producing: +" + Player.Instance.GoldPerDay + "\n"
-                + "Daily gold spending: -" + Player.Instance.ExpensesPerDay;
+            goldToolTip.content =
+                $"Daily gold producing: +{GameModel.Instance.PlayerData.GoldPerDay}\n" +
+                $"Daily gold spending: -{GameModel.Instance.PlayerData.ExpensesPerDay}";
         }
-        public void UpdateCastleToolTip()
+        private void UpdateCastleToolTip()
         {
-            castleToolTip.content = "Game over when castle health reaches 0.\n" +
-                "Castle repair per day: " + TileManager.Instance.GetTileCount(TileType.CastleRepair);
+            castleToolTip.content =
+                "Game over when castle health reaches 0.\n" +
+                $"Castle repair per day: {TileManager.Instance.GetTileCount(TileType.CastleRepair)}";
         }
         #endregion
 
@@ -123,10 +130,10 @@ namespace HexaFortress.UI
             if (show)
             {
                 this.upgrades.SetActive(true);
-                var upgrades = UpgradeManager.Instance.GetRandomUpgrade();
-                for (short i = 0; i < upgrades.Length; i++)
+                var randomUpgrades = UpgradeManager.Instance.GetRandomUpgrade();
+                for (short i = 0; i < randomUpgrades.Length; i++)
                 {
-                    upgradeButtons[i].Init(upgrades[i]);
+                    upgradeButtons[i].Init(randomUpgrades[i]);
                 }
             }
             else
@@ -137,20 +144,22 @@ namespace HexaFortress.UI
         }
         #endregion
 
-        public void UpdateNightCircle(float ratio)
+        #region Night Circle
+        private void UpdateNightCircle(float ratio)
         {
             nightCircle.fillAmount = ratio;
         }
-        public void ShowNightUI(bool show)
+        private void ShowNightUI(bool show)
         {
             nightObj.SetActive(show);
         }
-
+        #endregion
+        
         public void ShowInfoUI(bool show)
         {
             infoUI.SetActive(show);
             if (!show)
-                PlayerPrefs.SetInt("Info", 1);
+                PlayerPrefs.SetInt(_infoKey, 1);
             ToolTipSystem.Instance.CanShow3dWorldUI = !show;
         }
         public void ToggleInfoUI()
@@ -163,12 +172,6 @@ namespace HexaFortress.UI
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         
-        private void UpdateCastleHealthUI(CastleHealthChangeEvent evt)
-        {
-            castleHealthText.text = "Castle " + evt.CurrentHealth + "/" + evt.MaxHealth;
-            healthSlider.value = (float)evt.CurrentHealth/ evt.MaxHealth;
-        }
-        
         #region State Change
         private void OnTurnStateChange(TurnStateChangeEvent evt)
         {
@@ -178,13 +181,10 @@ namespace HexaFortress.UI
             }
             if (evt.TurnState == TurnStates.TurnBegin)
             {
-                if (GameManager.Instance.DayCount == 1)
+                if (GameModel.Instance.PlayerData.DayCount == 1)
                     GetStartTiles();
                 else
                     GetTiles();
-                UpdateGoldUI();
-                UpdateDayUI();
-                UpdateTileCountUI();
             }
         }
         private void OnGameStateChange(GameStateChangeEvent evt)
@@ -192,13 +192,12 @@ namespace HexaFortress.UI
             if (evt.GameState != GameStates.GAME && evt.GameState != GameStates.NONE)
             {
                 CloseAllTileButtons();
-                UpdateGoldUI();
-                UpdateDayUI();
-                UpdateTileCountUI();
             }
             if (evt.GameState == GameStates.GAME)
             {
                 UpdateCastleToolTip();
+                if (PlayerPrefs.GetInt(_infoKey, 0) == 0)
+                    ShowInfoUI(true);
             }
         }
 
@@ -207,13 +206,26 @@ namespace HexaFortress.UI
             EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
             EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
             EventManager.AddListener<CastleHealthChangeEvent>(UpdateCastleHealthUI);
+            events.OnDayChange += UpdateDayUI;
+            events.OnGoldChange += UpdateGoldUI;
+            events.OnGoldIncomeChange += UpdateGoldToolTip;
+            events.OnTileCountChange += UpdateTileCountUI;
+            events.OnCastleToolTipChage += UpdateCastleToolTip;
+            events.ShowNightUI += ShowNightUI;
+            events.UpdateNightCircle += UpdateNightCircle;
         }
-
         private void OnDisable()
         {
             EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
             EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
             EventManager.RemoveListener<CastleHealthChangeEvent>(UpdateCastleHealthUI);
+            events.OnDayChange -= UpdateDayUI;
+            events.OnGoldChange -= UpdateGoldUI;
+            events.OnGoldIncomeChange -= UpdateGoldToolTip;
+            events.OnTileCountChange -= UpdateTileCountUI;
+            events.OnCastleToolTipChage -= UpdateCastleToolTip;
+            events.ShowNightUI -= ShowNightUI;
+            events.UpdateNightCircle -= UpdateNightCircle;
         }
         #endregion
     }

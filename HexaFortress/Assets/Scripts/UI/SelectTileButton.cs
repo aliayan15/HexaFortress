@@ -39,7 +39,7 @@ namespace HexaFortress.UI
         {
             _myTile = tile;
             iconImage.sprite = tile.Icon;
-            if (tile.IsTherePrice && GameManager.Instance.DayCount != 1) // first day free
+            if (tile.IsTherePrice && GameModel.Instance.PlayerData.DayCount != 1) // first day free
             {
                 _isCurrentTileFree = false;
                 price.SetActive(true);
@@ -70,7 +70,7 @@ namespace HexaFortress.UI
             if (!_isCurrentTileFree)
             {
                 TilePrice = TileManager.Instance.GetPriceOfTile(_myTile.TileType, _myTile.BasePrice, _myTile.PriceIncrease);
-                if (Player.Instance.MyGold < TilePrice)
+                if (GameModel.Instance.PlayerData.MyGold < TilePrice)
                 {
                     Debug.Log("Not enough Gold!");
                     return;
@@ -78,9 +78,9 @@ namespace HexaFortress.UI
             }
             // player build
             if (_isPressed) return;
-            Player.Instance.EnterBuildMode(_myTile);
-            Player.Instance.OnTilePlaced += OnTilePlaced;
-            Player.Instance.OnTileCanceled += OnTileCanceled;
+            GameModel.Instance.PlayerTilePlacer.EnterBuildMode(_myTile);
+            GameModel.Instance.PlayerTilePlacer.OnTilePlaced += OnTilePlaced;
+            GameModel.Instance.PlayerTilePlacer.OnTileCanceled += OnTileCanceled;
             _isPressed = true;
             AudioManager.Instance.PlayBtnSound();
         }
@@ -101,7 +101,7 @@ namespace HexaFortress.UI
             if (!_myTile) return;
             if (!_isCurrentTileFree)
             {
-                Player.Instance.AddGold(-TilePrice);
+                GameModel.Instance.PlayerData.AddGold(-TilePrice);
                 TileManager.Instance.AddNewTile(_myTile.TileType);
             }
 
@@ -113,8 +113,8 @@ namespace HexaFortress.UI
         private void UnsubscribeAction()
         {
             if (!_isPressed) return;
-            Player.Instance.OnTilePlaced -= OnTilePlaced;
-            Player.Instance.OnTileCanceled -= OnTileCanceled;
+            GameModel.Instance.PlayerTilePlacer.OnTilePlaced -= OnTilePlaced;
+            GameModel.Instance.PlayerTilePlacer.OnTileCanceled -= OnTileCanceled;
             _isPressed = false;
         }
 

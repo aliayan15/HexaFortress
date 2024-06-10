@@ -132,7 +132,7 @@ namespace HexaFortress.GamePlay
         private void onReachedMovePosition()
         {
             // damage to castle
-            GridManager.Instance.PlayerCastle.TakeDamage(damageToCastle);
+            GameModel.Instance.CastleTile.TakeDamage(damageToCastle);
             Destroy(gameObject);
         }
         #endregion

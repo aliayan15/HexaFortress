@@ -72,7 +72,7 @@ namespace HexaFortress.GamePlay
         {
             for (int j = 0; j < connectionPoints.Length; j++)
             {
-                if (GridManager.Instance.PlayerCastle.MyHexNode !=
+                if (GameModel.Instance.CastleTile.MyHexNode !=
                     GridManager.Instance.GetGridNode(connectionPoints[j].position)) continue;
 
                 // spawn point near castle for start path

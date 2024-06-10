@@ -22,7 +22,7 @@ namespace HexaFortress.GamePlay
                 }
             }
             smokePar.Play();
-            Player.Instance.AddExpensesPerDay(goldExpense);
+            GameModel.Instance.PlayerData.AddExpensesPerDay(goldExpense);
         }
     }
 }

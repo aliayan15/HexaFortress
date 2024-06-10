@@ -47,7 +47,7 @@ namespace HexaFortress.GamePlay
         protected override void OnTurnStateChange(TurnStateChangeEvent evt)
         {
             if (evt.TurnState != TurnStates.TurnBegin) return;
-            Player.Instance.AddGold(ProdusedGoldAmount);
+            GameModel.Instance.PlayerData.AddGold(ProdusedGoldAmount);
         }
     }
 }

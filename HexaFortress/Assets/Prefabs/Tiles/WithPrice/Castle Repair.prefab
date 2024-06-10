@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 15
+  events: {fileID: 11400000, guid: dde809cb9b38ced4eab4e21dae4b6397, type: 2}
   repairAmount: 1
   goldExpense: 10
 --- !u!1001 &3690684670277790324

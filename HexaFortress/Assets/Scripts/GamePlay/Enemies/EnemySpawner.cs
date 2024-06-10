@@ -47,14 +47,14 @@ namespace HexaFortress.GamePlay
             if (TileManager.Instance.EnemySpawnPoints.Count == 0) yield break;
             // total count(not)
             var time = new WaitForSeconds(1f);
-            int count = GameManager.Instance.DayCount * GameManager.Instance.DayCount;
+            int count = GameModel.Instance.PlayerData.DayCount * GameModel.Instance.PlayerData.DayCount;
             // set path for each spawn point
             _paths.Clear();
             for (int i = 0; i < TileManager.Instance.EnemySpawnPoints.Count; i++)
             {
                 var grid = GridManager.Instance.GetGridNode(TileManager.Instance.EnemySpawnPoints[i]);
                 _paths[i] = GridManager.Instance.PathFinding.FindPath(grid.Position,
-                    GridManager.Instance.PlayerCastle.MyHexNode.Position);
+                    GameModel.Instance.CastleTile.MyHexNode.Position);
             }
             // spawn enemies
             while (count > 0)
@@ -84,7 +84,7 @@ namespace HexaFortress.GamePlay
             //    if (num > 0)
             //        return num;
             //}
-            if (GameManager.Instance.DayCount >= tier2Day)
+            if (GameModel.Instance.PlayerData.DayCount >= tier2Day)
             {
                 int num = SpawnFromArray(tier2, 2f);
                 if (num > 0)
@@ -99,7 +99,7 @@ namespace HexaFortress.GamePlay
             float rndPlus = 0f;
             for (int i = enemies.Length - 1; i >= 0; --i)
             {
-                bool canSpawnThisEnemy = enemies[i].Level <= GameManager.Instance.DayCount
+                bool canSpawnThisEnemy = enemies[i].Level <= GameModel.Instance.PlayerData.DayCount
                                          && UnityEngine.Random.Range(0.0f, 1.0f) < (multiplier / enemies[i].Level) + rndPlus;
                 if (canSpawnThisEnemy)
                 {
@@ -124,9 +124,9 @@ namespace HexaFortress.GamePlay
         }
         private void SpawnBoss()
         {
-            if (GameManager.Instance.DayCount == tier2Day - 1)
+            if (GameModel.Instance.PlayerData.DayCount == tier2Day - 1)
                 SpawnEnemy(boss1);
-            else if (GameManager.Instance.DayCount == tier3Day - 1)
+            else if (GameModel.Instance.PlayerData.DayCount == tier3Day - 1)
                 SpawnEnemy(boss2);
 
         }
@@ -159,10 +159,6 @@ namespace HexaFortress.GamePlay
             if (evt.TurnState == TurnStates.EnemySpawnStart)
             {
                 StartSpawn();
-            }
-            if (evt.TurnState == TurnStates.TurnEnd)
-            {
-                GameManager.Instance.IncreaseDay(1);
             }
         }
 
