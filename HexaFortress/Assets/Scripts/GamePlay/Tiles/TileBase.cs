@@ -91,14 +91,9 @@ namespace HexaFortress.GamePlay
 
         protected virtual void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-
+            
         }
-
-        public virtual void OnDayBegin()
-        {
-            //Debug.Log("Gold");
-        }
-
+        
         protected virtual void OnEnable()
         {
             EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);

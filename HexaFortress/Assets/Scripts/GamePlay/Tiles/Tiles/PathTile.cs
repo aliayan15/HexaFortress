@@ -89,21 +89,18 @@ namespace HexaFortress.GamePlay
                 if (!item.MyTile) continue;
                 if (item.MyTile.MyType == TileType.Castle)
                     return false;
-                if (item.MyTile.MyType == TileType.Path)
+                if (item.MyTile.MyType != TileType.Path) continue;
+                PathTile pathTile = item.MyTile as PathTile;
+                // check surroundingGrid have connection point to this tile
+                foreach (var point in pathTile.connectionPoints)
                 {
-
-                    PathTile pathTile = item.MyTile as PathTile;
-                    // check surroundingGrid have connection point to this tile
-                    foreach (var point in pathTile.connectionPoints)
+                    if (grid == GridManager.Instance.GetGridNode(point.position))
                     {
-                        if (grid == GridManager.Instance.GetGridNode(point.position))
+                        // check this tile have connection point to surroundingGrid
+                        foreach (var myPoint in connectionPoints)
                         {
-                            // check this tile have connection point to surroundingGrid
-                            foreach (var myPoint in connectionPoints)
-                            {
-                                if (pathTile.MyHexNode == GridManager.Instance.GetGridNode(myPoint.position))
-                                    build = true;
-                            }
+                            if (pathTile.MyHexNode == GridManager.Instance.GetGridNode(myPoint.position))
+                                build = true;
                         }
                     }
                 }

@@ -65,6 +65,7 @@ namespace HexaFortress.GamePlay
 
         protected override void OnTurnStateChange(TurnStateChangeEvent evt)
         {
+            base.OnTurnStateChange(evt);
             if (evt.TurnState == TurnStates.TurnBegin)
                 InvokeHealthChangeEvent();
         }

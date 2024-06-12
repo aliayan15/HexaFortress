@@ -33,6 +33,7 @@ namespace HexaFortress.Game
         private const string CanInstantiateSystemBoost = "MyBooleanProperty";
 
         #region Set Game State
+
         [Space(15)] [Header("Set State")] public GameStates GameStateToSet;
         private GameStates _gameState;
 
@@ -58,11 +59,14 @@ namespace HexaFortress.Game
             GameState = state;
             if (isDebuging) Debug.Log(GameState);
         }
+
         #endregion
 
         #region Turn State
+
         [Space(5)] [Header("Turn State")] [SerializeField]
         private TurnStates turnStateToSet;
+
         private TurnStates _turnState;
 
         public TurnStates TurnState
@@ -115,12 +119,14 @@ namespace HexaFortress.Game
         }
 
         #region Mouse Visibility
+
         public void ShowCursor(bool show)
         {
             if (Cursor.lockState != CursorLockMode.None)
                 Cursor.lockState = CursorLockMode.None;
             Cursor.visible = show;
         }
+
         #endregion
     }
 }
