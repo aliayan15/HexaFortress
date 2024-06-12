@@ -9,29 +9,17 @@ namespace HexaFortress.GamePlay
 {
     public class Enemy : MonoBehaviour, IDamageable
     {
-        public EnemyType EnemyType => enemyType;
-        public int Level => level;
-        public Transform TargetPoint => targetPoint;
-        public int TotalHealth => _currentHealth + _currentArmor;
-        public int Armor => _currentArmor;
-
         [SerializeField] private Transform targetPoint;
-        [SerializeField, Child] private HealthBar healthBar;
         [SerializeField] private SOGameProperties data;
         [SerializeField] private SkinnedMeshRenderer charater;
-        [HorizontalLine]
-        [Header("Stats")]
-        [SerializeField] private int level;
-        [SerializeField] private int health;
-        [SerializeField] private int armor;
-        [SerializeField] private float moveSpeed;
-        [SerializeField] private EnemyType enemyType;
-        [SerializeField] private float reachedPositionDistance = 0.1f;
-        [SerializeField] private float slowPercent = 0.3f;
-        [SerializeField] private float slowTime = 2f;
-        [SerializeField] private short damageToCastle;
+        [SerializeField, Child] private HealthBar healthBar;
 
-
+        public EnemyType EnemyType => _myConfig.EnemyType;
+        public int Level => _myConfig.Level;
+        public Transform TargetPoint => targetPoint;
+        public int Armor => _currentArmor;
+        
+        private EnemyConfig _myConfig;
         private List<Vector3> _pathVectorList;
         private int _pathIndex = -1;
         private Transform _transform;
@@ -44,25 +32,26 @@ namespace HexaFortress.GamePlay
         private float _posY = 0.45f;
         private bool _canPlayFlash = true;
         private Color _baseColor;
-        private WaitForSeconds _flashWait = new WaitForSeconds(0.06f);
+        private readonly WaitForSeconds _flashWait = new WaitForSeconds(0.06f);
 
         private void OnValidate()
         {
             this.ValidateRefs();
         }
 
-        private void Start()
+        public void Init(EnemyConfig config)
         {
+            _myConfig = config;
             _transform = transform;
-            _currentHealth = health;
-            _currentArmor = armor;
-            _currentMoveSpeed = moveSpeed;
-            _slowTimer = slowTime;
-            _posY = EnemySpawner.Instance.EnemyPosY;
-            float ratioH = (float)_currentHealth / health;
+            _currentHealth = _myConfig.Health;
+            _currentArmor = _myConfig.Armor;
+            _currentMoveSpeed = _myConfig.MoveSpeed;
+            _slowTimer = _myConfig.SlowTime;
+            _posY = EnemyManager.Instance.EnemyPosY;
+            float ratioH = (float)_currentHealth / _myConfig.Health;
             float ratioA = 0f;
-            if (armor > 0)
-                ratioA = (float)_currentArmor / armor;
+            if (_myConfig.Armor > 0)
+                ratioA = (float)_currentArmor / _myConfig.Armor;
             healthBar.Init(ratioH + ratioA);
             healthBar.UpdateBar(ratioH, ratioA);
             _baseColor = charater.material.color;
@@ -82,19 +71,15 @@ namespace HexaFortress.GamePlay
             if (_slowTimer <= 0)
             {
                 _isSlow = false;
-                _currentMoveSpeed = moveSpeed;
+                _currentMoveSpeed = _myConfig.MoveSpeed;
             }
         }
 
         #region Movement
+
         public void SetMovePosition(List<Vector3> pathVectorList)
         {
             _pathVectorList = pathVectorList;
-            //if (pathVectorList.Count > 0)
-            //{
-            //    // Remove first position so he doesn't go backwards
-            //    pathVectorList.RemoveAt(0);
-            //}
             if (pathVectorList.Count > 0)
             {
                 _pathIndex = 0;
@@ -113,10 +98,11 @@ namespace HexaFortress.GamePlay
                 // Move to next path position
                 Vector3 nextPathPosition = _pathVectorList[_pathIndex];
                 nextPathPosition.y = _posY;
-                _transform.position = Vector3.MoveTowards(_transform.position, nextPathPosition, Time.deltaTime * _currentMoveSpeed);
+                _transform.position = Vector3.MoveTowards(_transform.position, nextPathPosition,
+                    Time.deltaTime * _currentMoveSpeed);
                 _transform.LookAt(nextPathPosition, Vector3.up);
 
-                if (Vector3.Distance(transform.position, nextPathPosition) < reachedPositionDistance)
+                if (Vector3.Distance(_transform.position, nextPathPosition) < _myConfig.ReachedPositionDistance)
                 {
                     _pathIndex++;
                     if (_pathIndex >= _pathVectorList.Count)
@@ -132,16 +118,18 @@ namespace HexaFortress.GamePlay
         private void onReachedMovePosition()
         {
             // damage to castle
-            GameModel.Instance.CastleTile.TakeDamage(damageToCastle);
+            GameModel.Instance.CastleTile.TakeDamage(_myConfig.DamageToCastle);
             Destroy(gameObject);
         }
+
         #endregion
 
         #region Damage
+
         public void TakeDamage(DamageData damage)
         {
             if (_isDead) return;
-            if ((damage.TargetEnemyType & enemyType) == 0) return;
+            if ((damage.TargetEnemyType & _myConfig.EnemyType) == 0) return;
 
             int rndCritNum = Random.Range(0, 101);
             if (rndCritNum <= damage.CritChance)
@@ -155,7 +143,7 @@ namespace HexaFortress.GamePlay
             if (rndSlowNum <= damage.SlowChance)
                 SlowDown();
 
-            if (damage.TargetEnemyType == enemyType)
+            if (damage.TargetEnemyType == _myConfig.EnemyType)
                 damage.Damage = Mathf.FloorToInt(damage.Damage * 1.3f);
 
             if (_currentArmor > 0)
@@ -168,10 +156,10 @@ namespace HexaFortress.GamePlay
             if (_currentArmor < 0)
                 _currentArmor = 0;
 
-            float ratioH = (float)_currentHealth / health;
+            float ratioH = (float)_currentHealth / _myConfig.Health;
             float ratioA = 0f;
-            if (armor > 0)
-                ratioA = (float)_currentArmor / armor;
+            if (_myConfig.Armor > 0)
+                ratioA = (float)_currentArmor / _myConfig.Armor;
             healthBar.UpdateBar(ratioH, ratioA);
             if (_canPlayFlash)
                 StartCoroutine(DamageFlash());
@@ -189,8 +177,8 @@ namespace HexaFortress.GamePlay
         {
             if (_isSlow) return;
 
-            _currentMoveSpeed = moveSpeed - (moveSpeed * slowPercent);
-            _slowTimer = slowTime;
+            _currentMoveSpeed = _myConfig.MoveSpeed * (1.0f - _myConfig.SlowPercent);
+            _slowTimer = _myConfig.SlowTime;
             _isSlow = true;
         }
 
@@ -206,7 +194,7 @@ namespace HexaFortress.GamePlay
             charater.material.color = _baseColor;
             _canPlayFlash = true;
         }
+
         #endregion
     }
 }
-

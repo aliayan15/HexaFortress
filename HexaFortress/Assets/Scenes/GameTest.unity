@@ -1037,25 +1037,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tier1:
-  - {fileID: 7181604365912323383, guid: 9d4eefb9d105e2545974dcc37602ba9e, type: 3}
-  - {fileID: 575584638676244450, guid: 9b71746aa260f114ab48a3e06acfed98, type: 3}
-  - {fileID: 2790210101169272414, guid: d4f9630e98106bc4b88aaf6613a7c16f, type: 3}
-  - {fileID: 1874222223779149295, guid: c83cc5fe3d895d745a61a7fc45a4b79a, type: 3}
-  - {fileID: 7263314570791981563, guid: b264ef757581b09498eb8666a3055ce7, type: 3}
-  - {fileID: 3426581273459180596, guid: aff75d49bb2e9c14b9c83cdc2d2562ae, type: 3}
+  - {fileID: 11400000, guid: 6f407b79f23608a41b41a9ac7e16e2e8, type: 2}
+  - {fileID: 11400000, guid: 587a97480e00c3742908c8bd3b64455a, type: 2}
+  - {fileID: 11400000, guid: d9c459d46530ba646abbd23dd8b5b54b, type: 2}
+  - {fileID: 11400000, guid: c2de50f7686c52640a5c8c22b7eb838d, type: 2}
+  - {fileID: 11400000, guid: 6d9685375b46e9a43805e614e7ed19f7, type: 2}
+  - {fileID: 11400000, guid: 272b8e887ae117f4da80705319fba885, type: 2}
   tier2:
-  - {fileID: 876009534224836919, guid: 06030205ced8ef94f97c21e66e548858, type: 3}
-  - {fileID: 3794293520506996684, guid: a582f38248c6e5342ae088a6a4744e10, type: 3}
-  - {fileID: 8047079793324231557, guid: 6d65d38960e24084a8214f41b85c6962, type: 3}
-  - {fileID: 1250054331068877235, guid: 3b3db3671394bf34ea5342593bac6c3d, type: 3}
-  - {fileID: 4373220859135918266, guid: e193d3ab47317a149b62d289894a558e, type: 3}
-  - {fileID: 1519127421670482286, guid: 8608d2cf3f1722d42b07827fa9c06f5a, type: 3}
-  - {fileID: 7944730626938492914, guid: 2f5044fa64a93a5489ff8f7d4766e547, type: 3}
-  boss1: {fileID: 6624950886399822867, guid: 1ffd546b9bfdf6248a3b8af64d52d11b, type: 3}
-  boss2: {fileID: 1068731380474884635, guid: f191cbf135f738c4dadc722c395e0879, type: 3}
+  - {fileID: 11400000, guid: 8e6dfacc7f0e448499c2823a6ed866a0, type: 2}
+  - {fileID: 11400000, guid: ccd6ea37daa9592409509c2409c91876, type: 2}
+  - {fileID: 11400000, guid: b8c652e2c21a41f49a93cc2930a2093b, type: 2}
+  - {fileID: 11400000, guid: 30224cd089cbe894fbb0b3dde0c74852, type: 2}
+  - {fileID: 11400000, guid: cf527f97e2dc23e45bb84de1aaeb03a8, type: 2}
+  - {fileID: 11400000, guid: afe737b334fadf149a50c96e29c0a1ee, type: 2}
+  - {fileID: 11400000, guid: 8b4d4f966c10a7142a107ad6d13b73fb, type: 2}
+  boss1: {fileID: 11400000, guid: e0a6221767eddec42b8fde6394a63f17, type: 2}
+  boss2: {fileID: 11400000, guid: 959aaaa01ae423f40bb21e599b23853a, type: 2}
   tier2Day: 18
   tier3Day: 36
-  gameEndDay: 36
   spawnPointY: 0.46
 --- !u!4 &1839547370
 Transform:

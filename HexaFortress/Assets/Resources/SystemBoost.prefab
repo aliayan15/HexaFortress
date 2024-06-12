@@ -1203,6 +1203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2059b22d0ab3e94cbf845df1a9ab495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  events: {fileID: 11400000, guid: dde809cb9b38ced4eab4e21dae4b6397, type: 2}
   CurrentToolTip: {fileID: 3902564178268067297}
   delay: 0.2
 --- !u!1 &898636354732437429

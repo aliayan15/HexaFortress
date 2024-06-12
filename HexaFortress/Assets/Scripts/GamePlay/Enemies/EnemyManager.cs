@@ -7,32 +7,29 @@ using UnityEngine;
 
 namespace HexaFortress.GamePlay
 {
-    public class EnemySpawner : SingletonMono<EnemySpawner>
+    public class EnemyManager : SingletonMono<EnemyManager>
     {
         [Header("Enemies")]
-        [SerializeField] private Enemy[] tier1;
-        [SerializeField] private Enemy[] tier2;
-        //[SerializeField] private Enemy[] tier3;
+        [SerializeField] private EnemyConfig[] tier1;
+        [SerializeField] private EnemyConfig[] tier2;
         [Header("Bosses")]
-        [SerializeField] private Enemy boss1;
-        [SerializeField] private Enemy boss2;
-        //[SerializeField] private Enemy boss3;
+        [SerializeField] private EnemyConfig boss1;
+        [SerializeField] private EnemyConfig boss2;
         [Space(5)]
         [SerializeField] private int tier2Day;
         [SerializeField] private int tier3Day;
-        [SerializeField] private int gameEndDay;
         [Space(10)]
         [SerializeField] private float spawnPointY;
 
         public float EnemyPosY => spawnPointY;
-        public int GameEndDay => gameEndDay;
 
-        private bool isDebug = false;
+        private bool _debug = false;
         private bool _isSpawning;
-        private Vector3 _lastSpawnPos;
+        private Vector3 _spawnPos;
         private int _pathIndex;
         private Dictionary<int, List<Vector3>> _paths = new Dictionary<int, List<Vector3>>();
         private List<Enemy> _enemyList = new List<Enemy>();
+        private EnemyFactory _enemyFactory = new();
 
 
         #region Spawn
@@ -63,27 +60,19 @@ namespace HexaFortress.GamePlay
                 {
                     yield return time;
                     _pathIndex = i;
-                    _lastSpawnPos = TileManager.Instance.EnemySpawnPoints[i];
-
+                    _spawnPos = TileManager.Instance.EnemySpawnPoints[i];
+                    _spawnPos.y = spawnPointY;
                     count -= SpawnFromTiers();
                     if (count <= 0)
                         break;
                 }
-
             }
             SpawnBoss();
             _isSpawning = false;
             StartCoroutine(CheckAllEnemiesDead());
         }
-
         private int SpawnFromTiers()
         {
-            //if (GameManager.Instance.DayCount >= tier3Day)
-            //{
-            //    int num = SpawnFromArray(tier3, 3f);
-            //    if (num > 0)
-            //        return num;
-            //}
             if (GameModel.Instance.PlayerData.DayCount >= tier2Day)
             {
                 int num = SpawnFromArray(tier2, 2f);
@@ -93,33 +82,32 @@ namespace HexaFortress.GamePlay
             int num1 = SpawnFromArray(tier1, 1f);
             return num1;
         }
-        private int SpawnFromArray(Enemy[] enemies, float multiplier)
+        private int SpawnFromArray(EnemyConfig[] enemies, float multiplier)
         {
             int num = 0;
-            float rndPlus = 0f;
             for (int i = enemies.Length - 1; i >= 0; --i)
             {
                 bool canSpawnThisEnemy = enemies[i].Level <= GameModel.Instance.PlayerData.DayCount
-                                         && UnityEngine.Random.Range(0.0f, 1.0f) < (multiplier / enemies[i].Level) + rndPlus;
-                if (canSpawnThisEnemy)
-                {
-                    SpawnEnemy(enemies[i]);
-                    num = enemies[i].Level;
-                    break;
-                }
-                else
-                    rndPlus += 0.02f;
+                                         && UnityEngine.Random.Range(0.0f, 1.0f) < (multiplier / enemies[i].Level);
+                if (!canSpawnThisEnemy) continue;
+                SpawnEnemy(enemies[i]);
+                num = enemies[i].Level;
+                break;
             }
             return num;
         }
-        private void SpawnEnemy(Enemy enemy)
+        private void SpawnEnemy(EnemyConfig config)
         {
-            _lastSpawnPos.y = spawnPointY;
-            Enemy newEnemy = Instantiate(enemy, _lastSpawnPos, Quaternion.identity);
+            // create enemy
+            Enemy newEnemy = _enemyFactory.Create(config);
+            // set path
+            newEnemy.transform.position = _spawnPos;
             newEnemy.SetMovePosition(_paths[_pathIndex]);
+            // Spawn animation
             Vector3 scale = newEnemy.transform.localScale;
             newEnemy.transform.localScale = Vector3.zero;
             newEnemy.transform.DOScale(scale, 0.2f);
+            // add to list
             _enemyList.Add(newEnemy);
         }
         private void SpawnBoss()
@@ -153,7 +141,6 @@ namespace HexaFortress.GamePlay
         {
             GameManager.Instance.SetTurnState(TurnStates.TurnEnd);
         }
-
         private void OnTurnStateChange(TurnStateChangeEvent evt)
         {
             if (evt.TurnState == TurnStates.EnemySpawnStart)
@@ -161,7 +148,6 @@ namespace HexaFortress.GamePlay
                 StartSpawn();
             }
         }
-
         private void OnGameStateChange(GameStateChangeEvent evt)
         {
             // when game over stop spawning
@@ -170,7 +156,6 @@ namespace HexaFortress.GamePlay
                 StopAllCoroutines();
             }
         }
-
         private void OnEnable()
         {
             EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
@@ -182,9 +167,9 @@ namespace HexaFortress.GamePlay
             EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
         }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
-            if (!isDebug) return;
+            if (!_debug) return;
             foreach (var point in TileManager.Instance.EnemySpawnPoints)
             {
                 Gizmos.DrawSphere(point, 0.3f);
