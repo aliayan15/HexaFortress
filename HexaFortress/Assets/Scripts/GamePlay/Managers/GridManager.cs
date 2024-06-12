@@ -25,7 +25,7 @@ namespace HexaFortress.GamePlay
         [SerializeField] Vector2Int gridSize;
         [HorizontalLine]
         [Header("Refs")]
-        [SerializeField] private TilePlaceHolder placeHolder;
+        [SerializeField] private GameObject placeHolder;
         
 
         private HexGridNode[,] _hexGrid;
@@ -61,7 +61,7 @@ namespace HexaFortress.GamePlay
                 for (int x = 0; x < gridSize.x; x++)
                 {
                     Vector3 worldPos = grid.GetCellCenterWorld(new Vector3Int(x, y));
-                    TilePlaceHolder tilePlaceHolder = Instantiate(placeHolder, worldPos, Quaternion.identity, transform);
+                    GameObject tilePlaceHolder = Instantiate(placeHolder, worldPos, Quaternion.identity, transform);
                     _hexGrid[x, y] = new HexGridNode(x, y, worldPos, tilePlaceHolder);
                     tilePlaceHolder.gameObject.SetActive(false);
                 }

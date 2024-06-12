@@ -22,9 +22,9 @@ namespace HexaFortress.GamePlay
 
         public bool IsWalkable { get; private set; } = false;
 
-        private TilePlaceHolder tilePlaceHolder = null;
+        private GameObject tilePlaceHolder = null;
 
-        public HexGridNode(int x, int y, Vector3 position, TilePlaceHolder tilePlaceHolder)
+        public HexGridNode(int x, int y, Vector3 position, GameObject tilePlaceHolder)
         {
             this.x = x;
             this.y = y;
@@ -49,7 +49,7 @@ namespace HexaFortress.GamePlay
         {
             if (MyTile != null && active) return;
             if (active && CanBuildHere) return;
-            tilePlaceHolder.gameObject.SetActive(active);
+            tilePlaceHolder.SetActive(active);
             if (active)
             {
                 tilePlaceHolder.transform.DOKill();
@@ -68,7 +68,7 @@ namespace HexaFortress.GamePlay
 
         public override string ToString()
         {
-            return "Coor. X:" + x + ", Y:" + y;
+            return "X:" + x + ", Y:" + y;
         }
     }
 }
