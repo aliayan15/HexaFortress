@@ -1,5 +1,4 @@
-using System;
-using HexaFortress.Game;
+using HexaFortress.GamePlay;
 using MyUtilities;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ namespace HexaFortress.UI
 {
     public class ToolTipSystem : SingletonMono<ToolTipSystem>
     {
+        [SerializeField] private UIEvents events;
         public ToolTip CurrentToolTip;
         
         public bool CanShow3dWorldUI { get; set; } = true;
@@ -14,18 +14,6 @@ namespace HexaFortress.UI
 
         private bool _canShowUI = true;
         [SerializeField] private float delay = 0.3f;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            EventManager.AddListener<ToolTipCanShowUIEvent>(ToolTipCanShowUIEvent);
-        }
-
-        private void ToolTipCanShowUIEvent(ToolTipCanShowUIEvent obj)
-        {
-            _canShowUI = obj.CanShow;
-            CanShow3dWorldUI = obj.CanShow;
-        }
 
         private void Start()
         {
@@ -60,9 +48,25 @@ namespace HexaFortress.UI
             Instance.CurrentToolTip.gameObject.SetActive(false);
         }
 
-        private void OnDestroy()
+        private void SetCanShowUI(bool canShow)
         {
-            EventManager.RemoveListener<ToolTipCanShowUIEvent>(ToolTipCanShowUIEvent);
+            _canShowUI = canShow;
+            CanShow3dWorldUI = canShow;
+        }
+        private void SetCanShow3DWorldUI(bool canShow)
+        {
+            CanShow3dWorldUI = canShow;
+        }
+
+        private void OnEnable()
+        {
+            events.ShowToolTipUI += SetCanShowUI;
+            events.Show3dWorldUI += SetCanShow3DWorldUI;
+        }
+        private void OnDisable()
+        {
+            events.ShowToolTipUI -= SetCanShowUI;
+            events.Show3dWorldUI -= SetCanShow3DWorldUI;
         }
     }
 }

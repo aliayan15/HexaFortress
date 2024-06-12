@@ -7,6 +7,7 @@ namespace HexaFortress.Game
 {
     public class CameraManager : SingletonMono<CameraManager>
     {
+        [SerializeField] private InputReader inputReader;
         public Camera MainCam => cam;
         public Transform CamPosition => myCamera;
 
@@ -29,7 +30,7 @@ namespace HexaFortress.Game
         private Quaternion _newRotation;
         private Vector3 _newZoom;
         private bool _isPlayerBuilding;
-
+        private Vector2 _moveInput;
 
         private void Start()
         {
@@ -46,43 +47,12 @@ namespace HexaFortress.Game
             _newRotation = transform.rotation;
             _newZoom = myCamera.transform.localPosition;
             _movementSpeed = normalSpeed;
-        }
-        private void LateUpdate()
-        {
-            HandleInput();
+            inputReader.MovementEvent += OnMove;
+            inputReader.ScrollEvent += OnScroll;
         }
 
-        private void HandleInput()
+        private void OnScroll(float scroll)
         {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            {
-                _newPosition += (transform.forward * _movementSpeed);
-            }
-
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                _newPosition += (transform.forward * -_movementSpeed);
-            }
-
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            {
-                _newPosition += (transform.right * _movementSpeed);
-            }
-
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            {
-                _newPosition += (transform.right * -_movementSpeed);
-            }
-
-            //if (Input.GetKey(KeyCode.Q))
-            //{
-            //    _newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
-            //}
-            //if (Input.GetKey(KeyCode.E))
-            //{
-            //    _newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
-            //}
-
             if (Input.mouseScrollDelta.y > 0 && !_isPlayerBuilding)
             {
                 _newZoom += zoomAmount;
@@ -92,14 +62,29 @@ namespace HexaFortress.Game
             {
                 _newZoom -= zoomAmount;
             }
+        }
 
+        private void OnMove(Vector2 input)
+        {
+            _moveInput = input;
+        }
+
+        private void LateUpdate()
+        {
+            HandleMovement();
+        }
+
+        private void HandleMovement()
+        {
+            _newPosition += transform.forward * (_movementSpeed * _moveInput.y);
+            _newPosition += transform.right * (_movementSpeed * _moveInput.x);
+           
             _newPosition.x = Mathf.Max(lowBorder.x, _newPosition.x);
             _newPosition.x = Mathf.Min(highBorder.x, _newPosition.x);
             _newPosition.z = Mathf.Max(lowBorder.y, _newPosition.z);
             _newPosition.z = Mathf.Min(highBorder.y, _newPosition.z);
 
             transform.position = Vector3.Lerp(transform.position, _newPosition, Time.deltaTime * movementTime);
-            //transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, Time.deltaTime * movementTime);
             myCamera.transform.localPosition =
                 Vector3.Lerp(myCamera.transform.localPosition, _newZoom, Time.deltaTime * movementTime);
         }
@@ -118,6 +103,8 @@ namespace HexaFortress.Game
         private void OnDestroy()
         {
             EventManager.RemoveListener<OnPlayerBuildModeEvent>(OnPlayerBuildMode);
+            inputReader.MovementEvent -= OnMove;
+            inputReader.ScrollEvent -= OnScroll;
         }
     }
 }

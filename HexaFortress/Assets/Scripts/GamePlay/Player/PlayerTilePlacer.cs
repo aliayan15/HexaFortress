@@ -8,6 +8,7 @@ namespace HexaFortress.GamePlay
 {
     public class PlayerTilePlacer : MonoBehaviour
     {
+        [SerializeField] private InputReader inputReader;
         [SerializeField] private UIEvents events;
         [Header("Settings")]
         [SerializeField] private float tileMoveSpeed = 10.0f;
@@ -39,35 +40,42 @@ namespace HexaFortress.GamePlay
         {
             if (GameManager.Instance.GameState!=GameStates.GAME) 
                 return;
+#if UNITY_EDITOR
             if (isDebug)
-                DebugGame();
+                DebugTilePlacement();
+#endif
             if (!_isBuildMode) return;
 
             UpdatePosition();
-            // place tile
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (RaycastTile(out HexGridNode grid))
-                {
-                    if (!grid.CanBuildHere) return;
-                    if (!_tileBase.CanBuildHere(grid)) { CantBuildHere(); return; }
-
-                    PlaceTile(grid);
-                }
-            }
             // rotate
             var scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll > 0f)
                 RotateTile(_tileBase);
             else if (scroll < 0f)
                 RotateTile(_tileBase, true);
-            // cancel placing
-            if (Input.GetMouseButtonDown(1))
+        }
+
+        private void OnDeselectKeyPressed()
+        {
+            CanselSelection();
+        }
+
+        private void OnSelectKeyPressed()
+        {
+            if (RaycastTile(out HexGridNode grid))
             {
-                CanselSelection();
+                if (!grid.CanBuildHere) return;
+                if (!_tileBase.CanBuildHere(grid))
+                {
+                    CantBuildHere();
+                    return;
+                }
+
+                PlaceTile(grid);
             }
         }
-         private void DebugGame()
+
+        private void DebugTilePlacement()
         {
             if (Input.GetMouseButtonDown(1))
             {
@@ -215,9 +223,7 @@ namespace HexaFortress.GamePlay
         
         private void SetToolTipCanShowUI(bool canShow)
         {
-            var evt = Events.ToolTipCanShowUIEvent;
-            evt.CanShow = canShow;
-            EventManager.Broadcast(evt);
+            events.ShowToolTipUI.Invoke(canShow);
         }
         
         #region Ray
@@ -259,15 +265,20 @@ namespace HexaFortress.GamePlay
             {
                 CanselSelection();
             }
+            events.Show3dWorldUI.Invoke(evt.TurnState==TurnStates.TurnBegin);
         }
       
         private void OnEnable()
         {
             EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
+            inputReader.SelectEvent += OnSelectKeyPressed;
+            inputReader.DeselectEvent += OnDeselectKeyPressed;
         }
         private void OnDisable()
         {
             EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
+            inputReader.SelectEvent -= OnSelectKeyPressed;
+            inputReader.DeselectEvent -= OnDeselectKeyPressed;
         }
         #endregion
     }

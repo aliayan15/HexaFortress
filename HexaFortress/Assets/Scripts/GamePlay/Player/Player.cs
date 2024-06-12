@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using HexaFortress.Game;
-using Managers;
 using MyUtilities;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace HexaFortress.GamePlay
 {
     public class Player : SingletonMono<Player>
     {
+        [SerializeField] private InputReader inputReader;
         [SerializeField] private UIEvents events;
         [SerializeField] private SOGameProperties gameData;
         [SerializeField] private float goNightTime = 2f;
@@ -31,17 +29,6 @@ namespace HexaFortress.GamePlay
 
         private void SkipToNightTimer()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _goNightTimer = 0;
-                SetSpaceHold(true);
-            }
-
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                SetSpaceHold(false);
-            }
-
             if (!_isSpaceHold) return;
             _goNightTimer += Time.deltaTime;
             events.UpdateNightCircle.Invoke(_goNightTimer / goNightTime);
@@ -49,10 +36,19 @@ namespace HexaFortress.GamePlay
             if (!(_goNightTimer >= goNightTime)) return;
             // skip the day
             GameManager.Instance.SetTurnState(TurnStates.EnemySpawnStart);
-            SetSpaceHold(false);
+            SetSkipKeyHold(false);
         }
 
-        private void SetSpaceHold(bool isHold)
+        private void OnSkipKeyUp()
+        {
+            SetSkipKeyHold(false);
+        }
+        private void OnSkipKeyDown()
+        {
+            _goNightTimer = 0;
+            SetSkipKeyHold(true);
+        }
+        private void SetSkipKeyHold(bool isHold)
         {
             _isSpaceHold = isHold;
             events.ShowNightUI.Invoke(isHold);
@@ -71,26 +67,28 @@ namespace HexaFortress.GamePlay
                         GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
                 });
             }
-            //TODO ToolTipSystem.Instance.CanShow3dWorldUI = _canBuild;
         }
 
-        private void OnGameStateChange(GameStateChangeEvent evt)
+        private void OnGameStateChange(GameStateChangeEvent state)
         {
-            //TODO ToolTipSystem.Instance.CanShowUI = evt.GameState == GameStates.GAME;
+            events.ShowToolTipUI.Invoke(state.GameState == GameStates.GAME);
         }
 
         private void OnEnable()
         {
             EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
             EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
+            inputReader.SkipEventDown += OnSkipKeyDown;
+            inputReader.SkipEventUp += OnSkipKeyUp;
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
             EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
+            inputReader.SkipEventDown -= OnSkipKeyDown;
+            inputReader.SkipEventUp -= OnSkipKeyUp;
         }
-
         #endregion
 
         public void PlayPartical(Vector3 pos)

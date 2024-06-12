@@ -5,7 +5,6 @@ namespace HexaFortress.Game
     public static class Events
     {
         public static OnPlayerBuildModeEvent OnPlayerBuildModeEvent=new ();
-        public static ToolTipCanShowUIEvent ToolTipCanShowUIEvent=new ();
         public static TurnStateChangeEvent TurnStateChangeEvent=new ();
         public static GameStateChangeEvent GameStateChangeEvent=new ();
         public static CastleHealthChangeEvent CastleHealthChangeEvent=new ();
@@ -14,10 +13,6 @@ namespace HexaFortress.Game
     public class OnPlayerBuildModeEvent : IGameEvent
     {
         public bool IsBuilding;
-    }
-    public class ToolTipCanShowUIEvent : IGameEvent
-    {
-        public bool CanShow;
     }
 
     public class TurnStateChangeEvent:IGameEvent

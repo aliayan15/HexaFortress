@@ -34,5 +34,8 @@ namespace HexaFortress.GamePlay
         /// Update night circle.
         /// </summary>
         public UnityAction<float> UpdateNightCircle;
+        
+        public UnityAction<bool> ShowToolTipUI;
+        public UnityAction<bool> Show3dWorldUI;
     }
 }

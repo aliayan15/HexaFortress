@@ -115,14 +115,12 @@ namespace HexaFortress.Game
         }
 
         #region Mouse Visibility
-
         public void ShowCursor(bool show)
         {
             if (Cursor.lockState != CursorLockMode.None)
                 Cursor.lockState = CursorLockMode.None;
             Cursor.visible = show;
         }
-
         #endregion
     }
 }
