@@ -1,6 +1,5 @@
 using HexaFortress.Game;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {
@@ -42,12 +41,12 @@ namespace HexaFortress.GamePlay
             float rosY = 0;
             if (left)
             {
-                rosY = SOGameProperties.GetPreviousRotation(_currentRos, out int index);
+                rosY = TileRotation.GetPreviousRotation(_currentRos, out int index);
                 _currentRos = index;
             }
             else
             {
-                rosY = SOGameProperties.GetNextRotation(_currentRos, out int index);
+                rosY = TileRotation.GetNextRotation(_currentRos, out int index);
                 _currentRos = index;
             }
 

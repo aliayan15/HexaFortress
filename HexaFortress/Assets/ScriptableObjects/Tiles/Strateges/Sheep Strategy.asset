@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c421465f39240c0aefa3075904c050b, type: 3}
   m_Name: Sheep Strategy
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   bonusTileType: 11
   data: {fileID: 11400000, guid: 692debd9774fa004db70f5ea9a78dd24, type: 2}

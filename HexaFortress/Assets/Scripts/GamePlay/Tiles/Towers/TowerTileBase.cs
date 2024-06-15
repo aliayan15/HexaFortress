@@ -7,6 +7,7 @@ namespace HexaFortress.GamePlay
 {
     public class TowerTileBase : TileBase, ITowerUpgradeable
     {
+        [SerializeField] protected GeneralConfig config;
         [Header("Settings")]
         [SerializeField] protected float fireTime;
         [SerializeField] protected int baseDamage;
@@ -17,7 +18,7 @@ namespace HexaFortress.GamePlay
         [HorizontalLine]
         [SerializeField] protected EnemyType enemyType;
         [SerializeField] protected LayerMask enemyLayer;
-        [SerializeField] protected SOGameProperties data;
+        [SerializeField] protected GeneralConfig data;
         [SerializeField] protected GameObject rangeImage;
 
         private WaitForSeconds _fireTimer;
@@ -78,7 +79,7 @@ namespace HexaFortress.GamePlay
 
         private void PlayPartical()
         {
-            Player.Instance.PlayPartical(transform.position);
+            config.PlayBonusPartical(transform.position);
         }
 
         public void UpgradeSlowEffect()

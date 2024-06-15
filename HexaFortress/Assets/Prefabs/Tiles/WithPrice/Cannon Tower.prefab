@@ -465,7 +465,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3757af73938c938418f2ee6c19a89e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 0}
   tileType: 18
+  config: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   fireTime: 1.5
   baseDamage: 30
   armorDamage: 30

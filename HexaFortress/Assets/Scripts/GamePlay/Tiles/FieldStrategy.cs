@@ -17,7 +17,10 @@ namespace HexaFortress.GamePlay
                 if (!surroundingTile.MyTile)
                     continue;
                 if (surroundingTile.MyTile.MyType == bonusTileType)
-                    DoBonusEffect();
+                {
+                    if (surroundingTile.MyTile.TryGetComponent(out TileBase tileBonusEffect))
+                        tileBonusEffect.DoBonusEffect();
+                }
             }
         }
 

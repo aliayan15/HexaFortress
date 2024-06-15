@@ -4,13 +4,14 @@ using HexaFortress.Game;
 using KBCore.Refs;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {
     public class Enemy : MonoBehaviour, IDamageable
     {
         [SerializeField] private Transform targetPoint;
-        [SerializeField] private SOGameProperties data;
+        [FormerlySerializedAs("EnemyDeadPar")] [SerializeField] private GameObject enemyDeadPartical;
         [SerializeField] private SkinnedMeshRenderer charater;
         [SerializeField, Child] private HealthBar healthBar;
 
@@ -169,7 +170,13 @@ namespace HexaFortress.GamePlay
         {
             _isDead = true;
             _currentHealth = 0;
-            Instantiate(data.EnemyDeadPar, targetPoint.position, Quaternion.identity);
+            string particalID = "enemyDeadPar";
+            var deadPartical = ObjectPoolingManager.Instance.SpawnObject(particalID, enemyDeadPartical,
+                targetPoint.position, Quaternion.identity);
+            deadPartical.GetComponent<ParticalCallBack>().OnStop = delegate
+            {
+                ObjectPoolingManager.Instance.ReturnObject(particalID, deadPartical);
+            };
             Destroy(gameObject);
         }
 

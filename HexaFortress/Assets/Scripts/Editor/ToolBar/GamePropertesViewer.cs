@@ -1,3 +1,4 @@
+using HexaFortress.Game;
 using UnityEditor;
 using UnityEngine;
 using UnityToolbarExtender;
@@ -35,7 +36,7 @@ public static class GamePropertiesViewer
         {
             var guids = AssetDatabase.FindAssets("Game Propertes", null);
             var path = AssetDatabase.GUIDToAssetPath(guids[0]);
-            var exposeGlobalData = (SOGameProperties)AssetDatabase.LoadAssetAtPath(path, typeof(SOGameProperties));
+            var exposeGlobalData = (GeneralConfig)AssetDatabase.LoadAssetAtPath(path, typeof(GeneralConfig));
             AssetDatabase.OpenAsset(exposeGlobalData);
             Enabled = !Enabled;
         }

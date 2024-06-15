@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101507302235792}
   serializedVersion: 8
-  lengthInSec: 3
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
@@ -4837,7 +4837,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 2
-      minScalar: 5
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9388,6 +9388,7 @@ GameObject:
   - component: {fileID: 4597830263558120}
   - component: {fileID: 198355779183106702}
   - component: {fileID: 199298478915647496}
+  - component: {fileID: 2640780302201787948}
   m_Layer: 0
   m_Name: FX_Explosion_Body_Bloody_01
   m_TagString: Untagged
@@ -9421,9 +9422,9 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1277154925287174}
   serializedVersion: 8
-  lengthInSec: 1.5
+  lengthInSec: 3
   simulationSpeed: 1
-  stopAction: 2
+  stopAction: 3
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -14019,6 +14020,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2640780302201787948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277154925287174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64857c1db0754e899755da0ca5845a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1583149892273974
 GameObject:
   m_ObjectHideFlags: 0

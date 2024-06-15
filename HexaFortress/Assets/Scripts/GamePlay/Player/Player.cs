@@ -1,6 +1,7 @@
 using HexaFortress.Game;
 using MyUtilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {
@@ -8,7 +9,6 @@ namespace HexaFortress.GamePlay
     {
         [SerializeField] private InputReader inputReader;
         [SerializeField] private UIEvents events;
-        [SerializeField] private SOGameProperties gameData;
         [SerializeField] private float goNightTime = 2f;
 
         private bool _isSpaceHold = false;
@@ -91,11 +91,5 @@ namespace HexaFortress.GamePlay
         }
         #endregion
 
-        public void PlayPartical(Vector3 pos)
-        {
-            var par = Instantiate(gameData.BonusPar, pos, Quaternion.identity);
-            par.transform.position += Vector3.up * 0.2f;
-            par.Play();
-        }
     }
 }

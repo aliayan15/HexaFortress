@@ -6,11 +6,12 @@ namespace HexaFortress.GamePlay
     public class PCannon : Projectile
     {
         [SerializeField] private float radius;
-        [SerializeField] private SOGameProperties data;
+        [SerializeField] private GameObject cannonExplosion;
         private Vector3 control;
         private Vector3 _startPos;
         private Vector3 _endPos;
         private float _time = 0;
+        private const string _particalID = "cannonExplosion";
 
         public override void SetTarget(Transform target, DamageData damage)
         {
@@ -56,9 +57,14 @@ namespace HexaFortress.GamePlay
                     enemy.TakeDamage(_damageData);
                 }
             }
-            Instantiate(data.cannonExplosion, transform.position, Quaternion.identity);
+
+            var partical = ObjectPoolingManager.Instance.SpawnObject(_particalID, cannonExplosion, transform.position,
+                Quaternion.identity);
+            partical.GetComponent<ParticalCallBack>().OnStop = delegate
+            {
+                ObjectPoolingManager.Instance.ReturnObject(_particalID, partical);
+            };
             Destroy(gameObject);
         }
     }
 }
-

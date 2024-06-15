@@ -1,7 +1,9 @@
+using HexaFortress.Game;
 using HexaFortress.GamePlay;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace HexaFortress.UI
@@ -11,8 +13,10 @@ namespace HexaFortress.UI
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI dec;
         [SerializeField] private TextMeshProUGUI level;
+        [FormerlySerializedAs("generalGameData")]
+        [FormerlySerializedAs("gameData")]
         [Space(10)]
-        [SerializeField] private SOGameProperties gameData;
+        [SerializeField] private GeneralConfig generalConfig;
 
         private SOUpgradeData _myData;
 
@@ -23,13 +27,13 @@ namespace HexaFortress.UI
             switch (data.TileType)
             {
                 case TileType.Tower:
-                    icon.sprite = gameData.TowerIcon;
+                    icon.sprite = generalConfig.TowerIcon;
                     break;
                 case TileType.Cannon:
-                    icon.sprite = gameData.CannonIcon;
+                    icon.sprite = generalConfig.CannonIcon;
                     break;
                 case TileType.Mortar:
-                    icon.sprite = gameData.MortarIcon;
+                    icon.sprite = generalConfig.MortarIcon;
                     break;
             }
             dec.text = data.Description;

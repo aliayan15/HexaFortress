@@ -50,18 +50,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 8631235611602308291}
-  healthBar: {fileID: 8556603214320102542}
-  data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  enemyDeadPartical: {fileID: 1277154925287174, guid: 3b517eddec185dd4a830743a742ad00b,
+    type: 3}
   charater: {fileID: 8886302774584257380}
-  level: 30
-  health: 1000
-  armor: 0
-  moveSpeed: 1.4
-  enemyType: 4
-  reachedPositionDistance: 0.2
-  slowPercent: 0.3
-  slowTime: 3
-  damageToCastle: 1
+  healthBar: {fileID: 8556603214320102542}
 --- !u!65 &8336325508337591939
 BoxCollider:
   m_ObjectHideFlags: 0

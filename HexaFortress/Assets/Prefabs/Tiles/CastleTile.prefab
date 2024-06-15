@@ -111,7 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45554ab61ed661a48af649ff226ff5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 0}
   tileType: 6
+  config: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
   fireTime: 1.5
   baseDamage: 15
   armorDamage: 10
@@ -135,6 +137,7 @@ MonoBehaviour:
   fireSound: 4
   drawGizmos: 0
   PathPoint: {fileID: 845194439}
+  config: {fileID: 0}
   castleHealth: 6
   goldPerDay: 10
 --- !u!65 &1273134735

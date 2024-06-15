@@ -7,6 +7,7 @@ namespace HexaFortress.GamePlay
 {
     public class CastleTile : BasicTower
     {
+        
         [Header("Refs")] public Transform PathPoint;
         [HorizontalLine] [Header("Castle")] 
         [SerializeField] private int castleHealth;
@@ -40,7 +41,7 @@ namespace HexaFortress.GamePlay
             castleHealth += bonusHealth;
             _currentCastleHealth += bonusHealth;
             InvokeHealthChangeEvent();
-            Player.Instance.PlayPartical(transform.position);
+            config.PlayBonusPartical(transform.position);
         }
 
         public void RepairHealth(short repairAmount)

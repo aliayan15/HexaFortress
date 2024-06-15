@@ -12,14 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b656eb69f8ac21f44a322a8b4f62e911, type: 3}
   m_Name: Game Propertes
   m_EditorClassIdentifier: 
-  Castle: {fileID: 8221752344589035955, guid: e370268a1f56eb643a4c5467473939b1, type: 3}
-  PathTile: {fileID: 6103127240932060736, guid: e61a84d8ac16dc740a3cc56e039ec1a0,
-    type: 3}
-  BonusPar: {fileID: 198108421688386642, guid: c9eb15264aa6c4348b00d5b9b3daab2a, type: 3}
-  EnemyDeadPar: {fileID: 198355779183106702, guid: 3b517eddec185dd4a830743a742ad00b,
-    type: 3}
-  cannonExplosion: {fileID: 8016158643105111230, guid: 4188c54ef5c22e247b38c05d77dd0257,
-    type: 3}
+  BonusPar: {fileID: 1624714524768532, guid: c9eb15264aa6c4348b00d5b9b3daab2a, type: 3}
   TowerIcon: {fileID: 21300000, guid: 80eff575d627f3d4bacbb621d2268f79, type: 3}
   MortarIcon: {fileID: 21300000, guid: cb509e06b5c1259448ebb2abd5bfdced, type: 3}
   CannonIcon: {fileID: 21300000, guid: 4278de2ce9fb7e74183c62c870ea3fef, type: 3}

@@ -52,7 +52,8 @@ MonoBehaviour:
     m_Bits: 192
   lifeTime: 3
   radius: 1.2
-  data: {fileID: 11400000, guid: d54077f7f5a5efd44bd4bcbeeed0f55b, type: 2}
+  cannonExplosion: {fileID: 1879769179923522, guid: 65932b7368590234d8163da03c2055d8,
+    type: 3}
 --- !u!23 &6613420602483278120
 MeshRenderer:
   m_ObjectHideFlags: 0
