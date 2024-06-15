@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6607049288370621942}
-  - component: {fileID: 2731734542877822758}
+  - component: {fileID: 4078862277365953883}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -96,7 +96,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2731734542877822758
+--- !u!114 &4078862277365953883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +105,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5835298419494901580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e70b09a402521da4c9d0d3ba899a4a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0393db75dfba431aa82972c4d34cc073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 11400000, guid: ef8501190be3d354a929c2d4fb6fb95c, type: 2}
   tileType: 11
+  initPartical: {fileID: 0}
 --- !u!1 &8438677725304845281
 GameObject:
   m_ObjectHideFlags: 0

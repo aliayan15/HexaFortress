@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 243184246495724112}
-  - component: {fileID: 2914601941566260486}
+  - component: {fileID: 1696275469034834386}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -97,7 +97,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2914601941566260486
+--- !u!114 &1696275469034834386
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,11 +106,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 582132463747799274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1976e10df26439545b3f47d0a98a73a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0393db75dfba431aa82972c4d34cc073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 11400000, guid: e1cb953111a745d489536c2358a3477a, type: 2}
   tileType: 2
-  smokePar: {fileID: 8799740503936506534}
+  initPartical: {fileID: 8799740503936506534}
 --- !u!1 &3338202518102161914
 GameObject:
   m_ObjectHideFlags: 0

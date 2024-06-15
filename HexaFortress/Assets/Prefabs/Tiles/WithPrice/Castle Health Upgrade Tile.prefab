@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5506596265180859389}
-  - component: {fileID: 7208976811804630451}
+  - component: {fileID: 4946366822801460170}
   m_Layer: 0
   m_Name: Castle Health Upgrade Tile
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7208976811804630451
+--- !u!114 &4946366822801460170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,12 +43,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5125250910366814535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dafdcfaa29fc0e74a8e685831469c844, type: 3}
+  m_Script: {fileID: 11500000, guid: 0393db75dfba431aa82972c4d34cc073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 11400000, guid: 42d09923cd6214242a7230587c0227b7, type: 2}
   tileType: 16
-  bonusHealth: 1
-  goldExpense: 10
+  initPartical: {fileID: 0}
 --- !u!1 &7698461870270535984
 GameObject:
   m_ObjectHideFlags: 0

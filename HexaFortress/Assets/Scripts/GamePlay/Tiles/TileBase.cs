@@ -1,5 +1,6 @@
 using HexaFortress.Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {
@@ -26,31 +27,28 @@ namespace HexaFortress.GamePlay
         Cannon,
         Mortar
     }
-
-
+    
     public abstract class TileBase : MonoBehaviour
-    {
+    { 
+        [SerializeField] protected TileStrategy tileStrategy;
         [SerializeField] protected TileType tileType;
 
         public TileType MyType => tileType;
-        public int CurrentRos { get; set; } = 0;
         public HexGridNode MyHexNode => _myHexNode;
-
         protected HexGridNode _myHexNode;
-
-
+        private int _currentRos = 0;
         public void Rotate(bool left = false)
         {
             float rosY = 0;
             if (left)
             {
-                rosY = SOGameProperties.GetPreviousRotation(CurrentRos, out int index);
-                CurrentRos = index;
+                rosY = SOGameProperties.GetPreviousRotation(_currentRos, out int index);
+                _currentRos = index;
             }
             else
             {
-                rosY = SOGameProperties.GetNextRotation(CurrentRos, out int index);
-                CurrentRos = index;
+                rosY = SOGameProperties.GetNextRotation(_currentRos, out int index);
+                _currentRos = index;
             }
 
             transform.rotation = Quaternion.Euler(0, rosY, 0);
@@ -65,6 +63,7 @@ namespace HexaFortress.GamePlay
             myNode.PlaceTile(this);
             _myHexNode = myNode;
             CheckSurroundingGrids();
+            tileStrategy?.Init(myNode,this);
         }
 
         protected virtual void CheckSurroundingGrids()
@@ -89,9 +88,14 @@ namespace HexaFortress.GamePlay
         {
         }
 
+        public void DoBonusEffect()
+        {
+            tileStrategy?.DoBonusEffect();
+        }
+
         protected virtual void OnTurnStateChange(TurnStateChangeEvent evt)
         {
-            
+            tileStrategy?.OnTurnStateChange(evt);
         }
         
         protected virtual void OnEnable()

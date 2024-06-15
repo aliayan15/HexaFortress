@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3628649386851018601}
-  - component: {fileID: -6070708578258268986}
+  - component: {fileID: 5818097114049642916}
   m_Layer: 0
   m_Name: Mill
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6070708578258268986
+--- !u!114 &5818097114049642916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,11 +43,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4111889576837119443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74c1a99016842754dba245e4ead1f5ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 0393db75dfba431aa82972c4d34cc073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 11400000, guid: 9e909898769d1264781473218a414bd9, type: 2}
   tileType: 7
-  data: {fileID: 11400000, guid: bfb2842d979cd1c41a7524cc0966cf1e, type: 2}
+  initPartical: {fileID: 0}
 --- !u!1 &4211372450826946427
 GameObject:
   m_ObjectHideFlags: 0

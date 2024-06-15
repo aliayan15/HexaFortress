@@ -108,16 +108,6 @@ namespace HexaFortress.GamePlay
             return build;
         }
 
-
-
-        protected override void OnDisable()
-        {
-
-        }
-        protected override void OnEnable()
-        {
-
-        }
     }
 }
 

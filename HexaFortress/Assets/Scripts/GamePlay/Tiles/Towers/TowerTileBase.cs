@@ -129,7 +129,5 @@ namespace HexaFortress.GamePlay
         {
             _canFire = evt.TurnState == TurnStates.EnemySpawnStart;
         }
-
-   
     }
 }

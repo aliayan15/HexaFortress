@@ -45,23 +45,23 @@ namespace HexaFortress.GamePlay
                 DebugTilePlacement();
 #endif
             if (!_isBuildMode) return;
-
             UpdatePosition();
-            // rotate
-            var scroll = Input.GetAxis("Mouse ScrollWheel");
+        }
+        private void OnScroll(float scroll)
+        {
+            if (!_isBuildMode) return;
             if (scroll > 0f)
                 RotateTile(_tileBase);
             else if (scroll < 0f)
                 RotateTile(_tileBase, true);
         }
-
         private void OnDeselectKeyPressed()
         {
             CanselSelection();
         }
-
         private void OnSelectKeyPressed()
         {
+            if (!_isBuildMode) return;
             if (RaycastTile(out HexGridNode grid))
             {
                 if (!grid.CanBuildHere) return;
@@ -74,7 +74,6 @@ namespace HexaFortress.GamePlay
                 PlaceTile(grid);
             }
         }
-
         private void DebugTilePlacement()
         {
             if (Input.GetMouseButtonDown(1))
@@ -273,12 +272,14 @@ namespace HexaFortress.GamePlay
             EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
             inputReader.SelectEvent += OnSelectKeyPressed;
             inputReader.DeselectEvent += OnDeselectKeyPressed;
+            inputReader.ScrollEvent += OnScroll;
         }
         private void OnDisable()
         {
             EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
             inputReader.SelectEvent -= OnSelectKeyPressed;
             inputReader.DeselectEvent -= OnDeselectKeyPressed;
+            inputReader.ScrollEvent -= OnScroll;
         }
         #endregion
     }

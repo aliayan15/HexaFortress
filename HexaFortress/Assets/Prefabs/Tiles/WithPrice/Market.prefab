@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 760648579343329866}
-  - component: {fileID: 4660643356114021817}
+  - component: {fileID: 8133737947492110316}
   m_Layer: 0
   m_Name: Market
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4660643356114021817
+--- !u!114 &8133737947492110316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,11 +43,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 760648579343329868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c482b04db0500d4d82c34217fdc05a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0393db75dfba431aa82972c4d34cc073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 11400000, guid: fb2e3839ed9148d40b8c607583d0e444, type: 2}
   tileType: 13
-  data: {fileID: 11400000, guid: d2af3741dd7aa2c4cadcb3e2fc862e78, type: 2}
+  initPartical: {fileID: 0}
 --- !u!1 &2538213469443365022
 GameObject:
   m_ObjectHideFlags: 0

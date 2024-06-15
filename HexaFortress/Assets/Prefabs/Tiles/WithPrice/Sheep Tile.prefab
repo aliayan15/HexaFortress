@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8967509153438548562}
-  - component: {fileID: 8590949152135092463}
+  - component: {fileID: 8805524691942062456}
   m_Layer: 0
   m_Name: Sheep Tile
   m_TagString: Untagged
@@ -96,7 +96,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8590949152135092463
+--- !u!114 &8805524691942062456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,11 +105,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8590949152135092456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3adf8251efa1d5b42aa12fb4869bea6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0393db75dfba431aa82972c4d34cc073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 11400000, guid: db1770c45e1933640a8d9543be86ebd1, type: 2}
   tileType: 17
-  data: {fileID: 11400000, guid: 692debd9774fa004db70f5ea9a78dd24, type: 2}
+  initPartical: {fileID: 0}
 --- !u!1001 &2065090108440660993
 PrefabInstance:
   m_ObjectHideFlags: 0

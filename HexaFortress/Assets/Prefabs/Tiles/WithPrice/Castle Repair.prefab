@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7531996002278839901}
-  - component: {fileID: 1405788986619415355}
+  - component: {fileID: 7235780019454708189}
   m_Layer: 0
   m_Name: Castle Repair
   m_TagString: Untagged
@@ -96,7 +96,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1405788986619415355
+--- !u!114 &7235780019454708189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,13 +105,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7191358935449619687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a65a6037aefab149a378a637181a28f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0393db75dfba431aa82972c4d34cc073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStrategy: {fileID: 11400000, guid: 5298b9706d696e440801235cddb8283a, type: 2}
   tileType: 15
-  events: {fileID: 11400000, guid: dde809cb9b38ced4eab4e21dae4b6397, type: 2}
-  repairAmount: 1
-  goldExpense: 10
+  initPartical: {fileID: 0}
 --- !u!1001 &3690684670277790324
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ namespace HexaFortress.GamePlay
     {
         [SerializeField] private int goldExpense;
         [SerializeField] ParticleSystem smokePar;
+
         public override void Init(HexGridNode myNode)
         {
             base.Init(myNode);
@@ -14,16 +15,17 @@ namespace HexaFortress.GamePlay
             {
                 if (!surroundingTile.MyTile)
                     continue;
-                if (surroundingTile.MyTile.MyType == TileType.Tower || surroundingTile.MyTile.MyType == TileType.Cannon
-                                                                    || surroundingTile.MyTile.MyType == TileType.Mortar)
+                if (surroundingTile.MyTile.MyType == TileType.Tower ||
+                    surroundingTile.MyTile.MyType == TileType.Cannon ||
+                    surroundingTile.MyTile.MyType == TileType.Mortar)
                 {
                     TowerTileBase tower = surroundingTile.MyTile as TowerTileBase;
                     tower.UpgradeDamageTower();
                 }
             }
+
             smokePar.Play();
             GameModel.Instance.PlayerData.AddExpensesPerDay(goldExpense);
         }
     }
 }
-
