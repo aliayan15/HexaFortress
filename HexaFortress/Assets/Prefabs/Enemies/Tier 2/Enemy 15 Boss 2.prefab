@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 5315854247519765062}
-  enemyDeadPartical: {fileID: 1277154925287174, guid: 3b517eddec185dd4a830743a742ad00b,
+  enemyDeadParticle: {fileID: 1277154925287174, guid: 3b517eddec185dd4a830743a742ad00b,
     type: 3}
-  charater: {fileID: 2876886620415241284}
+  character: {fileID: 2876886620415241284}
   healthBar: {fileID: 7889966358719250427}
 --- !u!65 &7525919810295739894
 BoxCollider:

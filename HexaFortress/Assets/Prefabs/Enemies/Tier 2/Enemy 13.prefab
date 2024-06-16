@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 8631235611602308291}
-  enemyDeadPartical: {fileID: 1277154925287174, guid: 3b517eddec185dd4a830743a742ad00b,
+  enemyDeadParticle: {fileID: 1277154925287174, guid: 3b517eddec185dd4a830743a742ad00b,
     type: 3}
-  charater: {fileID: 8886302774584257380}
+  character: {fileID: 3618210249874112378}
   healthBar: {fileID: 8556603214320102542}
 --- !u!65 &8336325508337591939
 BoxCollider:
@@ -973,9 +973,9 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!137 &8886302774584257380 stripped
+--- !u!137 &3618210249874112378 stripped
 SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7881090960832895735, guid: 797666cdc4730b14db27d8e7b3ba23ad,
+  m_CorrespondingSourceObject: {fileID: 2610759844230680297, guid: 797666cdc4730b14db27d8e7b3ba23ad,
     type: 3}
   m_PrefabInstance: {fileID: 1588995734749131155}
   m_PrefabAsset: {fileID: 0}

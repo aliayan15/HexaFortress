@@ -60,7 +60,7 @@ namespace HexaFortress.GamePlay
 
             var partical = ObjectPoolingManager.Instance.SpawnObject(_particalID, cannonExplosion, transform.position,
                 Quaternion.identity);
-            partical.GetComponent<ParticalCallBack>().OnStop = delegate
+            partical.GetComponent<ParticleCallBack>().OnStop = delegate
             {
                 ObjectPoolingManager.Instance.ReturnObject(_particalID, partical);
             };

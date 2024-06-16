@@ -10,20 +10,22 @@ namespace HexaFortress.GamePlay
     public class EnemyController : MonoBehaviour, IDamageable
     {
         [SerializeField] private Transform targetPoint;
-        [FormerlySerializedAs("EnemyDeadPar")] 
-        [SerializeField] private GameObject enemyDeadPartical;
-        [SerializeField] private SkinnedMeshRenderer charater;
+
+        [FormerlySerializedAs("EnemyDeadPar")] [SerializeField]
+        private GameObject enemyDeadParticle;
+
+        [SerializeField] private SkinnedMeshRenderer character;
         [SerializeField, Child] private HealthBar healthBar;
 
         public EnemyType EnemyType => _myConfig.EnemyType;
-        public int Level => _myConfig.Level;
         public Transform TargetPoint => targetPoint;
         public int Armor => _currentArmor;
-        
+
         private EnemyConfig _myConfig;
         private List<Vector3> _pathVectorList;
         private int _pathIndex = -1;
         private Transform _transform;
+        private Material _material;
         private int _currentHealth;
         private int _currentArmor;
         private float _currentMoveSpeed;
@@ -34,6 +36,8 @@ namespace HexaFortress.GamePlay
         private bool _canPlayFlash = true;
         private Color _baseColor;
         private readonly WaitForSeconds _flashWait = new WaitForSeconds(0.06f);
+        private Vector3 _nextPathPosition;
+        private const string c_enemydeadparticleId = "enemyDeadPar";
 
         private void OnValidate()
         {
@@ -42,31 +46,31 @@ namespace HexaFortress.GamePlay
 
         public void Init(EnemyConfig config)
         {
-            _myConfig = config;
             _transform = transform;
+            _material = character.material;
+            _baseColor = _material.color;
+            _myConfig = config;
             _currentHealth = _myConfig.Health;
             _currentArmor = _myConfig.Armor;
             _currentMoveSpeed = _myConfig.MoveSpeed;
             _slowTimer = _myConfig.SlowTime;
             _posY = EnemyManager.Instance.EnemyPosY;
-            float ratioH = (float)_currentHealth / _myConfig.Health;
-            float ratioA = 0f;
+            float armor = 0;
             if (_myConfig.Armor > 0)
-                ratioA = (float)_currentArmor / _myConfig.Armor;
-            healthBar.Init(ratioH + ratioA);
-            healthBar.UpdateBar(ratioH, ratioA);
-            _baseColor = charater.material.color;
+                armor = _currentArmor / _myConfig.Armor;
+            healthBar.Init((_currentHealth/_myConfig.Health) + armor);
+            UpdateHealthBar();
         }
 
         private void Update()
         {
-            Move();
             healthBar.LookCamera();
+            MoveAlongPath();
             if (_isSlow)
-                SlowTimer();
+                UpdateSlowTimer();
         }
 
-        private void SlowTimer()
+        private void UpdateSlowTimer()
         {
             _slowTimer -= Time.deltaTime;
             if (_slowTimer <= 0)
@@ -81,44 +85,41 @@ namespace HexaFortress.GamePlay
         public void SetMovePosition(List<Vector3> pathVectorList)
         {
             _pathVectorList = pathVectorList;
-            if (pathVectorList.Count > 0)
+            _pathIndex = pathVectorList.Count > 0 ? 0 : -1;
+            SetNextPosition();
+        }
+
+        private void MoveAlongPath()
+        {
+            if (_pathIndex == -1) return;
+
+            _transform.position = Vector3.MoveTowards(_transform.position, _nextPathPosition,
+                Time.deltaTime * _currentMoveSpeed);
+            
+            if (Vector3.Distance(_transform.position, _nextPathPosition) < _myConfig.ReachedPositionDistance)
             {
-                _pathIndex = 0;
+                _pathIndex++;
+                SetNextPosition();
             }
-            else
+
+            if (_pathIndex >= _pathVectorList.Count)
             {
-                // no path
                 _pathIndex = -1;
+                OnReachedMovePosition();
             }
         }
 
-        private void Move()
+        private void SetNextPosition()
         {
-            if (_pathIndex != -1)
-            {
-                // Move to next path position
-                Vector3 nextPathPosition = _pathVectorList[_pathIndex];
-                nextPathPosition.y = _posY;
-                _transform.position = Vector3.MoveTowards(_transform.position, nextPathPosition,
-                    Time.deltaTime * _currentMoveSpeed);
-                _transform.LookAt(nextPathPosition, Vector3.up);
-
-                if (Vector3.Distance(_transform.position, nextPathPosition) < _myConfig.ReachedPositionDistance)
-                {
-                    _pathIndex++;
-                    if (_pathIndex >= _pathVectorList.Count)
-                    {
-                        // End of path
-                        _pathIndex = -1;
-                        onReachedMovePosition();
-                    }
-                }
-            }
+            if (_pathIndex >= _pathVectorList.Count || _pathIndex < 0)
+                return;
+            _nextPathPosition = _pathVectorList[_pathIndex];
+            _nextPathPosition.y = _posY;
+            _transform.LookAt(_nextPathPosition, Vector3.up);
         }
 
-        private void onReachedMovePosition()
+        private void OnReachedMovePosition()
         {
-            // damage to castle
             GameModel.Instance.CastleTile.TakeDamage(_myConfig.DamageToCastle);
             Destroy(gameObject);
         }
@@ -129,54 +130,63 @@ namespace HexaFortress.GamePlay
 
         public void TakeDamage(DamageData damage)
         {
-            if (_isDead) return;
-            if ((damage.TargetEnemyType & _myConfig.EnemyType) == 0) return;
+            if (_isDead || (damage.TargetEnemyType & _myConfig.EnemyType) == 0) return;
 
-            int rndCritNum = Random.Range(0, 101);
-            if (rndCritNum <= damage.CritChance)
+            if (Random.Range(0, 101) <= damage.CritChance)
             {
                 damage.Damage *= 2;
                 damage.ArmorDamage *= 2;
             }
 
-
-            int rndSlowNum = Random.Range(0, 101);
-            if (rndSlowNum <= damage.SlowChance)
+            if (Random.Range(0, 101) <= damage.SlowChance)
+            {
                 SlowDown();
+            }
 
             if (damage.TargetEnemyType == _myConfig.EnemyType)
+            {
                 damage.Damage = Mathf.FloorToInt(damage.Damage * 1.3f);
+            }
 
-            if (_currentArmor > 0)
-                _currentArmor -= damage.ArmorDamage;
-            else
-                _currentHealth -= damage.Damage;
+            ApplyDamage(damage);
+            UpdateHealthBar();
 
-            if (_currentHealth <= 0)
-                Ondead();
-            if (_currentArmor < 0)
-                _currentArmor = 0;
-
-            float ratioH = (float)_currentHealth / _myConfig.Health;
-            float ratioA = 0f;
-            if (_myConfig.Armor > 0)
-                ratioA = (float)_currentArmor / _myConfig.Armor;
-            healthBar.UpdateBar(ratioH, ratioA);
             if (_canPlayFlash)
+            {
                 StartCoroutine(DamageFlash());
+            }
         }
 
-        private void Ondead()
+        private void ApplyDamage(DamageData damage)
+        {
+            if (_currentArmor > 0)
+            {
+                _currentArmor -= damage.ArmorDamage;
+                if (_currentArmor < 0)
+                {
+                    _currentHealth += _currentArmor; // subtract negative armor from health
+                    _currentArmor = 0;
+                }
+            }
+            else
+            {
+                _currentHealth -= damage.Damage;
+            }
+
+            if (_currentHealth <= 0)
+            {
+                OnDeath();
+            }
+        }
+
+        private void OnDeath()
         {
             _isDead = true;
             _currentHealth = 0;
-            string particalID = "enemyDeadPar";
-            var deadPartical = ObjectPoolingManager.Instance.SpawnObject(particalID, enemyDeadPartical,
+            var deadParticle = ObjectPoolingManager.Instance.SpawnObject(c_enemydeadparticleId, enemyDeadParticle,
                 targetPoint.position, Quaternion.identity);
-            deadPartical.GetComponent<ParticalCallBack>().OnStop = delegate
-            {
-                ObjectPoolingManager.Instance.ReturnObject(particalID, deadPartical);
-            };
+            deadParticle.GetComponent<ParticleCallBack>().OnStop = () =>
+                ObjectPoolingManager.Instance.ReturnObject(c_enemydeadparticleId, deadParticle);
             Destroy(gameObject);
         }
 
@@ -192,14 +202,21 @@ namespace HexaFortress.GamePlay
         private IEnumerator DamageFlash()
         {
             _canPlayFlash = false;
-            charater.material.color = Color.red;
+            _material.color = Color.red;
             yield return _flashWait;
-            charater.material.color = _baseColor;
+            _material.color = _baseColor;
             yield return _flashWait;
-            charater.material.color = Color.red;
+            _material.color = Color.red;
             yield return _flashWait;
-            charater.material.color = _baseColor;
+            _material.color = _baseColor;
             _canPlayFlash = true;
+        }
+
+        private void UpdateHealthBar()
+        {
+            float healthRatio = (float)_currentHealth / _myConfig.Health;
+            float armorRatio = _myConfig.Armor > 0 ? (float)_currentArmor / _myConfig.Armor : 0f;
+            healthBar.UpdateBar(healthRatio, armorRatio);
         }
 
         #endregion

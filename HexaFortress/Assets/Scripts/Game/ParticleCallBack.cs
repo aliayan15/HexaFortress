@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HexaFortress.Game
 {
-    public class ParticalCallBack : MonoBehaviour
+    public class ParticleCallBack : MonoBehaviour
     {
         public Action OnStop;
         

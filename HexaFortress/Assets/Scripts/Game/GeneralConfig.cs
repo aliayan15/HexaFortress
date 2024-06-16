@@ -19,7 +19,7 @@ namespace HexaFortress.Game
             pos += Vector3.up * 0.2f;
             string objID = "BonusPar";
             var par = ObjectPoolingManager.Instance.SpawnObject(objID, BonusPar, pos, Quaternion.identity);
-            par.GetComponent<ParticalCallBack>().OnStop = delegate
+            par.GetComponent<ParticleCallBack>().OnStop = delegate
             {
                 ObjectPoolingManager.Instance.ReturnObject(objID, par);
             };
