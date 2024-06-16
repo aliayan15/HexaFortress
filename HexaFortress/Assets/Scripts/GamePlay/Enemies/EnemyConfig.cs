@@ -1,12 +1,13 @@
 ﻿using HexaFortress.Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {
     [CreateAssetMenu(fileName = "EnemyConfig", menuName = "ScriptableObject/EnemyConfig")]
     public class EnemyConfig : ScriptableObject
     {
-        public Enemy EnemyPrefab;
+        [FormerlySerializedAs("EnemyPrefab")] public EnemyController enemyControllerPrefab;
         public int Level;
         public int Health;
         public int Armor;

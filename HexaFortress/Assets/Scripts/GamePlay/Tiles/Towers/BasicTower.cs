@@ -19,7 +19,7 @@ namespace HexaFortress.GamePlay
         [SerializeField] protected SoundTypes fireSound;
 
 
-        private Enemy _currentTarget = null;
+        private EnemyController _currentTarget = null;
 
         protected virtual void Update()
         {
@@ -63,7 +63,7 @@ namespace HexaFortress.GamePlay
         }
 
         // get closest enemy
-        private Enemy GetEnemyBasic()
+        private EnemyController GetEnemyBasic()
         {
             var cols = Physics.OverlapSphere(transform.position, range, enemyLayer, QueryTriggerInteraction.Collide);
             if (cols == null) return null;
@@ -72,7 +72,7 @@ namespace HexaFortress.GamePlay
             int index = -1;
             for (int i = 0; i < cols.Length; i++)
             {
-                if (cols[i].TryGetComponent(out Enemy enemy))
+                if (cols[i].TryGetComponent(out EnemyController enemy))
                 {
                     if ((enemy.EnemyType & enemyType) == 0) continue;
                     Vector3 toOther = Vector3.Normalize(enemy.transform.position - transform.position);
@@ -87,10 +87,10 @@ namespace HexaFortress.GamePlay
                 }
             }
             if (index == -1) return null;
-            else return cols[index].GetComponent<Enemy>();
+            else return cols[index].GetComponent<EnemyController>();
         }
         // get in the mid
-        private Enemy GetEnemyMortar()
+        private EnemyController GetEnemyMortar()
         {
             var cols = Physics.OverlapSphere(transform.position, range, enemyLayer, QueryTriggerInteraction.Collide);
             var colsList = cols.ToList();
@@ -98,7 +98,7 @@ namespace HexaFortress.GamePlay
             if (colsList.Count == 0) return null;
             for (int i = 0; i < colsList.Count; i++)
             {
-                if (colsList[i].TryGetComponent(out Enemy enemy))
+                if (colsList[i].TryGetComponent(out EnemyController enemy))
                 {
                     if ((enemy.EnemyType & enemyType) == 0)
                     {
@@ -117,7 +117,7 @@ namespace HexaFortress.GamePlay
             index /= 2;
             index = Mathf.Min(index, colsList.Count - 1);
             index = Mathf.Max(index, 0);
-            return colsList[index].GetComponent<Enemy>();
+            return colsList[index].GetComponent<EnemyController>();
         }
 
 #if UNITY_EDITOR

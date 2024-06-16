@@ -4,11 +4,11 @@ namespace HexaFortress.GamePlay
 {
     public class EnemyFactory
     {
-        public Enemy Create(EnemyConfig config)
+        public EnemyController Create(EnemyConfig config)
         {
-            Enemy newEnemy = Object.Instantiate(config.EnemyPrefab);
-            newEnemy.Init(config);
-            return newEnemy;
+            EnemyController newEnemyController = Object.Instantiate(config.enemyControllerPrefab);
+            newEnemyController.Init(config);
+            return newEnemyController;
         }
     }
 }

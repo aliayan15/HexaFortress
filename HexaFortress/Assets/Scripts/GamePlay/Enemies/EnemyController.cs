@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using HexaFortress.Game;
 using KBCore.Refs;
-using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {
-    public class Enemy : MonoBehaviour, IDamageable
+    public class EnemyController : MonoBehaviour, IDamageable
     {
         [SerializeField] private Transform targetPoint;
-        [FormerlySerializedAs("EnemyDeadPar")] [SerializeField] private GameObject enemyDeadPartical;
+        [FormerlySerializedAs("EnemyDeadPar")] 
+        [SerializeField] private GameObject enemyDeadPartical;
         [SerializeField] private SkinnedMeshRenderer charater;
         [SerializeField, Child] private HealthBar healthBar;
 

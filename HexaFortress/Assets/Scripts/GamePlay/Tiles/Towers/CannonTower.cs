@@ -14,9 +14,9 @@ namespace HexaFortress.GamePlay
         [SerializeField] protected Projectile projectile;
         [SerializeField] protected SoundTypes fireSound;
 
-        private Enemy _currentTarget = null;
+        private EnemyController _currentTarget = null;
         [HideInInspector]
-        public HashSet<Enemy> Targets = new HashSet<Enemy>();
+        public HashSet<EnemyController> Targets = new HashSet<EnemyController>();
 
         protected override void OnFire()
         {
@@ -32,10 +32,10 @@ namespace HexaFortress.GamePlay
             AudioManager.Instance.PlaySound(fireSound);
         }
 
-        private Enemy GetEnemy()
+        private EnemyController GetEnemy()
         {
-            Enemy enemy = null;
-            HashSet<Enemy> deleteSet = new HashSet<Enemy>();
+            EnemyController enemyController = null;
+            HashSet<EnemyController> deleteSet = new HashSet<EnemyController>();
             foreach (var e in Targets)
             {
                 if (e == null)
@@ -49,18 +49,18 @@ namespace HexaFortress.GamePlay
             {
                 if (e.Armor > armor)
                 {
-                    enemy = e;
+                    enemyController = e;
                     armor = e.Armor;
                 }
             }
-            return enemy;
+            return enemyController;
         }
 
-        public void OnEnemyEnter(Enemy e)
+        public void OnEnemyEnter(EnemyController e)
         {
             Targets.Add(e);
         }
-        public void OnEnemyExit(Enemy e)
+        public void OnEnemyExit(EnemyController e)
         {
             Targets.Remove(e);
             if (_currentTarget == e)

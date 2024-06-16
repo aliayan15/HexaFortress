@@ -28,7 +28,7 @@ namespace HexaFortress.GamePlay
         private Vector3 _spawnPos;
         private int _pathIndex;
         private Dictionary<int, List<Vector3>> _paths = new Dictionary<int, List<Vector3>>();
-        private List<Enemy> _enemyList = new List<Enemy>();
+        private List<EnemyController> _enemyList = new List<EnemyController>();
         private EnemyFactory _enemyFactory = new();
 
 
@@ -99,16 +99,16 @@ namespace HexaFortress.GamePlay
         private void SpawnEnemy(EnemyConfig config)
         {
             // create enemy
-            Enemy newEnemy = _enemyFactory.Create(config);
+            EnemyController newEnemyController = _enemyFactory.Create(config);
             // set path
-            newEnemy.transform.position = _spawnPos;
-            newEnemy.SetMovePosition(_paths[_pathIndex]);
+            newEnemyController.transform.position = _spawnPos;
+            newEnemyController.SetMovePosition(_paths[_pathIndex]);
             // Spawn animation
-            Vector3 scale = newEnemy.transform.localScale;
-            newEnemy.transform.localScale = Vector3.zero;
-            newEnemy.transform.DOScale(scale, 0.2f);
+            Vector3 scale = newEnemyController.transform.localScale;
+            newEnemyController.transform.localScale = Vector3.zero;
+            newEnemyController.transform.DOScale(scale, 0.2f);
             // add to list
-            _enemyList.Add(newEnemy);
+            _enemyList.Add(newEnemyController);
         }
         private void SpawnBoss()
         {
