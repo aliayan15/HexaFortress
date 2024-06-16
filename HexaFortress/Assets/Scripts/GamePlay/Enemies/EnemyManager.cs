@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using HexaFortress.Game;
 using MyUtilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {
     public class EnemyManager : SingletonMono<EnemyManager>
     {
+        [FormerlySerializedAs("tier1")]
         [Header("Enemies")]
-        [SerializeField] private EnemyConfig[] tier1;
-        [SerializeField] private EnemyConfig[] tier2;
+        [SerializeField] private EnemyConfig[] tier1Enemies;
+        [FormerlySerializedAs("tier2")] 
+        [SerializeField] private EnemyConfig[] tier2Enemies;
         [Header("Bosses")]
         [SerializeField] private EnemyConfig boss1;
         [SerializeField] private EnemyConfig boss2;
+        [FormerlySerializedAs("tier2Day")]
         [Space(5)]
-        [SerializeField] private int tier2Day;
-        [SerializeField] private int tier3Day;
+        [SerializeField] private int tier2ActivationDay;
+        [FormerlySerializedAs("tier3ActivationDay")]
+        [FormerlySerializedAs("tier3Day")] 
+        [SerializeField] private int tier2BossDay;
         [Space(10)]
         [SerializeField] private float spawnPointY;
 
@@ -25,122 +32,130 @@ namespace HexaFortress.GamePlay
 
         private bool _debug = false;
         private bool _isSpawning;
-        private Vector3 _spawnPos;
-        private int _pathIndex;
+        private Vector3 _currentSpawnPosition;
+        private int _currentPathIndex;
         private Dictionary<int, List<Vector3>> _paths = new Dictionary<int, List<Vector3>>();
         private List<EnemyController> _enemyList = new List<EnemyController>();
         private EnemyFactory _enemyFactory = new();
 
 
-        #region Spawn
         private void StartSpawn()
         {
             if (_isSpawning) return;
             _isSpawning = true;
             StartCoroutine(SpawnLoop());
         }
+
         private IEnumerator SpawnLoop()
         {
             if (TileManager.Instance.EnemySpawnPoints.Count == 0) yield break;
-            // total count(not)
-            var time = new WaitForSeconds(1f);
-            int count = GameModel.Instance.PlayerData.DayCount * GameModel.Instance.PlayerData.DayCount;
-            // set path for each spawn point
-            _paths.Clear();
-            for (int i = 0; i < TileManager.Instance.EnemySpawnPoints.Count; i++)
+
+            var waitTime = new WaitForSeconds(1f);
+            int enemyCount = GameModel.Instance.PlayerData.DayCount * GameModel.Instance.PlayerData.DayCount;
+            
+            InitializePaths();
+
+            while (enemyCount > 0)
             {
-                var grid = GridManager.Instance.GetGridNode(TileManager.Instance.EnemySpawnPoints[i]);
-                _paths[i] = GridManager.Instance.PathFinding.FindPath(grid.Position,
-                    GameModel.Instance.CastleTile.MyHexNode.Position);
-            }
-            // spawn enemies
-            while (count > 0)
-            {
-                for (int i = 0; i < TileManager.Instance.EnemySpawnPoints.Count; i++)
+                foreach (var spawnPoint in TileManager.Instance.EnemySpawnPoints)
                 {
-                    yield return time;
-                    _pathIndex = i;
-                    _spawnPos = TileManager.Instance.EnemySpawnPoints[i];
-                    _spawnPos.y = spawnPointY;
-                    count -= SpawnFromTiers();
-                    if (count <= 0)
+                    yield return waitTime;
+
+                    _currentSpawnPosition = spawnPoint;
+                    _currentSpawnPosition.y = spawnPointY;
+                    _currentPathIndex = TileManager.Instance.EnemySpawnPoints.IndexOf(spawnPoint);
+
+                    enemyCount -= SpawnEnemiesBasedOnTiers();
+                    if (enemyCount <= 0)
                         break;
                 }
             }
+
             SpawnBoss();
             _isSpawning = false;
             StartCoroutine(CheckAllEnemiesDead());
         }
-        private int SpawnFromTiers()
+
+        private void InitializePaths()
         {
-            if (GameModel.Instance.PlayerData.DayCount >= tier2Day)
+            _paths.Clear();
+            foreach (var (index, spawnPoint) in TileManager.Instance.EnemySpawnPoints.WithIndex())
             {
-                int num = SpawnFromArray(tier2, 2f);
-                if (num > 0)
-                    return num;
+                var gridNode = GridManager.Instance.GetGridNode(spawnPoint);
+                _paths[index] = GridManager.Instance.PathFinding.FindPath(gridNode.Position, GameModel.Instance.CastleTile.MyHexNode.Position);
             }
-            int num1 = SpawnFromArray(tier1, 1f);
-            return num1;
         }
-        private int SpawnFromArray(EnemyConfig[] enemies, float multiplier)
+
+        private int SpawnEnemiesBasedOnTiers()
         {
-            int num = 0;
-            for (int i = enemies.Length - 1; i >= 0; --i)
+            if (GameModel.Instance.PlayerData.DayCount >= tier2ActivationDay)
             {
-                bool canSpawnThisEnemy = enemies[i].Level <= GameModel.Instance.PlayerData.DayCount
-                                         && UnityEngine.Random.Range(0.0f, 1.0f) < (multiplier / enemies[i].Level);
-                if (!canSpawnThisEnemy) continue;
-                SpawnEnemy(enemies[i]);
-                num = enemies[i].Level;
-                break;
+                int numSpawned = SpawnEnemiesFromArray(tier2Enemies, 2f);
+                if (numSpawned > 0) return numSpawned;
             }
-            return num;
+            return SpawnEnemiesFromArray(tier1Enemies, 1f);
         }
+
+        private int SpawnEnemiesFromArray(EnemyConfig[] enemies, float spawnChanceMultiplier)
+        {
+            foreach (var enemy in enemies.Reverse())
+            {
+                bool canSpawn = enemy.Level <= GameModel.Instance.PlayerData.DayCount &&
+                                Random.Range(0.0f, 1.0f) < (spawnChanceMultiplier / enemy.Level);
+
+                if (canSpawn)
+                {
+                    SpawnEnemy(enemy);
+                    return enemy.Level;
+                }
+            }
+            return 0;
+        }
+
         private void SpawnEnemy(EnemyConfig config)
         {
-            // create enemy
-            EnemyController newEnemyController = _enemyFactory.Create(config);
-            // set path
-            newEnemyController.transform.position = _spawnPos;
-            newEnemyController.SetMovePosition(_paths[_pathIndex]);
+            EnemyController newEnemy = _enemyFactory.Create(config);
+            newEnemy.transform.position = _currentSpawnPosition;
+            newEnemy.SetMovePosition(_paths[_currentPathIndex]);
+            
             // Spawn animation
-            Vector3 scale = newEnemyController.transform.localScale;
-            newEnemyController.transform.localScale = Vector3.zero;
-            newEnemyController.transform.DOScale(scale, 0.2f);
-            // add to list
-            _enemyList.Add(newEnemyController);
+            Vector3 originalScale = newEnemy.transform.localScale;
+            newEnemy.transform.localScale = Vector3.zero;
+            newEnemy.transform.DOScale(originalScale, 0.2f);
+            
+            _enemyList.Add(newEnemy);
         }
+
         private void SpawnBoss()
         {
-            if (GameModel.Instance.PlayerData.DayCount == tier2Day - 1)
+            if (GameModel.Instance.PlayerData.DayCount == tier2ActivationDay - 1)
+            {
                 SpawnEnemy(boss1);
-            else if (GameModel.Instance.PlayerData.DayCount == tier3Day - 1)
+            }
+            else if (GameModel.Instance.PlayerData.DayCount == tier2BossDay - 1)
+            {
                 SpawnEnemy(boss2);
-
+            }
         }
-        #endregion
 
         private IEnumerator CheckAllEnemiesDead()
         {
-            var time = new WaitForSeconds(0.5f);
+            var waitTime = new WaitForSeconds(0.5f);
+
             while (_enemyList.Count > 0)
             {
-                yield return time;
-                for (int i = 0; i < _enemyList.Count; i++)
-                {
-                    if (_enemyList[i] == null)
-                    {
-                        _enemyList.RemoveAt(i);
-                        i--;
-                    }
-                }
+                yield return waitTime;
+                _enemyList.RemoveAll(enemy => enemy == null);
             }
+
             OnAllEnemiesDead();
         }
+
         private void OnAllEnemiesDead()
         {
             GameManager.Instance.SetTurnState(TurnStates.TurnEnd);
         }
+
         private void OnTurnStateChange(TurnStateChangeEvent evt)
         {
             if (evt.TurnState == TurnStates.EnemySpawnStart)
@@ -148,19 +163,21 @@ namespace HexaFortress.GamePlay
                 StartSpawn();
             }
         }
+
         private void OnGameStateChange(GameStateChangeEvent evt)
         {
-            // when game over stop spawning
             if (evt.GameState == GameStates.GAMEOVER)
             {
                 StopAllCoroutines();
             }
         }
+
         private void OnEnable()
         {
             EventManager.AddListener<TurnStateChangeEvent>(OnTurnStateChange);
             EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
         }
+
         private void OnDisable()
         {
             EventManager.RemoveListener<TurnStateChangeEvent>(OnTurnStateChange);
@@ -170,11 +187,21 @@ namespace HexaFortress.GamePlay
         private void OnDrawGizmosSelected()
         {
             if (!_debug) return;
-            foreach (var point in TileManager.Instance.EnemySpawnPoints)
+
+            foreach (var spawnPoint in TileManager.Instance.EnemySpawnPoints)
             {
-                Gizmos.DrawSphere(point, 0.3f);
+                Gizmos.DrawSphere(spawnPoint, 0.3f);
             }
         }
     }
+
+    public static class ExtensionMethods
+    {
+        public static IEnumerable<(int, T)> WithIndex<T>(this IEnumerable<T> self)
+        {
+            return self.Select((item, index) => (index, item));
+        }
+    }
+    
 }
 
