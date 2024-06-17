@@ -125,7 +125,7 @@ namespace HexaFortress.UI
         #endregion
 
         #region Upgrade
-        public void ShowUpgrades(bool show)
+        private void ShowUpgrades(bool show)
         {
             if (show)
             {
@@ -213,6 +213,7 @@ namespace HexaFortress.UI
             events.OnCastleToolTipChage += UpdateCastleToolTip;
             events.ShowNightUI += ShowNightUI;
             events.UpdateNightCircle += UpdateNightCircle;
+            events.ShowUpgradesEvent += ShowUpgrades;
         }
         private void OnDisable()
         {
@@ -226,6 +227,7 @@ namespace HexaFortress.UI
             events.OnCastleToolTipChage -= UpdateCastleToolTip;
             events.ShowNightUI -= ShowNightUI;
             events.UpdateNightCircle -= UpdateNightCircle;
+            events.ShowUpgradesEvent -= ShowUpgrades;
         }
         #endregion
     }

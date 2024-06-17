@@ -37,5 +37,7 @@ namespace HexaFortress.GamePlay
         
         public UnityAction<bool> ShowToolTipUI;
         public UnityAction<bool> Show3dWorldUI;
+        
+        public UnityAction<bool> ShowUpgradesEvent;
     }
 }

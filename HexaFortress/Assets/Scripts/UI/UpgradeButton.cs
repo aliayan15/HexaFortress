@@ -1,6 +1,5 @@
 using HexaFortress.Game;
 using HexaFortress.GamePlay;
-using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,6 +9,8 @@ namespace HexaFortress.UI
 {
     public class UpgradeButton : MonoBehaviour
     {
+        [SerializeField] private UIEvents events;
+        [Space(10)]
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI dec;
         [SerializeField] private TextMeshProUGUI level;
@@ -43,7 +44,7 @@ namespace HexaFortress.UI
         public void OnSelect()
         {
             UpgradeManager.Instance.Upgrade(_myData);
-            UIManager.Instance.gameCanvasManager.ShowUpgrades(false);
+            events.ShowUpgradesEvent.Invoke(false);
             AudioManager.Instance.PlayBtnSound();
         }
     }
