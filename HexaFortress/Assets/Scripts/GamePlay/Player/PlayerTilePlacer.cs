@@ -129,7 +129,7 @@ namespace HexaFortress.GamePlay
             _tileBase.OnPlayerHand(false);
             _placedTileCount++;
             CheckPlacedTileCount();
-            // TODO AudioManager.Instance.Play2DSound(SoundTypes.TilePlace);
+            AudioManager.Instance.Play2DSound(SoundTypes.TilePlace);
         }
 
         private void UpdatePosition()

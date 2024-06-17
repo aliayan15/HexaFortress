@@ -1,17 +1,16 @@
 using MyUtilities;
 using System;
 using System.Collections.Generic;
-using HexaFortress.Game;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Managers
+namespace HexaFortress.Game
 {
     public class AudioManager : SingletonMono<AudioManager>
     {
 
         [HideInInspector]
-        public List<AudioPoolSource> AudioSources = new List<AudioPoolSource>();
+        public List<AudioPoolSource> AudioSources = new();
         [Header("Settings")]
         [SerializeField] private AudioMixer audioMixer;
 
@@ -19,17 +18,13 @@ namespace Managers
         [SerializeField]
         private GameObject sourceObject;
         [Header("Audio Clips")]
-        [SerializeField] Sound[] sounds;
+        [SerializeField] private Sound[] sounds;
         [Space(10)]
         [SerializeField] private AudioPoolSource defauldSound;
         [SerializeField] private AudioPoolSource musicSound;
 
 
         #region Play Audio
-        public void ClearAudioList()
-        {
-            AudioSources.Clear();
-        }
         public void PlayMusic(SoundTypes s)
         {
             Sound sound = GetClip(s);
@@ -104,7 +99,7 @@ namespace Managers
         /// <param name="priority"></param>
         public void PlaySound(Sound sound, Vector3 pos, float pitchMin, float pitchMax = 1, int priority = 128)
         {
-
+            
             AudioPoolSource audioPoolSource;
             if (AudioSources.Count < 1)
             {
@@ -112,7 +107,12 @@ namespace Managers
             }
             else
             {
-                audioPoolSource = AudioSources[0];
+                audioPoolSource = AudioSources.Find(source=>source!=null);
+                if (!audioPoolSource)
+                {
+                    AudioSources.Clear();
+                    audioPoolSource = Instantiate(sourceObject, transform).GetComponent<AudioPoolSource>();
+                }
                 AudioSources.Remove(audioPoolSource);
                 audioPoolSource.gameObject.SetActive(true);
             }
@@ -129,29 +129,7 @@ namespace Managers
             else return sound;
         }
         #endregion
-
-
-
-        #region Audio Settings
-
-        #endregion
-
-        private void OnGameStateChange(GameStateChangeEvent evt)
-        {
-            if (evt.GameState == GameStates.GAME)
-            {
-                AudioSources.Clear();
-            }
-        }
-
-        private void OnEnable()
-        {
-            EventManager.AddListener<GameStateChangeEvent>(OnGameStateChange);
-        }
-        private void OnDisable()
-        {
-            EventManager.RemoveListener<GameStateChangeEvent>(OnGameStateChange);
-        }
+        
     }
 
     [System.Serializable]

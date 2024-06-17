@@ -8,6 +8,8 @@ namespace HexaFortress.GamePlay
 {
     public class UpgradeManager : SingletonMono<UpgradeManager>
     {
+        [SerializeField] private UIEvents events;
+        [Space(10)]
         [SerializeField] private SOUpgradeData[] upgrades;
         [SerializeField] private int[] upgradeDays;
 
@@ -161,8 +163,7 @@ namespace HexaFortress.GamePlay
                 {
                     this.Timer(1f, () =>
                     {
-                        // TODO send event
-                        //UIManager.Instance.gameCanvasManager.ShowUpgrades(true);
+                        events.ShowUpgradesEvent.Invoke(true);
                     });
                 }
             }

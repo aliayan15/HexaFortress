@@ -114,8 +114,10 @@ namespace HexaFortress.Game
         public void StartGame()
         {
             SetState(GameStates.GAME);
-            //TODO AudioManager
-            //AudioManager.Instance.ClearAudioList();
+            this.Timer(0.1f, (() =>
+            {
+                SetTurnState(TurnStates.TurnBegin);
+            }));
         }
 
         #region Mouse Visibility

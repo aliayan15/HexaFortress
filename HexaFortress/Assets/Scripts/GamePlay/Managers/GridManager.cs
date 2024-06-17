@@ -36,14 +36,11 @@ namespace HexaFortress.GamePlay
             this.ValidateRefs();
         }
 
-        private IEnumerator Start()
+        private void Start()
         {
             CreateHexGrid();
             _pathFinding = new HexPathFinding(this);
-            yield return new WaitForSeconds(0.1f);
-            GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
-            //TODO bug fix - Start of the game we are not adding gold. casle
-            GameModel.Instance.PlayerData.AddGold(-GameModel.Instance.PlayerData.GoldPerDay);
+            OnGridCreated?.Invoke();
         }
 
         private void CreateHexGrid()
@@ -65,7 +62,6 @@ namespace HexaFortress.GamePlay
                     tilePlaceHolder.gameObject.SetActive(false);
                 }
             }
-            OnGridCreated?.Invoke();
         }
 
         public List<HexGridNode> GetSurroundingGrids(HexGridNode grid)
