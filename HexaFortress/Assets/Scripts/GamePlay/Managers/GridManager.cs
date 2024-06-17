@@ -16,7 +16,6 @@ namespace HexaFortress.GamePlay
     public class GridManager : SingletonMono<GridManager>
     {
         public Vector2 GridSize => gridSize;
-        public HexPathFinding PathFinding { get; private set; }
         public Action<bool> OnTurnChange;
 
         [SerializeField, Self] private UnityEngine.Grid grid;
@@ -27,7 +26,7 @@ namespace HexaFortress.GamePlay
         [Header("Refs")]
         [SerializeField] private GameObject placeHolder;
         
-
+        private HexPathFinding _pathFinding;
         private HexGridNode[,] _hexGrid;
         public Action OnGridCreated;
 
@@ -40,7 +39,7 @@ namespace HexaFortress.GamePlay
         private IEnumerator Start()
         {
             CreateHexGrid();
-            PathFinding = new HexPathFinding(this, gridSize);
+            _pathFinding = new HexPathFinding(this);
             yield return new WaitForSeconds(0.1f);
             GameManager.Instance.SetTurnState(TurnStates.TurnBegin);
             //TODO bug fix - Start of the game we are not adding gold. casle

@@ -5,24 +5,20 @@ namespace HexaFortress.GamePlay
 {
     public class HexPathFinding
     {
-
-        private const int MOVE_STRAIGHT_COST = 10;
-
         public static HexPathFinding Instance { get; private set; }
 
-        private List<HexGridNode> _openList;
-        private List<HexGridNode> _closedList;
-        private Vector2 _gridSize;
+        private Queue<HexGridNode> _openQueue;
+        private HashSet<HexGridNode> _closedList;
         private GridManager _gridManager;
 
-        public HexPathFinding(GridManager gridManager, Vector2 gridSize)
+        public HexPathFinding(GridManager gridManager)
         {
             Instance = this;
             _gridManager = gridManager;
-            _gridSize = gridSize;
         }
+
         /// <summary>
-        /// Return path vector from start to target or Null.
+        /// Return path vector from start to target or null.
         /// </summary>
         /// <param name="startWorldPosition"></param>
         /// <param name="endWorldPosition"></param>
@@ -59,62 +55,39 @@ namespace HexaFortress.GamePlay
                 return null;
             }
 
-            _openList = new List<HexGridNode> { startNode };
-            _closedList = new List<HexGridNode>();
+            _openQueue = new Queue<HexGridNode>();
+            _closedList = new HashSet<HexGridNode>();
 
-            for (int x = 0; x < _gridSize.x; x++)
+            _openQueue.Enqueue(startNode);
+            startNode.cameFromNode = null;
+
+            while (_openQueue.Count > 0)
             {
-                for (int y = 0; y < _gridSize.y; y++)
-                {
-                    HexGridNode pathNode = _gridManager.GetGridNode(x, y);
-                    pathNode.gCost = 99999999;
-                    pathNode.CalculateFCost();
-                    pathNode.cameFromNode = null;
-                }
-            }
-
-            startNode.gCost = 0;
-            startNode.hCost = CalculateDistanceCost(startNode, endNode);
-            startNode.CalculateFCost();
-
-            while (_openList.Count > 0)
-            {
-                HexGridNode currentNode = GetLowestFCostNode(_openList);
+                HexGridNode currentNode = _openQueue.Dequeue();
                 if (currentNode == endNode)
                 {
                     // Reached final node
                     return CalculatePath(endNode);
                 }
 
-                _openList.Remove(currentNode);
                 _closedList.Add(currentNode);
 
                 foreach (HexGridNode neighbourNode in GetNeighbourList(currentNode))
                 {
-                    if (_closedList.Contains(neighbourNode)) continue;
-                    if (!neighbourNode.IsWalkable)
+                    if (_closedList.Contains(neighbourNode) || !neighbourNode.IsWalkable)
                     {
-                        _closedList.Add(neighbourNode);
                         continue;
                     }
 
-                    int tentativeGCost = currentNode.gCost + CalculateDistanceCost(currentNode, neighbourNode);
-                    if (tentativeGCost < neighbourNode.gCost)
+                    if (!_openQueue.Contains(neighbourNode))
                     {
                         neighbourNode.cameFromNode = currentNode;
-                        neighbourNode.gCost = tentativeGCost;
-                        neighbourNode.hCost = CalculateDistanceCost(neighbourNode, endNode);
-                        neighbourNode.CalculateFCost();
-
-                        if (!_openList.Contains(neighbourNode))
-                        {
-                            _openList.Add(neighbourNode);
-                        }
+                        _openQueue.Enqueue(neighbourNode);
                     }
                 }
             }
 
-            // Out of nodes on the openList
+            // Out of nodes on the openQueue
             return null;
         }
 
@@ -122,8 +95,8 @@ namespace HexaFortress.GamePlay
         {
             List<HexGridNode> neighbourList = new List<HexGridNode>();
             // get path tile
-            PathTile pathTile=currentNode.MyTile as PathTile;
-            if(pathTile==null) return neighbourList;
+            PathTile pathTile = currentNode.MyTile as PathTile;
+            if (pathTile == null) return neighbourList;
 
             foreach (var point in pathTile.ConnectionPoints)
             {
@@ -151,27 +124,5 @@ namespace HexaFortress.GamePlay
             path.Reverse();
             return path;
         }
-
-        private int CalculateDistanceCost(HexGridNode a, HexGridNode b)
-        {
-            int xDistance = Mathf.Abs(a.x - b.x);
-            int yDistance = Mathf.Abs(a.y - b.y);
-            int remaining = Mathf.Abs(xDistance - yDistance);
-            return MOVE_STRAIGHT_COST * Mathf.Min(xDistance, yDistance) + MOVE_STRAIGHT_COST * remaining;
-        }
-
-        private HexGridNode GetLowestFCostNode(List<HexGridNode> pathNodeList)
-        {
-            HexGridNode lowestFCostNode = pathNodeList[0];
-            for (int i = 1; i < pathNodeList.Count; i++)
-            {
-                if (pathNodeList[i].fCost < lowestFCostNode.fCost)
-                {
-                    lowestFCostNode = pathNodeList[i];
-                }
-            }
-            return lowestFCostNode;
-        }
     }
 }
-

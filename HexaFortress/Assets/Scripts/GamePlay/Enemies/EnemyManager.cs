@@ -82,7 +82,7 @@ namespace HexaFortress.GamePlay
             foreach (var (index, spawnPoint) in TileManager.Instance.EnemySpawnPoints.WithIndex())
             {
                 var gridNode = GridManager.Instance.GetGridNode(spawnPoint);
-                _paths[index] = GridManager.Instance.PathFinding.FindPath(gridNode.Position, GameModel.Instance.CastleTile.MyHexNode.Position);
+                _paths[index] = HexPathFinding.Instance.FindPath(gridNode.Position, GameModel.Instance.CastleTile.MyHexNode.Position);
             }
         }
 

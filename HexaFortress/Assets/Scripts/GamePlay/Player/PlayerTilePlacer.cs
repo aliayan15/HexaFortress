@@ -81,7 +81,7 @@ namespace HexaFortress.GamePlay
                 if (RaycastTile(out HexGridNode grid))
                 {
                     if (grid.MyTile is not PathTile) return;
-                    List<Vector3> pathList = GridManager.Instance.PathFinding.FindPath(grid.Position,
+                    List<Vector3> pathList = HexPathFinding.Instance.FindPath(grid.Position,
                         GameModel.Instance.CastleTile.MyHexNode.Position);
                     if (pathList == null) return;
 
