@@ -23,6 +23,8 @@ namespace HexaFortress.GamePlay
         {
             if (GameManager.Instance.GameState != GameStates.GAME)
                 return;
+            if (GameManager.Instance.TurnState != TurnStates.TurnBegin)
+                return;
 
             SkipToNightTimer();
         }
