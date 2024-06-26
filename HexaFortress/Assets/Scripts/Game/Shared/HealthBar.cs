@@ -1,22 +1,26 @@
-using Shapes;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HexaFortress.Game
 {
     public class HealthBar : MonoBehaviour
     {
-        [SerializeField] private Line barH;
-        [SerializeField] private Line barA;
-        private float _endX;
+        [SerializeField] private Image healthBar;
+        [SerializeField] private Image armorBar;
+        
         private Transform _mTransform;
         private float _total;
 
-   
-        public void Init(float total)
+        /// <summary>
+        /// Init health bar component.
+        /// </summary>
+        /// <param name="hasArmor"></param>
+        public void Init(bool hasArmor)
         {
             _mTransform = GetComponent<Transform>();
-            _endX = barH.End.x;
-            _total = total;
+            _total = hasArmor ? 2 : 1;
+            healthBar.fillAmount = 1;
+            armorBar.fillAmount = 1;
         }
 
         /// <summary>
@@ -29,11 +33,8 @@ namespace HexaFortress.Game
             armorRatio = (healthRatio + armorRatio) / _total;
             healthRatio = healthRatio / _total;
 
-            Vector3 end = Vector3.zero;
-            end.x = healthRatio * _endX;
-            barH.End = end;
-            end.x = armorRatio * _endX;
-            barA.End = end;
+            healthBar.fillAmount = healthRatio;
+            armorBar.fillAmount = armorRatio;
         }
 
         public void LookCamera()

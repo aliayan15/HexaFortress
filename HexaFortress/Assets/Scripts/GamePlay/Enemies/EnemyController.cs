@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using HexaFortress.Game;
 using KBCore.Refs;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace HexaFortress.GamePlay
 {
@@ -55,19 +57,20 @@ namespace HexaFortress.GamePlay
             _currentMoveSpeed = _myConfig.MoveSpeed;
             _slowTimer = _myConfig.SlowTime;
             _posY = EnemyManager.Instance.EnemyPosY;
-            float armor = 0;
-            if (_myConfig.Armor > 0)
-                armor = _currentArmor / _myConfig.Armor;
-            healthBar.Init((_currentHealth/_myConfig.Health) + armor);
-            UpdateHealthBar();
+            
+            healthBar.Init(_myConfig.Armor > 0);
         }
 
         private void Update()
         {
-            healthBar.LookCamera();
             MoveAlongPath();
             if (_isSlow)
                 UpdateSlowTimer();
+        }
+
+        private void LateUpdate()
+        {
+            healthBar.LookCamera();
         }
 
         private void UpdateSlowTimer()
