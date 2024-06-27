@@ -1,7 +1,6 @@
 using HexaFortress.Game;
 using MyUtilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace HexaFortress.GamePlay
 {

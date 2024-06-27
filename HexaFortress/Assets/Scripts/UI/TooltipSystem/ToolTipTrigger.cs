@@ -7,8 +7,7 @@ namespace HexaFortress.UI
     {
         public string header;
         public string content;
-        [Space(5)]
-        [SerializeField] protected bool showHeader = false;
+        [Space(5)] [SerializeField] protected bool showHeader = false;
         [SerializeField] protected bool is3dWorld = false;
 
         private bool _canShowWithOnMouse = true;
@@ -24,10 +23,11 @@ namespace HexaFortress.UI
         protected virtual void Show()
         {
             if (!showHeader)
-                ToolTipSystem.Show(content, is3dWorld);
+                ToolTipSystem.Show(content, "", is3dWorld);
             else
                 ToolTipSystem.Show(content, header, is3dWorld);
         }
+
         protected virtual void Hide()
         {
             ToolTipSystem.Hide();
@@ -45,6 +45,7 @@ namespace HexaFortress.UI
             if (!ToolTipSystem.Instance.CanShowWithOnMouse) return;
             Show();
         }
+
         private void OnMouseExit()
         {
             if (!ToolTipSystem.Instance.CanShowWithOnMouse) return;
@@ -52,4 +53,3 @@ namespace HexaFortress.UI
         }
     }
 }
-

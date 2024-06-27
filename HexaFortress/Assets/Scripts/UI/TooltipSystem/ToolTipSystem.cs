@@ -8,7 +8,7 @@ namespace HexaFortress.UI
     {
         [SerializeField] private UIEvents events;
         public ToolTip CurrentToolTip;
-        
+
         public bool CanShow3dWorldUI { get; set; } = true;
         public bool CanShowWithOnMouse { get; set; } = true;
 
@@ -20,18 +20,7 @@ namespace HexaFortress.UI
             CurrentToolTip.gameObject.SetActive(false);
         }
 
-        public static void Show(string content, bool is3DWorldObj = false)
-        {
-            if (!Instance._canShowUI) return;
-            if (is3DWorldObj && !Instance.CanShow3dWorldUI) return;
-
-            Instance.Timer(Instance.delay, () =>
-            {
-                Instance.CurrentToolTip.SetText(content);
-                Instance.CurrentToolTip.gameObject.SetActive(true);
-            });
-        }
-        public static void Show(string content, string header, bool is3DWorldObj = false)
+        public static void Show(string content, string header = "", bool is3DWorldObj = false)
         {
             if (!Instance._canShowUI) return;
             if (is3DWorldObj && !Instance.CanShow3dWorldUI) return;
@@ -42,6 +31,7 @@ namespace HexaFortress.UI
                 Instance.CurrentToolTip.gameObject.SetActive(true);
             });
         }
+
         public static void Hide()
         {
             Instance.StopAllCoroutines();
@@ -53,6 +43,7 @@ namespace HexaFortress.UI
             _canShowUI = canShow;
             CanShow3dWorldUI = canShow;
         }
+
         private void SetCanShow3DWorldUI(bool canShow)
         {
             CanShow3dWorldUI = canShow;
@@ -63,6 +54,7 @@ namespace HexaFortress.UI
             events.ShowToolTipUI += SetCanShowUI;
             events.Show3dWorldUI += SetCanShow3DWorldUI;
         }
+
         private void OnDisable()
         {
             events.ShowToolTipUI -= SetCanShowUI;
@@ -70,4 +62,3 @@ namespace HexaFortress.UI
         }
     }
 }
-

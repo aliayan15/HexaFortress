@@ -21,35 +21,25 @@ public class ToolTip : MonoBehaviour
     {
         _posYBorder = Screen.height - (Screen.height / 3f);
     }
-
-    public void SetText(string text)
-    {
-        this.content.text = text;
-        this.header.gameObject.SetActive(false);
-
-        int length = text.Length;
-        layoutElement.enabled = length > characterLimit ? true : false;
-
-        Init();
-    }
+    
     public void SetText(string content, string header)
     {
         this.content.text = content;
-        this.header.gameObject.SetActive(true);
         this.header.text = header;
-
+        
+        this.header.gameObject.SetActive(!string.IsNullOrEmpty(header));
         int length = content.Length;
-        layoutElement.enabled = length > characterLimit ? true : false;
+        layoutElement.enabled = length > characterLimit;
 
-        Init();
+        UpdateTransform();
     }
 
     private void Update()
     {
-        Init();
+        UpdateTransform();
     }
 
-    private void Init()
+    private void UpdateTransform()
     {
         Vector2 mousePos = Input.mousePosition;
         float pivotX = mousePos.x / Screen.width;
