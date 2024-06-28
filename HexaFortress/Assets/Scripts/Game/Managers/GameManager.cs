@@ -30,8 +30,6 @@ namespace HexaFortress.Game
         [Space(10)] [Header("Debug")] [SerializeField]
         private bool isDebuging;
 
-        private const string CanInstantiateSystemBoost = "MyBooleanProperty";
-
         #region Set Game State
 
         [Space(15)] [Header("Set State")] public GameStates GameStateToSet;
@@ -89,26 +87,11 @@ namespace HexaFortress.Game
 
         private void Start()
         {
-#if UNITY_EDITOR
-            bool canInstantiateSystemBoost = EditorPrefs.GetBool(CanInstantiateSystemBoost, false);
-            if (!canInstantiateSystemBoost)
-                LoadNextScene();
-#else
-            LoadNextScene();
-#endif
-
+            DontDestroyOnLoad(gameObject);
             ShowCursor(true);
             Application.targetFrameRate = 60;
-        }
-
-        // Load next scene when main scene load.
-        private void LoadNextScene()
-        {
-            GameState = GameStates.LOADING;
+            GameState = GameStates.NONE;
             TurnState = TurnStates.None;
-            DontDestroyOnLoad(gameObject);
-            // next scene can be game or menu scene.
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         public void StartGame()

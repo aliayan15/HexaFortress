@@ -8,18 +8,19 @@ namespace HexaFortress.GamePlay
 {
     public class TileSelector : SingletonMono<TileSelector>
     {
+        [Header("Tiles")]
         [SerializeField] private List<SOTileData> tiles;
-        [Tooltip("1: Free, 0: Price")]
+        [Space(5)]
         [SerializeField] private List<SOTileData> pathTiles;
-        [SerializeField] private UnlockTile[] tilesToUnlock;
-        [Space(10)]
-        [SerializeField] private SOTileData[] startTiles;
+        [Space(5)]
         [SerializeField] private List<SOTileData> towers;
-
-        public List<SOTileData> Towers => towers;
-
-        private List<SOTileData> _openTilesPricelist = new List<SOTileData>();
-        private List<SOTileData> _openPathTilesList = new List<SOTileData>();
+        [Space(5)]
+        [SerializeField] private SOTileData[] startTiles;
+        [Header("Tile Unlock")]
+        [SerializeField] private UnlockTile[] tilesToUnlock;
+        
+        private List<SOTileData> _openTilesPricelist = new();
+        private List<SOTileData> _pathTilesList = new();
         private int _getTowerIndex = 0;
 
         private void Start()
@@ -35,9 +36,9 @@ namespace HexaFortress.GamePlay
 
         private void ConstractPathList()
         {
-            _openPathTilesList.Clear();
-            _openPathTilesList = pathTiles.ToList();
-            _openPathTilesList.Shuffle();
+            _pathTilesList.Clear();
+            _pathTilesList = pathTiles.ToList();
+            _pathTilesList.Shuffle();
         }
 
         public SOTileData GetTowerTile()
@@ -51,10 +52,10 @@ namespace HexaFortress.GamePlay
 
         public SOTileData GetTileWithPrice()
         {
-            int index = Random.Range(0, _openTilesPricelist.Count);
+            var index = Random.Range(0, _openTilesPricelist.Count);
             var tile = _openTilesPricelist[index];
             _openTilesPricelist.RemoveAt(index);
-            if (_openTilesPricelist.Count == 0)
+            if (!_openTilesPricelist.Any())
             {
                 _openTilesPricelist = tiles.ToList();
                 _openTilesPricelist.Shuffle();
@@ -65,10 +66,10 @@ namespace HexaFortress.GamePlay
 
         public SOTileData GetPathTile()
         {
-            int index = Random.Range(0, _openPathTilesList.Count);
-            var tile = _openPathTilesList[index];
-            _openPathTilesList.RemoveAt(index);
-            if (_openPathTilesList.Count == 3)
+            var index = Random.Range(0, _pathTilesList.Count);
+            var tile = _pathTilesList[index];
+            _pathTilesList.RemoveAt(index);
+            if (_pathTilesList.Count == 3)
                 ConstractPathList();
 
             return tile;
@@ -77,7 +78,6 @@ namespace HexaFortress.GamePlay
         public SOTileData[] GetStartTiles()
         {
             var list = new SOTileData[4];
-            list[3] = startTiles[0];
             var startList = startTiles.ToList();
             startList.Shuffle();
             for (int i = 0; i < 3; i++)
@@ -86,6 +86,7 @@ namespace HexaFortress.GamePlay
                 list[i] = startList[index];
                 startList.RemoveAt(index);
             }
+            list[3] = startTiles[0];
             return list;
         }
         private void CheckUnlockedTiles()

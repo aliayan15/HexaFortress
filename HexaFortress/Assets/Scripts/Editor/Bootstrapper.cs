@@ -1,18 +1,20 @@
 #if UNITY_EDITOR
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-
-public static class Bootstrapper
+namespace HexaFortress.Editor
 {
-
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void Execute()
+    public static class Bootstrapper
     {
-        if (ProjectSettingsManager.MyCanInstantiateSystemBoost)
-            Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load("SystemBoost")));
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void Execute()
+        {
+            var activeScene = SceneManager.GetActiveScene();
+            bool canInstantiateSystemBoost = activeScene.name != EditorGlobalConsts.BoostSceneName;
+
+            if (canInstantiateSystemBoost)
+                Object.Instantiate(Resources.Load(EditorGlobalConsts.SystemBoostPrefabName));
+        }
     }
 }
 #endif
-

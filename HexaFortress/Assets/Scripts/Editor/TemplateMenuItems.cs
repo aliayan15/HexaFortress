@@ -10,15 +10,11 @@ namespace TemplateHelpers
 
     public class TemplateMenuItems : MonoBehaviour
     {
-        [MenuItem("My Section/Example", priority = 1)]
+        /*[MenuItem("My Section/Example", priority = 1)]
         private static void Example()
         {
-            //var currentScene = EditorSceneManager.GetActiveScene();
-            //EditorSceneManager.SaveScene(currentScene);
-            //EditorConfigManager.SetTestScene(currentScene.name, currentScene.path);
-            //EditorSceneManager.OpenScene(GlobalConsts.MainScenePath);
-            //EditorApplication.EnterPlaymode();
-        }
+           
+        }*/
 
         #region MissingScript
         [MenuItem("My Section/MissingScript/Delete Missing Script In Selected")]
