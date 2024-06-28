@@ -36,7 +36,7 @@ namespace HexaFortress.GamePlay
             }
             else
             {
-                // enemy spawn
+                // night
                 floorMat.DOColor(nightColor, lerpTime);
                 myLight.DOColor(lightNightColor, lerpTime);
             }

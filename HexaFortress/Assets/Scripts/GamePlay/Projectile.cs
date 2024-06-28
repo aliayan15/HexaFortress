@@ -32,7 +32,6 @@ namespace HexaFortress.GamePlay
 
         protected virtual void Move(float distance)
         {
-            // move
             if (_target != null)
                 transform.LookAt(_target);
             transform.Translate(transform.forward * distance, Space.World);

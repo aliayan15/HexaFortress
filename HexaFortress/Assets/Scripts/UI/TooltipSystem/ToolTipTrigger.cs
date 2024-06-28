@@ -22,10 +22,7 @@ namespace HexaFortress.UI
 
         protected virtual void Show()
         {
-            if (!showHeader)
-                ToolTipSystem.Show(content, "", is3dWorld);
-            else
-                ToolTipSystem.Show(content, header, is3dWorld);
+            ToolTipSystem.Show(content, header, is3dWorld);
         }
 
         protected virtual void Hide()

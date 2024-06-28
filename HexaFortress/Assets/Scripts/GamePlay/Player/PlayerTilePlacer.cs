@@ -122,7 +122,7 @@ namespace HexaFortress.GamePlay
             _tileBase.Init(grid);
             OnTilePlaced?.Invoke();
             // placement anim
-            SetToolTipCanShowUI(false);
+            
             var anim = _tileToBuild.gameObject.AddComponent<CurveAnimation>();
             anim.curve = placementAnimY;
 
@@ -130,6 +130,7 @@ namespace HexaFortress.GamePlay
             _placedTileCount++;
             CheckPlacedTileCount();
             AudioManager.Instance.Play2DSound(SoundTypes.TilePlace);
+            SetToolTipCanShowUI(true);
         }
 
         private void UpdatePosition()

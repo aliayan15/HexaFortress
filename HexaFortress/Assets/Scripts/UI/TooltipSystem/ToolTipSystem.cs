@@ -7,13 +7,14 @@ namespace HexaFortress.UI
     public class ToolTipSystem : SingletonMono<ToolTipSystem>
     {
         [SerializeField] private UIEvents events;
+        [SerializeField] private float delay = 0.3f;
         public ToolTip CurrentToolTip;
 
         public bool CanShow3dWorldUI { get; set; } = true;
         public bool CanShowWithOnMouse { get; set; } = true;
 
         private bool _canShowUI = true;
-        [SerializeField] private float delay = 0.3f;
+        
 
         private void Start()
         {
@@ -25,7 +26,7 @@ namespace HexaFortress.UI
             if (!Instance._canShowUI) return;
             if (is3DWorldObj && !Instance.CanShow3dWorldUI) return;
 
-            Instance.Timer(0.5f, () =>
+            Instance.Timer(Instance.delay, () =>
             {
                 Instance.CurrentToolTip.SetText(content, header);
                 Instance.CurrentToolTip.gameObject.SetActive(true);
